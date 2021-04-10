@@ -1,5 +1,4 @@
 import Head from "next/head";
-import ClientOnly from "../components/ClientOnly";
 import Users from "../components/Users";
 import Nav from "../components/Nav";
 import Header from "../components/Header";
@@ -19,17 +18,15 @@ export default function Home() {
       </Head>
 
       <div className="bg-gray-900 bg-hero-endless-clouds">
-        <ClientOnly>
-          <Nav />
-          <Header />
-          {/* <Title title="Playlists" /> */}
-          {/* <Playlists /> */}
-          <Title title="Songs" />
-          <Songs />
-          {/* <Title title="Users" /> */}
-          {/* <Users /> */}
-          <Footer />
-        </ClientOnly>
+        <Nav />
+        <Header />
+        {/* <Title title="Playlists" /> */}
+        {/* <Playlists /> */}
+        <Title title="Songs" />
+        <Songs />
+        {/* <Title title="Users" /> */}
+        {/* <Users /> */}
+        <Footer />
       </div>
     </>
   )

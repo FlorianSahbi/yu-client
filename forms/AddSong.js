@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import { gql, useMutation } from '@apollo/client';
-// import { useSnackbar } from 'notistack';
 
 const ADD_SONG = gql`
   mutation AddSong($title: String, $cover: String, $url: String) {
@@ -14,8 +13,6 @@ const ADD_SONG = gql`
 `;
 
 function AddSong() {
-  // const { enqueueSnackbar } = useSnackbar();
-
   const { register, handleSubmit, formState: { errors }, reset } = useForm({
     defaultValues: {
       title: "",
@@ -26,10 +23,8 @@ function AddSong() {
 
   const [addSong] = useMutation(ADD_SONG, {
     onCompleted: _ => {
-      // enqueueSnackbar('Musique ajoutée avec succès', {variant: "success"});
       reset();
     },
-    // onError: _ => enqueueSnackbar('Something went wrong'),
     update(cache, {data: {addSong}}) {
       cache.modify({
         fields: {

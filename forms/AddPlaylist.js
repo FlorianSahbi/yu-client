@@ -56,13 +56,13 @@ function AddPlaylist() {
         <input
           placeholder="Name"
           className="border-2 border-pink-500 p-1 rounded mb-4"
-          defaultValue="" // make sure to set up defaultValue
+          defaultValue=""
           {...register(`name`)}
         />
         <input
           placeholder="Thumbnail"
           className="border-2 border-pink-500 p-1 rounded mb-4"
-          defaultValue="" // make sure to set up defaultValue
+          defaultValue=""
           {...register(`thumbnail`)}
         />
         {fields.map((field, index) => {

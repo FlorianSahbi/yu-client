@@ -1,20 +1,21 @@
 import "tailwindcss/tailwind.css";
-// import { SnackbarProvider } from 'notistack';
 import { ApolloProvider } from "@apollo/client";
 import client from "../apollo-client";
+
+function SafeHydrate({ children }) {
+  return (
+    <div suppressHydrationWarning>
+      {typeof window === 'undefined' ? null : children}
+    </div>
+  )
+}
 
 function MyApp({ Component, pageProps }) {
   return (
     <ApolloProvider client={client}>
-      {/* <SnackbarProvider
-        maxSnack={3}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-      > */}
+      <SafeHydrate>
         <Component {...pageProps} />
-      {/* </SnackbarProvider> */}
+      </SafeHydrate>
     </ApolloProvider>
   );
 }

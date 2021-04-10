@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import { useQuery, gql } from "@apollo/client";
-import ClientOnly from "../../components/ClientOnly";
 import Nav from "../../components/Nav";
 import Footer from "../../components/Footer";
 import YouTube from "react-youtube";
@@ -38,7 +37,6 @@ function PlaylistPage() {
 
   return data ? (
     <div className="bg-gray-900 border-4 border-green-400">
-      <ClientOnly>
         <Nav />
         {data?.playlist?.songs.map(s => {
           return (
@@ -55,7 +53,6 @@ function PlaylistPage() {
           )
         })}
         <Footer />
-      </ClientOnly>
     </div>
   ) : {}
 }
