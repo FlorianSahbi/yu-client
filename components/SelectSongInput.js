@@ -12,6 +12,7 @@ const QUERY = gql`
 `;
 
 function SelectSongInput({ placeholder, defaultValue, register, index }) {
+  console.log(defaultValue)
   const { data, loading, error } = useQuery(QUERY);
 
   if (error) {
@@ -19,15 +20,16 @@ function SelectSongInput({ placeholder, defaultValue, register, index }) {
     return null;
   }
 
+  if (loading) return <p>Loading...</p>
   return (
     <select
       placeholder={placeholder}
-      defaultValue={defaultValue}
+      defaultValue="606f5ac5999a89621308d1ef"
       className="border-2 border-pink-500 p-1 rounded"
       {...register(`songs.${index}.id`)}
     >
-      <option value="" disabled>Selectionner une musique</option>
-      {data?.songs.map(s => <option value={s._id}>{s.title}</option>)}
+      <option value="">Selectionner une musique</option>
+      {data?.songs.map(s => <option key={`option_song_${s.title}_${s._id}`} value={s._id}>{s.title}</option>)}
     </select>
   )
 }

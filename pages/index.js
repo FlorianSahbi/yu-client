@@ -20,12 +20,12 @@ export default function Home() {
       <div className="bg-gray-900 bg-hero-endless-clouds">
         <Nav />
         <Header />
-        {/* <Title title="Playlists" /> */}
-        {/* <Playlists /> */}
+        <Title title="Playlists" />
+        <Playlists />
         <Title title="Songs" />
         <Songs />
-        {/* <Title title="Users" /> */}
-        {/* <Users /> */}
+        <Title title="Users" />
+        <Users />
         <Footer />
       </div>
     </>

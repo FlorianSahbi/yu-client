@@ -33,7 +33,6 @@ function SongPage() {
 
   return data ? (
     <div className="bg-gray-900">
-      <p>ok</p>
       <Nav />
       <div className="flex justify-center">
         <main className="inline-block p-4 bg-gray-700 m-10 rounded-lg border-b-4 border-pink-500">
