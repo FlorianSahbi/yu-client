@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { useRouter } from 'next/router';
 import { useQuery, gql } from "@apollo/client";
 import Nav from "../../components/Nav";
@@ -12,15 +13,20 @@ const QUERY = gql`
       title
       cover
       url
+      correctWords
+      user {
+        username
+        avatar
+      }
     }
   }
 `;
 
-function SongPage() {
+function SongPage(props) {
+
   const router = useRouter()
   const { id } = router.query
-  console.log(id)
-  const { data, loading, error } = useQuery(QUERY, { variables: { id } });
+  const { data, loading, error } = useQuery(QUERY, { variables: { id: "6071e390cf50c126faa7ab14" } });
 
   if (loading) {
     return <h2>Loading...</h2>;
@@ -31,8 +37,8 @@ function SongPage() {
     return null;
   }
 
-  return data ? (
-    <div className="bg-gray-900">
+  return data && data?.song?.url.length > 4 ? (
+    <div className="bg-gray-900 bg-hero-endless-clouds">
       <Nav />
       <div className="flex justify-center">
         <main className="inline-block p-4 bg-gray-700 m-10 rounded-lg border-b-4 border-pink-500">

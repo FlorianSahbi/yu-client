@@ -24,7 +24,7 @@ function AddUser() {
   const onSubmit = (data) => addUser({ variables: { ...data } });
 
   return (
-    <div className="p-4 bg-gray-700  m-10 rounded-lg border-b-4 border-pink-500">
+    <div className="max-w-7xl mx-auto p-4 bg-gray-700  m-10 rounded-lg border-b-4 border-pink-500">
       <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
         {errors?.username && <p className="text-red-600 text-base mb-1">"Need a title"</p>}
         <input

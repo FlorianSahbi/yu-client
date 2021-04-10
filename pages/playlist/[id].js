@@ -36,7 +36,7 @@ function PlaylistPage() {
   }
 
   return data ? (
-    <div className="bg-gray-900 border-4 border-green-400">
+    <div className="bg-gray-900 border-4 border-green-400 bg-hero-endless-clouds">
       <Nav />
       {data?.playlist?.songs.map(s => {
         return (

@@ -51,20 +51,23 @@ function AddPlaylist() {
   const onSubmit = (data) => addPlaylist({ variables: formatData(data) });
 
   return (
-    <div className="p-4 bg-gray-700  m-10 rounded-lg border-b-4 border-pink-500">
+    <div className="max-w-7xl mx-auto p-4 bg-gray-700  m-10 rounded-lg border-b-4 border-pink-500">
       <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
+      <p className="text-white text-xs mb-1 opacity-70">Nom</p>
         <input
           placeholder="Name"
           className="border-2 border-pink-500 p-1 rounded mb-4"
           defaultValue=""
           {...register(`name`)}
         />
+        <p className="text-white text-xs mb-1 opacity-70">Lien photo de couverture</p>
         <input
           placeholder="Thumbnail"
           className="border-2 border-pink-500 p-1 rounded mb-4"
           defaultValue=""
           {...register(`thumbnail`)}
         />
+        <p className="text-white text-xs mb-1 opacity-70">Musiques</p>
         {fields.map((field, index) => {
           return (
             <div key={field.id} className="grid grid-cols-2 gap-4 mb-4">
