@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useQuery, gql } from "@apollo/client";
-import DeleteSongButton from './deleteSongButton';
+import DeleteSongButton from './DeleteSongButton';
 
 const QUERY = gql`
   query Songs {
