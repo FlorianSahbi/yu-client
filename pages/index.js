@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 import Users from "../components/Users";
 import Nav from "../components/Nav";
 import Header from "../components/Header";
