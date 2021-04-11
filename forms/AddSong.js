@@ -1,22 +1,7 @@
 import { useForm, useFieldArray } from "react-hook-form";
 import { gql, useMutation } from '@apollo/client';
 import SelectUserInput from "../components/SelectUserInput";
-
-const ADD_SONG = gql`
-  mutation AddSong($title: String, $cover: String, $url: String, $user: ID, $correctWords: [String]) {
-    addSong(title: $title, cover: $cover, url: $url, user: $user, correctWords: $correctWords) {
-      _id
-      title
-      cover
-      url
-      user {
-        _id
-        username
-      }
-      correctWords
-    }
-  }
-`;
+import ADD_SONG from "../graphql/songs/addSong";
 
 function AddSong() {
   const { register, handleSubmit, control, formState: { errors }, reset, watch } = useForm({
@@ -67,7 +52,7 @@ function AddSong() {
   const onSubmit = (data) => addSong({ variables: { ...data } });
 
   return (
-    <div className="max-w-7xl mx-auto p-4 bg-gray-700  m-10 rounded-lg border-b-4 border-pink-500">
+    <div className="bg-hero-endless-clouds max-w-7xl mx-auto p-4 bg-gray-700  m-10 rounded-lg border-b-4 border-pink-500">
       <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
         {errors?.title && <p className="text-red-600 text-base mb-1">"Need a title"</p>}
         <p className="text-white text-xs mb-1 opacity-70">Titre</p>

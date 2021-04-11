@@ -1,13 +1,6 @@
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { XIcon } from '@heroicons/react/solid';
-
-const DELETE_PLAYLIST = gql`
-  mutation DeletePlaylist($id: ID) {
-    deletePlaylist(id: $id) {
-      _id
-    }
-  }
-`;
+import DELETE_PLAYLIST from "../graphql/playlists/deletePlaylist";
 
 function DeletePlaylistButton({ id }) {
   const [deletePlaylist] = useMutation(DELETE_PLAYLIST, {
@@ -15,7 +8,12 @@ function DeletePlaylistButton({ id }) {
     onError: _ => console.log("0")
   });
 
-  return <XIcon onClick={() => deletePlaylist({ variables: { id } })} className="text-red-600 absolute right-0 h-6 w-6 cursor-pointer" />;
+  return (
+    <XIcon
+      onClick={() => deletePlaylist({ variables: { id } })}
+      className="text-red-600 absolute right-0 h-6 w-6 cursor-pointer"
+    />
+  )
 }
 
 export default DeletePlaylistButton;

@@ -1,15 +1,6 @@
 import { useForm } from "react-hook-form";
-import { gql, useMutation } from '@apollo/client';
-
-const ADD_USER = gql`
-  mutation AddUser($username: String, $avatar: String) {
-    addUser(username: $username, avatar: $avatar) {
-      _id
-      username
-      avatar
-    }
-  }
-`;
+import { useMutation } from '@apollo/client';
+import ADD_USER from "../graphql/users/addUser";
 
 function AddUser() {
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -24,7 +15,7 @@ function AddUser() {
   const onSubmit = (data) => addUser({ variables: { ...data } });
 
   return (
-    <div className="max-w-7xl mx-auto p-4 bg-gray-700  m-10 rounded-lg border-b-4 border-pink-500">
+    <div className="bg-hero-endless-clouds max-w-7xl mx-auto p-4 bg-gray-700  m-10 rounded-lg border-b-4 border-pink-500">
       <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
         {errors?.username && <p className="text-red-600 text-base mb-1">"Need a title"</p>}
         <input

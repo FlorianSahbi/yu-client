@@ -1,18 +1,10 @@
-import { useQuery, gql } from "@apollo/client";
-
-const QUERY = gql`
-  query Songs {
-    users {
-      _id
-      username
-    }
-  }
-`;
+import { useQuery } from "@apollo/client";
+import GET_USERS from "../graphql/users/getUsers"
 
 function SelectUserInput({ placeholder, defaultValue, register }) {
 
   console.log(defaultValue)
-  const { data, loading, error } = useQuery(QUERY);
+  const { data, loading, error } = useQuery(GET_USERS);
 
   if (error) {
     console.error(error);
@@ -27,7 +19,7 @@ function SelectUserInput({ placeholder, defaultValue, register }) {
       className="border-2 border-pink-500 p-1 rounded mb-4"
       {...register(`user`)}
     >
-      <option value="">Selectionner une musique</option>
+      <option value="">Selectionner un utilisateur</option>
       {data?.users.map(s => <option key={`option_song_${s.username}_${s._id}`} value={s._id}>{s.username}</option>)}
     </select>
   )

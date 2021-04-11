@@ -1,11 +1,8 @@
-import { UserCircleIcon } from '@heroicons/react/solid';
 import Link from 'next/link'
 
 function Nav() {
   return (
-    <nav
-      // className="bg-gray-800"
-    >
+    <nav className="max-w-7xl mx-auto">
       <div className="relative flex items-center justify-between h-16">
 
         <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -20,43 +17,42 @@ function Nav() {
           </button>
         </div>
 
-
         <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-          <div className="hidden sm:block sm:ml-6">
-            <div className="flex space-x-4">
-              {/* <a href="#" className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
-                <Link href="/">
-                  accueil
-                </Link>
-              </a> */}
+          <div className="hidden sm:block">
+            <div className="flex">
               <Link href="/">
-                <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                <a className="mr-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                   accueil
                   </a>
               </Link>
               <Link href="/songs">
-                <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                <a className="mr-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                   musiques
                   </a>
               </Link>
               <Link href="/playlists">
-                <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                <a className="mr-2  text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                   playlists
                   </a>
               </Link>
-              <a className="text-gray-300 opacity-40 cursor-default px-3 py-2 rounded-md text-sm font-medium">
-                ranking (soon)
+              <Link href="/#">
+                <a className="mr-2 text-gray-300 opacity-40 cursor-default px-3 py-2 rounded-md text-sm font-medium">
+                  ranking
                 </a>
-              <a className="text-gray-300 opacity-40 cursor-default px-3 py-2 rounded-md text-sm font-medium">
-                communauté (soon)
+              </Link>
+              <Link href="/#">
+                <a className="mr-2 text-gray-300 opacity-40 cursor-default px-3 py-2 rounded-md text-sm font-medium">
+                  communauté
                 </a>
-              <a className="text-gray-300 opacity-40 cursor-default px-3 py-2 rounded-md text-sm font-medium">
-                langue (soon)
+              </Link>
+              <Link href="/#">
+                <a className="mr-2 text-gray-300 opacity-40 cursor-default px-3 py-2 rounded-md text-sm font-medium">
+                  langue
                 </a>
+              </Link>
             </div>
           </div>
         </div>
-
 
         <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
           <div className="ml-3 relative">
@@ -69,7 +65,7 @@ function Nav() {
                 aria-haspopup="true"
               >
                 <span className="sr-only">Open user menu</span>
-                <UserCircleIcon className="h-9 w-9 text-gray-300" />
+                {/* <UserCircleIcon className="h-9 w-9 text-gray-300" /> */}
                 {/* <img className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" /> */}
               </button>
             </div>
@@ -82,9 +78,7 @@ function Nav() {
             </div> */}
           </div>
         </div>
-
       </div>
-
 
       {/* BURGER MENU */}
       <div className="sm:hidden" id="mobile-menu">
@@ -106,7 +100,6 @@ function Nav() {
           </Link>
         </div>
       </div>
-
     </nav>
   )
 }

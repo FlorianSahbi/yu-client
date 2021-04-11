@@ -1,41 +1,11 @@
 import { useForm, useFieldArray } from "react-hook-form";
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import SelectSongInput from "../components/SelectSongInput";
-
-const UPDATE_PLAYLIST = gql`
-  mutation UpdatePlaylist($id: ID, $name: String, $thumbnail: String, $songs: [ID]) {
-    updatePlaylist(id: $id, name: $name, thumbnail: $thumbnail, songs: $songs) {
-      _id
-      name
-      thumbnail
-      songs {
-        _id
-        title
-        cover
-        url
-      }
-    }
-  }
-`;
-
-const QUERY = gql`
-  query Playlist($id: ID) {
-    playlist(id: $id) {
-      _id
-      name
-      thumbnail
-      songs {
-        _id
-        title
-        cover
-        url
-      }
-    }
-  }
-`;
+import GET_PLAYLIST from "../graphql/playlists/getPlaylist";
+import UPDATE_PLAYLIST from "../graphql/playlists/updatePlaylist";
 
 function UpdatePlaylist({ id }) {
-  const { data } = useQuery(QUERY, { variables: { id } });
+  const { data } = useQuery(GET_PLAYLIST, { variables: { id } });
 
   const { register, handleSubmit, control } = useForm({
     defaultValues: {
@@ -71,7 +41,7 @@ function UpdatePlaylist({ id }) {
   const onSubmit = (data) => updatePlaylist({ variables: formatData(data) });
 
   return (
-    <div className="max-w-7xl mx-auto p-4 bg-gray-700  m-10 rounded-lg border-b-4 border-pink-500">
+    <div className="bg-hero-endless-clouds max-w-7xl mx-auto p-4 bg-gray-700  m-10 rounded-lg border-b-4 border-pink-500">
       <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
         <p className="text-white text-xs mb-1 opacity-70">Nom</p>
         <input

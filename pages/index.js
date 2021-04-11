@@ -1,13 +1,10 @@
 import Head from "next/head";
-import Link from "next/link";
 import Users from "../components/Users";
 import Nav from "../components/Nav";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Songs from "../components/Songs";
 import Title from "../components/Title";
-import AddSong from "../forms/AddSong";
-import AddUser from "../forms/AddUser";
 import Playlists from "../components/Playlists";
 
 export default function Home() {

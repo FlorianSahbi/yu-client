@@ -1,21 +1,7 @@
 import { useForm, useFieldArray } from "react-hook-form";
 import SelectSongInput from "../components/SelectSongInput";
-import { gql, useMutation } from '@apollo/client';
-
-const ADD_PLAYLIST = gql`
-  mutation AddPlaylist($name: String, $thumbnail: String, $songs: [ID]) {
-    addPlaylist(name: $name, thumbnail: $thumbnail, songs: $songs) {
-      _id
-      name
-      songs {
-        _id
-        title
-        cover
-        url
-      }
-    }
-  }
-`;
+import { useMutation } from '@apollo/client';
+import ADD_PLAYLIST from "../graphql/playlists/addPlaylist";
 
 function AddPlaylist() {
   const [addPlaylist] = useMutation(ADD_PLAYLIST, {
@@ -51,9 +37,9 @@ function AddPlaylist() {
   const onSubmit = (data) => addPlaylist({ variables: formatData(data) });
 
   return (
-    <div className="max-w-7xl mx-auto p-4 bg-gray-700  m-10 rounded-lg border-b-4 border-pink-500">
+    <div className="bg-hero-endless-clouds max-w-7xl mx-auto p-4 bg-gray-700  m-10 rounded-lg border-b-4 border-pink-500">
       <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
-      <p className="text-white text-xs mb-1 opacity-70">Nom</p>
+        <p className="text-white text-xs mb-1 opacity-70">Nom</p>
         <input
           placeholder="Name"
           className="border-2 border-pink-500 p-1 rounded mb-4"

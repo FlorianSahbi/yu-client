@@ -1,43 +1,11 @@
 import { useForm, useFieldArray } from "react-hook-form";
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import SelectUserInput from "../components/SelectUserInput";
-
-const UPDATE_SONG = gql`
-  mutation UpdateSong($id: ID, $title: String, $cover: String, $url: String) {
-    updateSong(id: $id, title: $title, cover: $cover, url: $url) {
-      _id
-      title
-      cover
-      url
-      correctWords
-      user {
-        _id
-        username
-        avatar
-      }
-    }
-  }
-`;
-
-const QUERY = gql`
-  query Song($id: ID) {
-    song(id: $id) {
-      _id
-      title
-      cover
-      url
-      correctWords
-      user {
-        _id
-        username
-        avatar
-      }
-    }
-  }
-`;
+import GET_SONG from "../graphql/songs/getSong";
+import UPDATE_SONG from "../graphql/songs/updateSong";
 
 function UpdateSong({ id }) {
-  const { data } = useQuery(QUERY, { variables: { id } });
+  const { data } = useQuery(GET_SONG, { variables: { id } });
 
   const { register, handleSubmit, control } = useForm({
     defaultValues: {
@@ -45,7 +13,7 @@ function UpdateSong({ id }) {
       title: data?.song?.title,
       url: data?.song?.url,
       cover: data?.song?.cover,
-      user: data?.song?.user._id,
+      user: data?.song?.user?._id,
       correctWords: data?.song?.correctWords,
     }
   });
@@ -68,7 +36,7 @@ function UpdateSong({ id }) {
   const onSubmit = (data) => updateSong({ variables: data });
 
   return (
-    <div className="max-w-7xl mx-auto p-4 bg-gray-700  m-10 rounded-lg border-b-4 border-pink-500">
+    <div className="bg-hero-endless-clouds max-w-7xl mx-auto p-4 bg-gray-700  m-10 rounded-lg border-b-4 border-pink-500">
       <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
         <p className="text-white text-xs mb-1 opacity-70">Titre</p>
         <input
@@ -91,10 +59,10 @@ function UpdateSong({ id }) {
           defaultValue={data?.song?.cover}
           {...register("cover", { required: true })}
         />
-         <p className="text-white text-xs mb-1 opacity-70">Tu es ?</p>
+        <p className="text-white text-xs mb-1 opacity-70">Tu es ?</p>
         <SelectUserInput
           placeholder="User"
-          defaultValue={data?.song?.user._id}
+          defaultValue={data?.song?.user?._id}
           register={register}
         />
         <p className="text-white text-xs mb-1 opacity-70">Réponses acceptées</p>

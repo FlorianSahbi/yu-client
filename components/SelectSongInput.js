@@ -1,19 +1,9 @@
-import { useQuery, gql } from "@apollo/client";
-
-const QUERY = gql`
-  query Songs {
-    songs {
-      _id
-      cover
-      title
-      url
-    }
-  }
-`;
+import { useQuery } from "@apollo/client";
+import GET_SONG from "../graphql/songs/getSong";
+import WaitingScreen from "../components/WaitingScreen";
 
 function SelectSongInput({ placeholder, defaultValue, register, index }) {
-  console.log(defaultValue)
-  const { data, loading, error } = useQuery(QUERY);
+  const { data, loading, error } = useQuery(GET_SONG);
 
   if (error) {
     console.error(error);
@@ -21,6 +11,7 @@ function SelectSongInput({ placeholder, defaultValue, register, index }) {
   }
 
   if (loading) return <p>Loading...</p>
+  console.log(data)
   return (
     <select
       placeholder={placeholder}
@@ -29,7 +20,7 @@ function SelectSongInput({ placeholder, defaultValue, register, index }) {
       {...register(`songs.${index}.id`)}
     >
       <option value="">Selectionner une musique</option>
-      {data?.songs.map(s => <option key={`option_song_${s.title}_${s._id}`} value={s._id}>{s.title}</option>)}
+      {/* {data?.songs.map(s => <option key={`option_song_${s.title}_${s._id}`} value={s._id}>{s.title}</option>)} */}
     </select>
   )
 }
