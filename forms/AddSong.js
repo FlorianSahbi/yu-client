@@ -2,8 +2,10 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { gql, useMutation } from '@apollo/client';
 import SelectUserInput from "../components/SelectUserInput";
 import ADD_SONG from "../graphql/songs/addSong";
+import { useSnackbar } from 'notistack';
 
 function AddSong() {
+  const { enqueueSnackbar } = useSnackbar();
   const { register, handleSubmit, control, formState: { errors }, reset, watch } = useForm({
     defaultValues: {
       title: "",
@@ -24,9 +26,12 @@ function AddSong() {
   );
 
   const [addSong] = useMutation(ADD_SONG, {
-    onCompleted: _ => {
-      reset();
-    },
+    onCompleted: _ => enqueueSnackbar("Good", {
+      variant: 'success',
+    }),
+    onError: _ => enqueueSnackbar("Bad", {
+      variant: 'error',
+    }),
     update(cache, { data: { addSong } }) {
       cache.modify({
         fields: {

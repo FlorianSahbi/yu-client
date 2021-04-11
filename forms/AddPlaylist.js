@@ -2,11 +2,17 @@ import { useForm, useFieldArray } from "react-hook-form";
 import SelectSongInput from "../components/SelectSongInput";
 import { useMutation } from '@apollo/client';
 import ADD_PLAYLIST from "../graphql/playlists/addPlaylist";
+import { useSnackbar } from 'notistack';
 
 function AddPlaylist() {
+  const { enqueueSnackbar } = useSnackbar();
   const [addPlaylist] = useMutation(ADD_PLAYLIST, {
-    onCompleted: _ => console.log("1"),
-    onError: _ => console.log("0")
+    onCompleted: _ => enqueueSnackbar("Good", {
+      variant: 'success',
+    }),
+    onError: _ => enqueueSnackbar("Bad", {
+      variant: 'error',
+    })
   });
 
   const { register, control, handleSubmit, reset } = useForm({

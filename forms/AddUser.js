@@ -1,8 +1,10 @@
 import { useForm } from "react-hook-form";
 import { useMutation } from '@apollo/client';
 import ADD_USER from "../graphql/users/addUser";
+import { useSnackbar } from 'notistack';
 
 function AddUser() {
+  const { enqueueSnackbar } = useSnackbar();
   const { register, handleSubmit, formState: { errors } } = useForm({
     defaultValues: {
       username: "",
@@ -10,7 +12,14 @@ function AddUser() {
     }
   });
 
-  const [addUser] = useMutation(ADD_USER);
+  const [addUser] = useMutation(ADD_USER, {
+    onCompleted: _ => enqueueSnackbar("Good", {
+      variant: 'success',
+    }),
+    onError: _ => enqueueSnackbar("Bad", {
+      variant: 'error',
+    }),
+  });
 
   const onSubmit = (data) => addUser({ variables: { ...data } });
 

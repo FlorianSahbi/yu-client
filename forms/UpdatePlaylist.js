@@ -3,8 +3,10 @@ import { useMutation, useQuery } from '@apollo/client';
 import SelectSongInput from "../components/SelectSongInput";
 import GET_PLAYLIST from "../graphql/playlists/getPlaylist";
 import UPDATE_PLAYLIST from "../graphql/playlists/updatePlaylist";
+import { useSnackbar } from 'notistack';
 
 function UpdatePlaylist({ id }) {
+  const { enqueueSnackbar } = useSnackbar();
   const { data } = useQuery(GET_PLAYLIST, { variables: { id } });
 
   const { register, handleSubmit, control } = useForm({
@@ -35,7 +37,12 @@ function UpdatePlaylist({ id }) {
   }
 
   const [updatePlaylist] = useMutation(UPDATE_PLAYLIST, {
-    onCompleted: _ => window.location.reload(),
+    onCompleted: _ => enqueueSnackbar("Good", {
+      variant: 'success',
+    }),
+    onError: _ => enqueueSnackbar("Bad", {
+      variant: 'error',
+    }),
   });
 
   const onSubmit = (data) => updatePlaylist({ variables: formatData(data) });

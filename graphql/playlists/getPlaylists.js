@@ -6,6 +6,11 @@ const GET_PLAYLISTS = gql`
       _id
       name
       thumbnail
+      songs {
+        _id
+        title
+        cover
+      }
     }
   }
 `;

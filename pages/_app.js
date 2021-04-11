@@ -1,6 +1,7 @@
 import "tailwindcss/tailwind.css";
 import { ApolloProvider } from "@apollo/client";
 import client from "../apollo-client";
+import { SnackbarProvider } from 'notistack';
 
 function SafeHydrate({ children }) {
   return (
@@ -13,9 +14,17 @@ function SafeHydrate({ children }) {
 function MyApp({ Component, pageProps }) {
   return (
     <ApolloProvider client={client}>
-      <SafeHydrate>
-        <Component {...pageProps} />
-      </SafeHydrate>
+      <SnackbarProvider
+        maxSnack={3}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+      >
+        <SafeHydrate>
+          <Component {...pageProps} />
+        </SafeHydrate>
+      </SnackbarProvider>
     </ApolloProvider>
   );
 }

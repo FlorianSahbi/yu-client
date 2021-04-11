@@ -2,8 +2,10 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from '@apollo/client';
 import GET_USER from "../graphql/users/getUser";
 import UPDATE_USER from "../graphql/users/updateUser";
+import { useSnackbar } from 'notistack';
 
 function UpdateUser({ id }) {
+  const { enqueueSnackbar } = useSnackbar();
   const { data } = useQuery(GET_USER, { variables: { id } });
 
   const { register, handleSubmit } = useForm({
@@ -15,7 +17,12 @@ function UpdateUser({ id }) {
   });
 
   const [updateUser] = useMutation(UPDATE_USER, {
-    onCompleted: _ => window.location.reload(),
+    onCompleted: _ => enqueueSnackbar("Good", {
+      variant: 'success',
+    }),
+    onError: _ => enqueueSnackbar("Bad", {
+      variant: 'error',
+    }),
   });
 
   const onSubmit = (data) => updateUser({ variables: data });
