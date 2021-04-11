@@ -4,16 +4,16 @@ import GET_PLAYLISTS from "../graphql/playlists/getPlaylists";
 
 function Playlist({ id, thumbnail, name }) {
   return (
-    <div className="text-white">
-      <div className="relative w-100 h-100 rounded overflow-hidden bg-gray-600">
-        <img src={thumbnail} alt="me" className="w-full h-60 object-cover" />
-      </div>
-        <div className="p-2">
-          <Link href={`/playlist/${id}`}>
-            <p>{name}</p>
-          </Link>
+    <Link href={`/playlist/${id}`}>
+      <div className="text-white cursor-pointer">
+        <div className="relative w-100 h-100 rounded overflow-hidden bg-gray-600">
+          <img src={thumbnail} alt="me" className="w-full h-60 object-cover" />
         </div>
-    </div>
+        <div className="p-2">
+          <p>{name}</p>
+        </div>
+      </div>
+    </Link>
   )
 }
 

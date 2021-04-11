@@ -4,14 +4,14 @@ import GET_SONGS from "../graphql/songs/getSongs";
 
 function Song({ id, title, cover }) {
   return (
-    <div className="text-white">
-      <div className="h-52 flex items-center relative w-100 h-100 rounded overflow-hidden bg-gray-600">
-        <img src={cover} alt="me" className="w-full h-60 object-cover" />
-      </div>
-      <Link href={`/song/${id}`}>
+    <Link href={`/song/${id}`}>
+      <div className="text-white cursor-pointer">
+        <div className="h-52 flex items-center relative w-100 h-100 rounded overflow-hidden bg-gray-600">
+          <img src={cover} alt="me" className="w-full h-60 object-cover" />
+        </div>
         <p className=" truncate">{title}</p>
-      </Link>
-    </div>
+      </div>
+    </Link>
   )
 }
 

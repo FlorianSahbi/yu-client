@@ -4,14 +4,14 @@ import GET_USERS from "../graphql/users/getUsers";
 
 function User({ id, avatar, username }) {
   return (
-    <div className="text-white">
-      <div className="relative w-100 h-100 rounded overflow-hidden bg-gray-600">
-        <img src={avatar} alt="me" className="w-full h-48 object-cover" />
-      </div>
-      <Link href={`/playlist/${id}`}>
+    <Link href={`/user/${id}`}>
+      <div className="text-white cursor-pointer">
+        <div className="relative w-100 h-100 rounded overflow-hidden bg-gray-600">
+          <img src={avatar} alt="me" className="w-full h-48 object-cover" />
+        </div>
         <p>{username}</p>
-      </Link>
-    </div>
+      </div>
+    </Link>
   )
 }
 

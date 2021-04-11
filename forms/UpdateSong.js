@@ -30,7 +30,9 @@ function UpdateSong({ id }) {
   }
 
   const [updateSong] = useMutation(UPDATE_SONG, {
-    onCompleted: _ => window.location.reload(),
+    // onCompleted: _ => window.location.reload(),
+    onCompleted: _ => console.log("1"),
+    onError: _ => console.log("0"),
   });
 
   const onSubmit = (data) => updateSong({ variables: data });
