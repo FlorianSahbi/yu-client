@@ -43,7 +43,7 @@ function UpdateSong({ id }) {
   const onSubmit = (data) => updateSong({ variables: data });
 
   return (
-    <div className="bg-hero-endless-clouds max-w-7xl mx-auto p-4 bg-gray-700  m-10 rounded-lg border-b-4 border-pink-500">
+    <div className="bg-hero-endless-clouds max-w-7xl mx-auto p-4 bg-gray-700 rounded-lg border-b-4 border-pink-500">
       <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
         <p className="text-white text-xs mb-1 opacity-70">Titre</p>
         <input
