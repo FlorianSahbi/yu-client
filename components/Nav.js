@@ -1,13 +1,24 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
+import en from "../locales/en";
+import fr from "../locales/fr";
 
 function Nav() {
+  const router = useRouter();
+  const { locale } = router;
+  const t = locale === "en" ? en : fr;
+
+  function changeLanguage(e) {
+    const selectedLocale = e.target.value;
+    router.push("/", "/", { locale: selectedLocale });
+  }
   return (
     <nav className="w-full bg-gray-900 bg-hero-endless-clouds">
       <div className="max-w-7xl mx-auto border-b-4 border-pink-500">
         <div className="relative flex items-center justify-between h-16">
 
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-            <button type="button" className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+            <button type="button" className="inline-flex items-center justify-center p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
               <span className="sr-only">Open main menu</span>
               <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -22,35 +33,42 @@ function Nav() {
             <div className="hidden sm:block">
               <div className="flex">
                 <Link href="/">
-                  <div className="mr-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                    accueil
+                  <div className="mr-2 cursor-pointer text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-lg text-sm font-medium">
+                    {t.nav.home}
                   </div>
                 </Link>
                 <Link href="/songs">
-                  <div className="mr-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                    musiques
+                  <div className="mr-2 cursor-pointer text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-lg text-sm font-medium">
+                    {t.nav.musics}
                   </div>
                 </Link>
                 <Link href="/playlists">
-                  <div className="mr-2  text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-                    playlists
+                  <div className="mr-2 cursor-pointer  text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-lg text-sm font-medium">
+                    {t.nav.playlists}
                   </div>
                 </Link>
-                <Link href="/#">
-                  <div className="mr-2 text-gray-300 opacity-40 cursor-default px-3 py-2 rounded-md text-sm font-medium">
-                    ranking
+                <Link href="/users">
+                  <div className="mr-2 cursor-pointer  text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-lg text-sm font-medium">
+                    {t.nav.community}
                   </div>
                 </Link>
-                <Link href="/#">
-                  <div className="mr-2 text-gray-300 opacity-40 cursor-default px-3 py-2 rounded-md text-sm font-medium">
-                    communauté
-                  </div>
-                </Link>
-                <Link href="/#">
-                  <div className="mr-2 text-gray-300 opacity-40 cursor-default px-3 py-2 rounded-md text-sm font-medium">
-                    langue
-                  </div>
-                </Link>
+                {/* <Link href="/#"> */}
+                <div className="mr-2 text-gray-300 opacity-40 cursor-default px-3 py-2 rounded-lg text-sm font-medium">
+                  {t.nav.rankings}
+                </div>
+                {/* </Link> */}
+                {/* <Link href="/#"> */}
+                <div className="mr-2 cursor-pointer text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-lg text-sm font-medium">
+                  <select
+                    onChange={changeLanguage}
+                    defaultValue={locale}
+                    className="bg-transparent outline-none"
+                  >
+                    <option value="fr">FR</option>
+                    <option value="en">EN</option>
+                  </select>
+                </div>
+                {/* </Link> */}
               </div>
             </div>
           </div>
@@ -72,7 +90,7 @@ function Nav() {
               </div>
 
               {/* NAV BAR MENU */}
-              {/* <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
+              {/* <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
               <div href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</div>
               <div href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</div>
               <div href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</div>
@@ -85,18 +103,18 @@ function Nav() {
         <div className="sm:hidden" id="mobile-menu">
           <div className="px-2 pt-2 pb-3 space-y-1">
             <Link href="/">
-              <div href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-                accueil
+              <div href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-lg text-base font-medium">
+                {t.nav.home}
               </div>
             </Link>
             <Link href="/songs">
-              <div href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-                musiques
+              <div href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-lg text-base font-medium">
+                {t.nav.musics}
               </div>
             </Link>
             <Link href="/playlists">
-              <div href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-                playlists
+              <div href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-lg text-base font-medium">
+                {t.nav.playlists}
               </div>
             </Link>
           </div>

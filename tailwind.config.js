@@ -1,9 +1,16 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable global-require */
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}", "./forms/**/*.{js,ts,jsx,tsx}"],
   darkMode: false,
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ["Montserrat", ...defaultTheme.fontFamily.sans],
+      },
+    },
   },
   variants: {
     extend: {

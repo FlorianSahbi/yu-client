@@ -45,19 +45,19 @@ function AddPlaylist() {
   const onSubmit = (data) => addPlaylist({ variables: formatData(data) });
 
   return (
-    <div className="bg-hero-endless-clouds max-w-7xl mx-auto p-4 bg-gray-700  m-10 rounded-lg border-b-4 border-pink-500">
+    <div className="bg-hero-endless-clouds max-w-7xl mx-auto p-4 bg-gray-700 rounded-lg border-b-4 border-pink-500">
       <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
         <p className="text-white text-xs mb-1 opacity-70">Nom</p>
         <input
           placeholder="Name"
-          className="border-2 border-pink-500 p-1 rounded mb-4"
+          className="border-2 border-pink-500 p-1 rounded-lg mb-4"
           defaultValue=""
           {...register(`name`)}
         />
         <p className="text-white text-xs mb-1 opacity-70">Lien photo de couverture</p>
         <input
           placeholder="Thumbnail"
-          className="border-2 border-pink-500 p-1 rounded mb-4"
+          className="border-2 border-pink-500 p-1 rounded-lg mb-4"
           defaultValue=""
           {...register(`thumbnail`)}
         />
@@ -71,12 +71,12 @@ function AddPlaylist() {
               defaultValue=""
               register={register}
             />
-            <input type="button" value="Supprimer" className="rounded text-white h-9 bg-pink-500" onClick={() => remove(index)} />
+            <input type="button" value="Supprimer" className="rounded-lg text-white h-9 bg-pink-500" onClick={() => remove(index)} />
           </div>
         ))}
         <section>
           <button
-            className="text-white w-full rounded bg-pink-500 mb-4  h-9"
+            className="text-white w-full rounded-lg bg-pink-500 mb-4  h-9"
             type="button"
             onClick={() => {
               append({ id: "" });
@@ -86,7 +86,7 @@ function AddPlaylist() {
           </button>
         </section>
 
-        <input type="submit" className="text-white w-full mb-4 rounded bg-pink-500 h-9" />
+        <input type="submit" className="text-white w-full mb-4 rounded-lg bg-pink-500 h-9" />
       </form>
     </div>
   );

@@ -65,7 +65,7 @@ function AddSong() {
           <p className="text-white text-xs mb-1 opacity-70">Titre</p>
           <input
             placeholder="Title"
-            className="border-2 border-pink-500 p-1 rounded mb-4"
+            className="border-2 border-pink-500 p-1 rounded-lg mb-4"
             defaultValue=""
             {...register("title", { required: true })}
           />
@@ -73,7 +73,7 @@ function AddSong() {
           <p className="text-white text-xs mb-1 opacity-70">Lien YouTube</p>
           <input
             placeholder="Url"
-            className="border-2 border-pink-500 p-1 rounded mb-4"
+            className="border-2 border-pink-500 p-1 rounded-lg mb-4"
             defaultValue=""
             {...register("url", { required: true })}
           />
@@ -81,7 +81,7 @@ function AddSong() {
           <p className="text-white text-xs mb-1 opacity-70">Couverture</p>
           <input
             placeholder="Cover"
-            className="border-2 border-pink-500 p-1 rounded mb-4"
+            className="border-2 border-pink-500 p-1 rounded-lg mb-4"
             defaultValue=""
             {...register("cover", { required: true })}
           />
@@ -96,17 +96,17 @@ function AddSong() {
             <div key={field.id} className="grid grid-cols-2 gap-4">
               <input
                 placeholder={`Word ${index}`}
-                className="border-2 border-pink-500 p-1 rounded mb-4"
+                className="border-2 border-pink-500 p-1 rounded-lg mb-4"
                 key={field.id}
                 {...register(`correctWords.${index}.`)}
                 defaultValue={field.value}
               />
-              <input type="button" value="Supprimer" className="rounded text-white h-9 bg-pink-500" onClick={() => remove(index)} />
+              <input type="button" value="Supprimer" className="rounded-lg text-white h-9 bg-pink-500" onClick={() => remove(index)} />
             </div>
           ))}
           <section>
             <button
-              className="text-white w-full rounded bg-pink-500 mb-4  h-9"
+              className="text-white w-full rounded-lg bg-pink-500 mb-4  h-9"
               type="button"
               onClick={() => {
                 append({ id: "" });
@@ -115,7 +115,7 @@ function AddSong() {
               Ajouter une réponse
             </button>
           </section>
-          <input type="submit" className="text-white w-full mb-4 rounded bg-pink-500 h-9" />
+          <input type="submit" className="text-white w-full mb-4 rounded-lg bg-pink-500 h-9" />
         </form>
       </div>
     </div>

@@ -31,7 +31,7 @@ function PlaylistPage() {
           <div>
             <p>{s.title}</p>
             <div className="flex justify-center border-4 border-red-400">
-              <div className="bg-hero-endless-clouds inline-block p-4 bg-gray-700 m-10 rounded-lg border-b-4 border-pink-500">
+              <div className="bg-hero-endless-clouds inline-block p-4 bg-gray-700 rounded-lg border-b-4 border-pink-500">
                 <YouTube
                   videoId={s.url.replace("https://www.youtube.com/watch?v=", "")}
                 />

@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
-import UpdateSong from "../../../forms/UpdateSong";
+import UpdateUser from "../../../forms/UpdateUser";
 import Title from "../../../components/Title";
 import Nav from "../../../components/Nav";
 import Footer from "../../../components/Footer";
 
-function UpdateSongPage() {
+function UpdateUserPage() {
   const router = useRouter();
   const { id } = router.query;
 
@@ -15,11 +15,11 @@ function UpdateSongPage() {
         <div className="mb-4">
           <Title title="Editer" />
         </div>
-        <UpdateSong id={id} />
+        <UpdateUser id={id} />
       </div>
       <Footer />
     </>
   );
 }
 
-export default UpdateSongPage;
+export default UpdateUserPage;

@@ -13,7 +13,7 @@ function SelectUserInput({ placeholder, defaultValue, register }) {
     <select
       placeholder={placeholder}
       defaultValue={defaultValue}
-      className="border-2 border-pink-500 p-1 rounded mb-4"
+      className="border-2 border-pink-500 p-1 rounded-lg mb-4"
       {...register(`user`)}
     >
       <option value="" disabled>Selectionner un utilisateur</option>

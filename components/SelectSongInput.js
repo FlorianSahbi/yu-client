@@ -15,7 +15,7 @@ function SelectSongInput({
     <select
       placeholder={placeholder}
       defaultValue={defaultValue}
-      className="border-2 border-pink-500 p-1 rounded"
+      className="border-2 border-pink-500 p-1 rounded-lg"
       {...register(`songs.${index}.id`)}
     >
       <option value="" disabled>Selectionner une musique</option>
