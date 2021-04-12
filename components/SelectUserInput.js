@@ -1,17 +1,14 @@
 import { useQuery } from "@apollo/client";
-import GET_USERS from "../graphql/users/getUsers"
+import GET_USERS from "../graphql/users/getUsers";
 
 function SelectUserInput({ placeholder, defaultValue, register }) {
-
-  console.log(defaultValue)
   const { data, loading, error } = useQuery(GET_USERS);
 
   if (error) {
-    console.error(error);
     return null;
   }
 
-  if (loading) return <p>Loading...</p>
+  if (loading) return <p>Loading...</p>;
   return (
     <select
       placeholder={placeholder}
@@ -20,9 +17,9 @@ function SelectUserInput({ placeholder, defaultValue, register }) {
       {...register(`user`)}
     >
       <option value="" disabled>Selectionner un utilisateur</option>
-      {data?.users.map(s => <option key={`option_song_${s.username}_${s._id}`} value={s._id}>{s.username}</option>)}
+      {data?.users.map((s) => <option key={`option_song_${s.username}_${s._id}`} value={s._id}>{s.username}</option>)}
     </select>
-  )
+  );
 }
 
 export default SelectUserInput;

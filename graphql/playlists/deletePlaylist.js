@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 const DELETE_PLAYLIST = gql`
   mutation DeletePlaylist($id: ID) {

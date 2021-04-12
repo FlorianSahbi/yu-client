@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import UpdatePlaylist from "../../../forms/UpdatePlaylist";
 import Title from "../../../components/Title";
 import Nav from "../../../components/Nav";
@@ -15,7 +15,7 @@ function UpdatePlaylistPage() {
       <UpdatePlaylist id={id} />
       <Footer />
     </div>
-  )
+  );
 }
 
-export default UpdatePlaylistPage
+export default UpdatePlaylistPage;

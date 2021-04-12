@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 const UPDATE_PLAYLIST = gql`
   mutation UpdatePlaylist($id: ID, $name: String, $thumbnail: String, $songs: [ID]) {

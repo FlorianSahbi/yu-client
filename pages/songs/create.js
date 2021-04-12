@@ -11,7 +11,7 @@ function CreateSongPage() {
       <AddSong />
       <Footer />
     </div>
-  )
+  );
 }
 
-export default CreateSongPage
+export default CreateSongPage;

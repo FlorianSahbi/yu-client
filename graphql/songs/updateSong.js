@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 const UPDATE_SONG = gql`
   mutation UpdateSong(

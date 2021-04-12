@@ -1,9 +1,10 @@
+/* eslint-disable no-underscore-dangle */
 import { useForm, useFieldArray } from "react-hook-form";
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from "@apollo/client";
+import { useSnackbar } from "notistack";
 import SelectUserInput from "../components/SelectUserInput";
 import GET_SONG from "../graphql/songs/getSong";
 import UPDATE_SONG from "../graphql/songs/updateSong";
-import { useSnackbar } from 'notistack';
 
 function UpdateSong({ id }) {
   const { enqueueSnackbar } = useSnackbar();
@@ -17,30 +18,26 @@ function UpdateSong({ id }) {
       cover: data?.song?.cover,
       user: data?.song?.user?._id,
       correctWords: data?.song?.correctWords,
-    }
+    },
   });
 
   const { fields, append, remove } = useFieldArray(
     {
       control,
-      name: "correctWords"
-    }
+      name: "correctWords",
+    },
   );
 
-  function formatData(data) {
-    return;
-  }
-
   const [updateSong] = useMutation(UPDATE_SONG, {
-    onCompleted: _ => enqueueSnackbar("Good", {
-      variant: 'success',
+    onCompleted: () => enqueueSnackbar("Good", {
+      variant: "success",
     }),
-    onError: _ => enqueueSnackbar("Bad", {
-      variant: 'error',
+    onError: () => enqueueSnackbar("Bad", {
+      variant: "error",
     }),
   });
 
-  const onSubmit = (data) => updateSong({ variables: data });
+  const onSubmit = (formData) => updateSong({ variables: { data: formData } });
 
   return (
     <div className="bg-hero-endless-clouds max-w-7xl mx-auto p-4 bg-gray-700 rounded-lg border-b-4 border-pink-500">
@@ -73,20 +70,18 @@ function UpdateSong({ id }) {
           register={register}
         />
         <p className="text-white text-xs mb-1 opacity-70">Réponses acceptées</p>
-        {fields.map((field, index) => {
-          return (
-            <div key={field.id} className="grid grid-cols-2 gap-4">
-              <input
-                placeholder={`Word ${index}`}
-                className="border-2 border-pink-500 p-1 rounded mb-4"
-                key={`input_word_${field.id}`}
-                {...register(`correctWords.${index}`)}
-                defaultValue={field.value}
-              />
-              <input type="button" value="Supprimer" className="rounded text-white h-9 bg-pink-500" type="button" onClick={() => remove(index)} />
-            </div>
-          );
-        })}
+        {fields.map((field, index) => (
+          <div key={field.id} className="grid grid-cols-2 gap-4">
+            <input
+              placeholder={`Word ${index}`}
+              className="border-2 border-pink-500 p-1 rounded mb-4"
+              key={`input_word_${field.id}`}
+              {...register(`correctWords.${index}`)}
+              defaultValue={field.value}
+            />
+            <input type="button" value="Supprimer" className="rounded text-white h-9 bg-pink-500" onClick={() => remove(index)} />
+          </div>
+        ))}
         <section>
           <button
             className="text-white w-full rounded bg-pink-500 mb-4  h-9"
@@ -101,7 +96,7 @@ function UpdateSong({ id }) {
         <input type="submit" className="text-white w-full mb-4 rounded bg-pink-500 h-9" />
       </form>
     </div>
-  )
+  );
 }
 
 export default UpdateSong;

@@ -11,6 +11,6 @@ function PlaylistsPage() {
       <Playlist />
       <Footer />
     </div>
-  )
+  );
 }
 export default PlaylistsPage;

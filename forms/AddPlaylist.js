@@ -1,33 +1,35 @@
 import { useForm, useFieldArray } from "react-hook-form";
+import { useMutation } from "@apollo/client";
+import { useSnackbar } from "notistack";
 import SelectSongInput from "../components/SelectSongInput";
-import { useMutation } from '@apollo/client';
 import ADD_PLAYLIST from "../graphql/playlists/addPlaylist";
-import { useSnackbar } from 'notistack';
 
 function AddPlaylist() {
   const { enqueueSnackbar } = useSnackbar();
   const [addPlaylist] = useMutation(ADD_PLAYLIST, {
-    onCompleted: _ => enqueueSnackbar("Good", {
-      variant: 'success',
+    onCompleted: () => enqueueSnackbar("Good", {
+      variant: "success",
     }),
-    onError: _ => enqueueSnackbar("Bad", {
-      variant: 'error',
-    })
+    onError: () => enqueueSnackbar("Bad", {
+      variant: "error",
+    }),
   });
 
-  const { register, control, handleSubmit, reset } = useForm({
+  const {
+    register, control, handleSubmit,
+  } = useForm({
     defaultValues: {
       name: "",
       thumbnail: "",
       songs: [],
-    }
+    },
   });
 
   const { fields, append, remove } = useFieldArray(
     {
       control,
-      name: "songs"
-    }
+      name: "songs",
+    },
   );
 
   function formatData(data) {
@@ -37,7 +39,7 @@ function AddPlaylist() {
         thumbnail: data.thumbnail,
         songs: data.songs.reduce((acc, val) => [...acc, val.id], []),
       }
-    )
+    );
   }
 
   const onSubmit = (data) => addPlaylist({ variables: formatData(data) });
@@ -60,20 +62,18 @@ function AddPlaylist() {
           {...register(`thumbnail`)}
         />
         <p className="text-white text-xs mb-1 opacity-70">Musiques</p>
-        {fields.map((field, index) => {
-          return (
-            <div key={field.id} className="grid grid-cols-2 gap-4 mb-4">
-              <SelectSongInput
-                key={`${field.id}`}
-                index={index}
-                placeholder="Musique"
-                defaultValue=""
-                register={register}
-              />
-              <input type="button" value="Supprimer" className="rounded text-white h-9 bg-pink-500" type="button" onClick={() => remove(index)} />
-            </div>
-          );
-        })}
+        {fields.map((field, index) => (
+          <div key={field.id} className="grid grid-cols-2 gap-4 mb-4">
+            <SelectSongInput
+              key={`${field.id}`}
+              index={index}
+              placeholder="Musique"
+              defaultValue=""
+              register={register}
+            />
+            <input type="button" value="Supprimer" className="rounded text-white h-9 bg-pink-500" onClick={() => remove(index)} />
+          </div>
+        ))}
         <section>
           <button
             className="text-white w-full rounded bg-pink-500 mb-4  h-9"
@@ -89,7 +89,7 @@ function AddPlaylist() {
         <input type="submit" className="text-white w-full mb-4 rounded bg-pink-500 h-9" />
       </form>
     </div>
-  )
+  );
 }
 
 export default AddPlaylist;

@@ -1,14 +1,15 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import "tailwindcss/tailwind.css";
 import { ApolloProvider } from "@apollo/client";
+import { SnackbarProvider } from "notistack";
 import client from "../apollo-client";
-import { SnackbarProvider } from 'notistack';
 
 function SafeHydrate({ children }) {
   return (
     <div suppressHydrationWarning>
-      {typeof window === 'undefined' ? null : children}
+      {typeof window === "undefined" ? null : children}
     </div>
-  )
+  );
 }
 
 function MyApp({ Component, pageProps }) {
@@ -17,8 +18,8 @@ function MyApp({ Component, pageProps }) {
       <SnackbarProvider
         maxSnack={3}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
+          vertical: "bottom",
+          horizontal: "right",
         }}
       >
         <SafeHydrate>
@@ -29,4 +30,4 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-export default MyApp
+export default MyApp;

@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 import { useQuery } from "@apollo/client";
 import GET_USERS from "../graphql/users/getUsers";
 
@@ -19,14 +19,14 @@ function User({ id, avatar, username }) {
             className="w-full h-48 object-cover"
           />
         </div>
-        <p 
-        className="p-2 truncate"
+        <p
+          className="p-2 truncate"
         >
           {username}
         </p>
       </div>
     </Link>
-  )
+  );
 }
 
 function Users() {
@@ -44,10 +44,9 @@ function Users() {
           avatar={avatar}
           username={username}
         />
-      )
-      )}
+      ))}
     </div>
-  )
+  );
 }
 
 export default Users;

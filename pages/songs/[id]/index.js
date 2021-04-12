@@ -1,16 +1,16 @@
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
+import YouTube from "react-youtube";
+import { format } from "date-fns";
+import Link from "next/link";
 import Nav from "../../../components/Nav";
 import Footer from "../../../components/Footer";
-import YouTube from "react-youtube";
 import GET_SONG from "../../../graphql/songs/getSong";
 import WaitingScreen from "../../../components/WaitingScreen";
-import { format } from 'date-fns'
-import Link from 'next/link';
 
 function SongPage() {
-  const router = useRouter()
-  const { id } = router.query
+  const router = useRouter();
+  const { id } = router.query;
   const { data, loading, error } = useQuery(GET_SONG, { variables: { id } });
 
   if (loading) {
@@ -18,7 +18,6 @@ function SongPage() {
   }
 
   if (error) {
-    console.error(error);
     return null;
   }
 
@@ -32,7 +31,7 @@ function SongPage() {
 
             {/* Date */}
             <div className="bg-hero-endless-clouds bg-gray-700 border-b-4 border-pink-500 rounded-lg p-4 col-start-1 col-end-13 row-start-1 row-end-2 md:col-start-1 md:col-end-4 md:row-start-1 md:row-end-2">
-              {format(new Date(), 'dd.MM.yyyy')}
+              {format(new Date(), "dd.MM.yyyy")}
             </div>
 
             {/* Playlist */}
@@ -79,7 +78,7 @@ function SongPage() {
         </div>
         <Footer />
       </>
-    )
+    );
   }
 }
 

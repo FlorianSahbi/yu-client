@@ -11,7 +11,7 @@ function CreatePlaylistPage() {
       <AddPlaylist />
       <Footer />
     </div>
-  )
+  );
 }
 
-export default CreatePlaylistPage
+export default CreatePlaylistPage;

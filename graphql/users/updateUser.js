@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 const UPDATE_USER = gql`
   mutation UpdateUser($id: ID, $username: String, $avatar: String) {

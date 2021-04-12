@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
-import { useMutation } from '@apollo/client';
+import { useMutation } from "@apollo/client";
+import { useSnackbar } from "notistack";
 import ADD_USER from "../graphql/users/addUser";
-import { useSnackbar } from 'notistack';
 
 function AddUser() {
   const { enqueueSnackbar } = useSnackbar();
@@ -9,15 +9,15 @@ function AddUser() {
     defaultValues: {
       username: "",
       avatar: "",
-    }
+    },
   });
 
   const [addUser] = useMutation(ADD_USER, {
-    onCompleted: _ => enqueueSnackbar("Good", {
-      variant: 'success',
+    onCompleted: () => enqueueSnackbar("Good", {
+      variant: "success",
     }),
-    onError: _ => enqueueSnackbar("Bad", {
-      variant: 'error',
+    onError: () => enqueueSnackbar("Bad", {
+      variant: "error",
     }),
   });
 
@@ -43,7 +43,7 @@ function AddUser() {
         <input type="submit" className="text-white w-full mb-4 rounded bg-pink-500 h-9" />
       </form>
     </div>
-  )
+  );
 }
 
 export default AddUser;

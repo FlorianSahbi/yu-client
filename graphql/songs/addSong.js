@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 const ADD_SONG = gql`
   mutation AddSong($title: String, $cover: String, $url: String, $user: ID, $correctWords: [String]) {

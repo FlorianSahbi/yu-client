@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from "@apollo/client";
+import { useSnackbar } from "notistack";
 import GET_USER from "../graphql/users/getUser";
 import UPDATE_USER from "../graphql/users/updateUser";
-import { useSnackbar } from 'notistack';
 
 function UpdateUser({ id }) {
   const { enqueueSnackbar } = useSnackbar();
@@ -13,19 +13,19 @@ function UpdateUser({ id }) {
       id,
       username: data?.user?.username,
       avatar: data?.user?.avatar,
-    }
+    },
   });
 
   const [updateUser] = useMutation(UPDATE_USER, {
-    onCompleted: _ => enqueueSnackbar("Good", {
-      variant: 'success',
+    onCompleted: () => enqueueSnackbar("Good", {
+      variant: "success",
     }),
-    onError: _ => enqueueSnackbar("Bad", {
-      variant: 'error',
+    onError: () => enqueueSnackbar("Bad", {
+      variant: "error",
     }),
   });
 
-  const onSubmit = (data) => updateUser({ variables: data });
+  const onSubmit = (formData) => updateUser({ variables: { data: formData } });
 
   return (
     <div className="bg-hero-endless-clouds max-w-7xl mx-auto p-4 bg-gray-700  m-10 rounded-lg border-b-4 border-pink-500">
@@ -47,7 +47,7 @@ function UpdateUser({ id }) {
         <input type="submit" className="text-white w-full mb-4 rounded bg-pink-500 h-9" />
       </form>
     </div>
-  )
+  );
 }
 
 export default UpdateUser;

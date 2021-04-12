@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import Nav from "../../components/Nav";
 import Footer from "../../components/Footer";
@@ -7,9 +7,8 @@ import GET_USER from "../../graphql/users/getUser";
 import WaitingScreen from "../../components/WaitingScreen";
 
 function SongPage() {
-
-  const router = useRouter()
-  const { id } = router.query
+  const router = useRouter();
+  const { id } = router.query;
   const { data, loading, error } = useQuery(GET_USER, { variables: { id } });
 
   if (loading) {
@@ -17,7 +16,6 @@ function SongPage() {
   }
 
   if (error) {
-    console.error(error);
     return null;
   }
 
@@ -32,7 +30,7 @@ function SongPage() {
       <UpdateUser id={id} />
       <Footer />
     </div>
-  ) : {}
+  ) : {};
 }
 
 export default SongPage;

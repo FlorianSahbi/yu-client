@@ -10,7 +10,7 @@ function WaitingScreen() {
         </p>
       </div>
     </section>
-  )
+  );
 }
 
 export default WaitingScreen;

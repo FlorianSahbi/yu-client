@@ -1,36 +1,36 @@
 import { useForm, useFieldArray } from "react-hook-form";
-import { gql, useMutation } from '@apollo/client';
+import { gql, useMutation } from "@apollo/client";
+import { useSnackbar } from "notistack";
 import SelectUserInput from "../components/SelectUserInput";
 import ADD_SONG from "../graphql/songs/addSong";
-import { useSnackbar } from 'notistack';
 
 function AddSong() {
   const { enqueueSnackbar } = useSnackbar();
-  const { register, handleSubmit, control, formState: { errors }, reset, watch } = useForm({
+  const {
+    register, handleSubmit, control, formState: { errors },
+  } = useForm({
     defaultValues: {
       title: "",
       url: "",
       cover: "",
       user: "",
       correctWords: [""],
-    }
+    },
   });
-
-  console.log(watch())
 
   const { fields, append, remove } = useFieldArray(
     {
       control,
-      name: "correctWords"
-    }
+      name: "correctWords",
+    },
   );
 
-  const [addSong] = useMutation(ADD_SONG, {
-    onCompleted: _ => enqueueSnackbar("Good", {
-      variant: 'success',
+  const [addSongMutation] = useMutation(ADD_SONG, {
+    onCompleted: () => enqueueSnackbar("Good", {
+      variant: "success",
     }),
-    onError: _ => enqueueSnackbar("Bad", {
-      variant: 'error',
+    onError: () => enqueueSnackbar("Bad", {
+      variant: "error",
     }),
     update(cache, { data: { addSong } }) {
       cache.modify({
@@ -45,16 +45,16 @@ function AddSong() {
                   cover
                   url
                 }
-              `
+              `,
             });
             return [...existingSongs, newSongRef];
-          }
-        }
-      })
-    }
+          },
+        },
+      });
+    },
   });
 
-  const onSubmit = (data) => addSong({ variables: { ...data } });
+  const onSubmit = (data) => addSongMutation({ variables: { ...data } });
 
   return (
     <div className="bg-hero-endless-clouds bg-gray-900">
@@ -92,20 +92,18 @@ function AddSong() {
             register={register}
           />
           <p className="text-white text-xs mb-1 opacity-70">Réponses acceptées</p>
-          {fields.map((field, index) => {
-            return (
-              <div key={field.id} className="grid grid-cols-2 gap-4">
-                <input
-                  placeholder={`Word ${index}`}
-                  className="border-2 border-pink-500 p-1 rounded mb-4"
-                  key={field.id}
-                  {...register(`correctWords.${index}.`)}
-                  defaultValue={field.value}
-                />
-                <input type="button" value="Supprimer" className="rounded text-white h-9 bg-pink-500" type="button" onClick={() => remove(index)} />
-              </div>
-            );
-          })}
+          {fields.map((field, index) => (
+            <div key={field.id} className="grid grid-cols-2 gap-4">
+              <input
+                placeholder={`Word ${index}`}
+                className="border-2 border-pink-500 p-1 rounded mb-4"
+                key={field.id}
+                {...register(`correctWords.${index}.`)}
+                defaultValue={field.value}
+              />
+              <input type="button" value="Supprimer" className="rounded text-white h-9 bg-pink-500" onClick={() => remove(index)} />
+            </div>
+          ))}
           <section>
             <button
               className="text-white w-full rounded bg-pink-500 mb-4  h-9"
@@ -115,14 +113,14 @@ function AddSong() {
               }}
             >
               Ajouter une réponse
-          </button>
+            </button>
           </section>
           <input type="submit" className="text-white w-full mb-4 rounded bg-pink-500 h-9" />
         </form>
       </div>
     </div>
 
-  )
+  );
 }
 
 export default AddSong;

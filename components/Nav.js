@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from "next/link";
 
 function Nav() {
   return (
@@ -10,10 +10,10 @@ function Nav() {
             <button type="button" className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
               <span className="sr-only">Open main menu</span>
               <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
               <svg className="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
@@ -22,34 +22,34 @@ function Nav() {
             <div className="hidden sm:block">
               <div className="flex">
                 <Link href="/">
-                  <a className="mr-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                  <div className="mr-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                     accueil
-                  </a>
+                  </div>
                 </Link>
                 <Link href="/songs">
-                  <a className="mr-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                  <div className="mr-2 text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                     musiques
-                  </a>
+                  </div>
                 </Link>
                 <Link href="/playlists">
-                  <a className="mr-2  text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                  <div className="mr-2  text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                     playlists
-                  </a>
+                  </div>
                 </Link>
                 <Link href="/#">
-                  <a className="mr-2 text-gray-300 opacity-40 cursor-default px-3 py-2 rounded-md text-sm font-medium">
+                  <div className="mr-2 text-gray-300 opacity-40 cursor-default px-3 py-2 rounded-md text-sm font-medium">
                     ranking
-                </a>
+                  </div>
                 </Link>
                 <Link href="/#">
-                  <a className="mr-2 text-gray-300 opacity-40 cursor-default px-3 py-2 rounded-md text-sm font-medium">
+                  <div className="mr-2 text-gray-300 opacity-40 cursor-default px-3 py-2 rounded-md text-sm font-medium">
                     communauté
-                </a>
+                  </div>
                 </Link>
                 <Link href="/#">
-                  <a className="mr-2 text-gray-300 opacity-40 cursor-default px-3 py-2 rounded-md text-sm font-medium">
+                  <div className="mr-2 text-gray-300 opacity-40 cursor-default px-3 py-2 rounded-md text-sm font-medium">
                     langue
-                </a>
+                  </div>
                 </Link>
               </div>
             </div>
@@ -73,9 +73,9 @@ function Nav() {
 
               {/* NAV BAR MENU */}
               {/* <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-              <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</a>
-              <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
-              <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</a>
+              <div href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</div>
+              <div href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</div>
+              <div href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</div>
             </div> */}
             </div>
           </div>
@@ -85,28 +85,25 @@ function Nav() {
         <div className="sm:hidden" id="mobile-menu">
           <div className="px-2 pt-2 pb-3 space-y-1">
             <Link href="/">
-              <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+              <div href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
                 accueil
-            </a>
+              </div>
             </Link>
             <Link href="/songs">
-              <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+              <div href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
                 musiques
-            </a>
+              </div>
             </Link>
             <Link href="/playlists">
-              <a href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+              <div href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
                 playlists
-            </a>
+              </div>
             </Link>
           </div>
         </div>
       </div>
     </nav>
-  )
+  );
 }
 
 export default Nav;
-
-
-
