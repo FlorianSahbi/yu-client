@@ -5,7 +5,9 @@ module.exports = {
     extend: {},
   },
   variants: {
-    extend: {},
+    extend: {
+      borderWidth: ['responsive', 'hover'],
+    },
   },
   plugins: [
     require("tailwind-heropatterns")({

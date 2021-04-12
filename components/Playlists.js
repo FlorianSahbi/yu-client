@@ -4,28 +4,23 @@ import GET_PLAYLISTS from "../graphql/playlists/getPlaylists";
 
 function Playlist({ id, thumbnail, name, songs }) {
   return (
-    <Link
-      href={`/playlist/${id}`}
-    >
-      <div
-        className="text-white transition-all transform -translate-y-0 hover:-translate-y-3 cursor-pointer rounded-lg bg-gray-600"
-      >
-        <div
-          className="relative w-100 h-100 rounded-t-lg overflow-hidden"
-        >
+    <Link href={`/playlists/${id}`}>
+      <div className="text-white h-32 cursor-pointer rounded-lg bg-gray-600 border-pink-500 transition-all border-b-2 hover:border-b-4 flex">
+        <div className="h-full w-44 rounded-lg overflow-hidden">
           <img
             src={thumbnail}
             alt="me"
-            className="w-full h-60 object-cover"
+            className="w-full h-full object-cover object-center"
           />
         </div>
-        <div
-          className="flex justify-between p-2 truncate"
-        >
-          <p>
+        <div className="justify-between p-2 truncate w-full">
+          <p className="text-lg truncate">
             {name}
           </p>
-          <p>
+          <p className="text-sm">
+            By : Flo
+          </p>
+          <p className="text-xs">
             {`${songs.length} songs`}
           </p>
         </div>
@@ -38,9 +33,7 @@ function Playlists() {
   const { data, loading, error } = useQuery(GET_PLAYLISTS);
 
   return (
-    <div
-      className="bg-hero-endless-clouds max-w-7xl mx-auto grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-2 grid gap-4 p-4 bg-gray-700  m-10 rounded-lg border-b-4 border-pink-500"
-    >
+    <div className="bg-hero-endless-clouds max-w-7xl mx-auto grid-cols-1 sm:grid-cols-2 grid gap-4 p-4 bg-gray-700 rounded-lg border-b-4 border-pink-500">
       {error && <p>Error...</p>}
       {loading && <p className="text-white">Loading...</p>}
       {data?.playlists.map(({ _id, name, thumbnail, songs }) => (

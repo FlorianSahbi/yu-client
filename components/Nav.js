@@ -2,8 +2,8 @@ import Link from 'next/link'
 
 function Nav() {
   return (
-    <nav className="w-full bg-gray-900 bg-hero-endless-clouds pb-4">
-      <div className="max-w-7xl mx-auto border-b-4 border-pink-500 rounded-b">
+    <nav className="w-full bg-gray-900 bg-hero-endless-clouds">
+      <div className="max-w-7xl mx-auto border-b-4 border-pink-500">
         <div className="relative flex items-center justify-between h-16">
 
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">

@@ -15,8 +15,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="bg-gray-900 bg-hero-endless-clouds">
-        <Nav />
+      <Nav />
+      <div className="bg-gray-900 bg-hero-endless-clouds p-4">
         <Header />
         <Title title="Playlists" />
         <Playlists />
@@ -24,8 +24,8 @@ export default function Home() {
         <Songs />
         <Title title="Users" />
         <Users />
-        <Footer />
       </div>
+      <Footer />
     </>
   )
 }

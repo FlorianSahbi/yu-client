@@ -4,24 +4,15 @@ import GET_SONGS from "../graphql/songs/getSongs";
 
 function Song({ id, title, cover }) {
   return (
-    <Link
-      href={`/song/${id}`}
-    >
-      <div
-        className="text-white transition-all transform -translate-y-0 hover:-translate-y-3 cursor-pointer bg-gray-600 rounded-lg"
-      >
-        <div
-          className="h-52 flex items-center relative w-100 h-100 rounded-lg overflow-hidden"
-        >
+    <Link href={`/songs/${id}`}>
+      <div className="text-white h-32 cursor-pointer rounded-lg bg-gray-600 border-pink-500 transition-all border-b-2 hover:border-b-4">
+        <div className="h-full w-full rounded-lg">
           <img
             src={cover}
             alt="me"
-            className="w-full h-60 object-cover"
+            className="w-full h-full object-cover rounded-lg"
           />
         </div>
-        <p
-          className="truncate p-2">{title}
-        </p>
       </div>
     </Link>
   )
@@ -31,9 +22,7 @@ function Songs() {
   const { data, loading, error } = useQuery(GET_SONGS);
 
   return (
-    <div
-      className="bg-hero-endless-clouds max-w-7xl mx-auto grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 grid gap-4 p-4 bg-gray-700  m-10 rounded-lg border-b-4 border-pink-500"
-    >
+    <div className="bg-hero-endless-clouds max-w-7xl mx-auto grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 grid gap-4 p-4 bg-gray-700 rounded-lg border-b-4 border-pink-500">
       {error && <p>Error...</p>}
       {loading && <h2 className="text-white">Loading...</h2>}
       {data?.songs.map(({ _id, cover, title, url, played }) => (

@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router';
 import { useQuery } from "@apollo/client";
-import Nav from "../../components/Nav";
-import Footer from "../../components/Footer";
+import Nav from "../../../components/Nav";
+import Footer from "../../../components/Footer";
 import YouTube from "react-youtube";
-import UpdateSong from '../../forms/UpdateSong';
-import GET_SONG from "../../graphql/songs/getSong";
-import WaitingScreen from "../../components/WaitingScreen";
+import GET_SONG from "../../../graphql/songs/getSong";
+import WaitingScreen from "../../../components/WaitingScreen";
 import { format } from 'date-fns'
+import Link from 'next/link';
 
 function SongPage() {
   const router = useRouter()
@@ -28,7 +28,7 @@ function SongPage() {
         <Nav />
         <div className="bg-hero-endless-clouds bg-gray-900 p-4">
 
-          <div className="bg-hero-endless-clouds bg-gray-900 text-white max-w-7xl mb-4 mx-auto grid-flow-rows grid-cols-12 grid w-full gap-4 rounded-lg">
+          <div className="bg-hero-endless-clouds bg-gray-900 text-white max-w-7xl mb-4 mx-auto grid-flow-rows grid-cols-6 grid w-full gap-4 rounded-lg">
 
             {/* Date */}
             <div className="bg-hero-endless-clouds bg-gray-700 border-b-4 border-pink-500 rounded-lg p-4 col-start-1 col-end-13 row-start-1 row-end-2 md:col-start-1 md:col-end-4 md:row-start-1 md:row-end-2">
@@ -37,7 +37,9 @@ function SongPage() {
 
             {/* Playlist */}
             <div className="bg-hero-endless-clouds bg-gray-700 border-b-4 border-pink-500 rounded-lg p-4 col-start-1 col-end-13 row-start-6 row-end-9 md:col-start-4 md:col-end-7 md:row-start-1 md:row-end-4">
-              {/* <img src={data?.song?.cover} alt="ok" /> */}
+              <Link href={`/songs/${id}/update`}>
+                Edit
+              </Link>
             </div>
 
             {/* Title */}
@@ -66,7 +68,7 @@ function SongPage() {
             </div>
 
             {/* Preview */}
-            <div className="bg-hero-endless-clouds bg-gray-700 border-b-4 border-pink-500 rounded-lg p-4 col-start-1 col-end-13 row-start-13 row-end-14 md:col-start-7 md:col-end-13 md:row-start-1 md:row-end-6">
+            <div className="bg-hero-endless-clouds bg-gray-700 border-b-4 border-pink-500 rounded-lg p-4 col-start-1 col-end-13 row-start-13 row-end-14 md:col-start-1 md:col-end-7 md:row-start-6 md:row-end-12">
               <YouTube
                 className="w-full h-full"
                 videoId={data?.song?.url.replace("https://www.youtube.com/watch?v=", "")}
@@ -74,10 +76,6 @@ function SongPage() {
             </div>
 
           </div>
-
-          <UpdateSong
-            id={id}
-          />
         </div>
         <Footer />
       </>
