@@ -22,25 +22,31 @@ function PlaylistPage() {
 
   if (data) {
     return (
-      <div className="bg-gray-900 border-4 border-green-400">
+      <>
         <Nav />
-        <Link href={`/playlists/${id}/update`}>
-          Edit
-        </Link>
-        {data?.playlist?.songs.map((s) => (
-          <div>
-            <p>{s.title}</p>
-            <div className="flex justify-center border-4 border-red-400">
-              <div className="bg-hero-endless-clouds inline-block p-4 bg-gray-700 rounded-lg border-b-4 border-pink-500">
+        <div className="bg-hero-endless-clouds bg-gray-900 pt-4">
+          <div className="text-white text-center">
+            <Link href={`/playlists/${id}/update`}>
+              Edit
+            </Link>
+          </div>
+          {data?.playlist?.songs.map((s) => (
+            <div className="w-full">
+              <p className="text-center text-white truncate py-4">
+                {s.title}
+              </p>
+              <div className="flex justify-center w-full">
                 <YouTube
+                  containerClassName="w-full"
+                  className="w-full"
                   videoId={s.url.replace("https://www.youtube.com/watch?v=", "")}
                 />
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
         <Footer />
-      </div>
+      </>
     );
   }
 }
