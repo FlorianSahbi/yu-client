@@ -12,6 +12,27 @@ function Nav() {
     const selectedLocale = e.target.value;
     router.push("/", "/", { locale: selectedLocale });
   }
+
+  function NavButton({ label, href, disabled }) {
+    if (disabled) {
+      return (
+        <Link href="/#">
+          <div className="mr-2 text-gray-300 opacity-40 cursor-default px-3 py-2 rounded-lg text-sm font-medium">
+            {label}
+          </div>
+        </Link>
+      );
+    }
+    return (
+      <Link href={href}>
+        <div className="mr-2 cursor-pointer transition-all  text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-lg text-sm font-medium">
+          {label}
+        </div>
+      </Link>
+
+    );
+  }
+
   return (
     <nav className="w-full bg-gray-900 bg-hero-endless-clouds">
       <div className="max-w-7xl mx-auto border-b-4 border-pink-500">
@@ -32,32 +53,10 @@ function Nav() {
           <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <div className="hidden sm:block">
               <div className="flex">
-                <Link href="/">
-                  <div className="mr-2 cursor-pointer text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-lg text-sm font-medium">
-                    {t.nav.home}
-                  </div>
-                </Link>
-                <Link href="/songs">
-                  <div className="mr-2 cursor-pointer text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-lg text-sm font-medium">
-                    {t.nav.musics}
-                  </div>
-                </Link>
-                <Link href="/playlists">
-                  <div className="mr-2 cursor-pointer  text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-lg text-sm font-medium">
-                    {t.nav.playlists}
-                  </div>
-                </Link>
-                <Link href="/users">
-                  <div className="mr-2 cursor-pointer  text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-lg text-sm font-medium">
-                    {t.nav.community}
-                  </div>
-                </Link>
-                {/* <Link href="/#"> */}
-                <div className="mr-2 text-gray-300 opacity-40 cursor-default px-3 py-2 rounded-lg text-sm font-medium">
-                  {t.nav.rankings}
-                </div>
-                {/* </Link> */}
-                {/* <Link href="/#"> */}
+                <NavButton label={t.nav.home} href="/" />
+                <NavButton label={t.nav.musics} href="/songs" />
+                <NavButton label={t.nav.playlists} href="/playlists" />
+                <NavButton label={t.nav.community} href="/users" />
                 <div className="mr-2 cursor-pointer text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-lg text-sm font-medium">
                   <select
                     onChange={changeLanguage}
@@ -68,7 +67,6 @@ function Nav() {
                     <option value="en">EN</option>
                   </select>
                 </div>
-                {/* </Link> */}
               </div>
             </div>
           </div>
