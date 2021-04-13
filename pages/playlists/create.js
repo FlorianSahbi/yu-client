@@ -1,4 +1,4 @@
-import AddPlaylist from "../../forms/AddSong";
+import AddPlaylist from "../../forms/AddPlaylist";
 import Title from "../../components/Title";
 import Nav from "../../components/Nav";
 import Footer from "../../components/Footer";
