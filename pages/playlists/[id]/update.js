@@ -13,7 +13,7 @@ function UpdatePlaylistPage() {
       <Nav />
       <div className="bg-hero-endless-clouds bg-gray-900 h-screen w-screen p-4">
         <div className="mb-4">
-          <Title title="Editer" />
+          <Title back title="Editer" />
         </div>
         <UpdatePlaylist id={id} />
       </div>

@@ -9,7 +9,7 @@ function CreateUserPage() {
       <Nav />
       <div className="bg-hero-endless-clouds bg-gray-900 h-screen w-screen p-4">
         <div className="mb-4">
-          <Title title="Ajouter un joueur" />
+          <Title back title="Ajouter un joueur" />
         </div>
         <AddUser />
       </div>
