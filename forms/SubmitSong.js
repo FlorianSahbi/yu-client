@@ -146,8 +146,9 @@ function AddSong() {
             videoId={watch("url").replace("https://www.youtube.com/watch?v=", "")}
             className="w-full"
             containerClassName="w-full rounded-lg overflow-hidden"
-            onReady={(event) => event.target.playVideo()}
-            onStateChange={(event) => event.target.playVideo()}
+            // onReady={(event) => event.target.playVideo()}
+            // onStateChange={(event) => event.target.playVideo()}
+            // Sur pc seulement
           />
         </div>
 
