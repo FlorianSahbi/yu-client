@@ -53,10 +53,14 @@ function Nav() {
           <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <div className="hidden sm:block">
               <div className="flex">
-                <NavButton label={t.nav.home} href="/" />
+                {/* <NavButton label={t.nav.home} href="/" />
                 <NavButton label={t.nav.musics} href="/songs" />
                 <NavButton label={t.nav.playlists} href="/playlists" />
-                <NavButton label={t.nav.community} href="/users" />
+                <NavButton label={t.nav.community} href="/users" /> */}
+                <NavButton label="accueil" href="/" />
+                <NavButton label="what is Yu ?" href="/" />
+                <NavButton label="themes" href="/tags" />
+                <NavButton label="new submission" href="/" />
                 <div className="mr-2 cursor-pointer text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-lg text-sm font-medium">
                   <select
                     onChange={changeLanguage}

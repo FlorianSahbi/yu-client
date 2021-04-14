@@ -2,6 +2,7 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { gql, useMutation } from "@apollo/client";
 import { useSnackbar } from "notistack";
 import SelectUserInput from "../components/SelectUserInput";
+import SelectTagInput from "../components/SelectTagInput";
 import ADD_SONG from "../graphql/songs/addSong";
 
 function AddSong() {
@@ -14,14 +15,22 @@ function AddSong() {
       url: "",
       cover: "",
       user: "",
-      correctWords: [""],
+      correctWords: ["bf", "bgf"],
+      tags: ["607645c537f1ab002284970b"],
     },
   });
 
-  const { fields, append, remove } = useFieldArray(
+  const { fields, append } = useFieldArray(
     {
       control,
       name: "correctWords",
+    },
+  );
+
+  const { fields: fT, append: aT } = useFieldArray(
+    {
+      control,
+      name: "tags",
     },
   );
 
@@ -93,26 +102,43 @@ function AddSong() {
           />
           <p className="text-white text-xs mb-1 opacity-70">Réponses acceptées</p>
           {fields.map((field, index) => (
-            <div key={field.id} className="grid grid-cols-2 gap-4">
-              <input
-                placeholder={`Word ${index}`}
-                className="border-2 border-pink-500 p-1 rounded-lg mb-4"
-                key={field.id}
-                {...register(`correctWords.${index}.`)}
-                defaultValue={field.value}
-              />
-              <input type="button" value="Supprimer" className="rounded-lg text-white h-9 bg-pink-500" onClick={() => remove(index)} />
-            </div>
+            <input
+              key={field.id}
+              {...register(`correctWords.${index}`)}
+              defaultValue={field}
+              placeholder={`Word ${index}`}
+              className="border-2 border-pink-500 p-1 rounded-lg mb-4"
+            />
+            // <input type="button" value="Supprimer" className="rounded-lg text-white h-9 bg-pink-500" onClick={() => remove(index)} />
+          ))}
+          {fT.map((field, index) => (
+            <SelectTagInput
+              key={field.id}
+              index={index}
+              placeholder={`Tag ${index}`}
+              defaultValue={field}
+              register={register}
+            />
+            //  <input type="button" value="Supprimer" className="rounded-lg text-white h-9 bg-pink-500" onClick={() => remove(index)} />
           ))}
           <section>
             <button
               className="text-white w-full rounded-lg bg-pink-500 mb-4  h-9"
               type="button"
               onClick={() => {
-                append({ id: "" });
+                append("OK");
               }}
             >
               Ajouter une réponse
+            </button>
+            <button
+              className="text-white w-full rounded-lg bg-pink-500 mb-4  h-9"
+              type="button"
+              onClick={() => {
+                aT("607645c537f1ab002284970b");
+              }}
+            >
+              Ajouter un tag
             </button>
           </section>
           <input type="submit" className="text-white w-full mb-4 rounded-lg bg-pink-500 h-9" />

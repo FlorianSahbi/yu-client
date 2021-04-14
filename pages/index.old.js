@@ -6,7 +6,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Songs from "../components/Songs";
 import Title from "../components/Title";
-import Tags from "../components/Tags";
+import Playlists from "../components/Playlists";
 import en from "../locales/en";
 import fr from "../locales/fr";
 
@@ -25,9 +25,9 @@ export default function Home() {
       <div className="bg-gray-900 bg-hero-endless-clouds p-4">
         <Header title={t.title} />
         <div className="my-4">
-          <Title title="Themes" />
+          <Title title="Playlists" />
         </div>
-        <Tags />
+        <Playlists />
         <div className="my-4">
           <Title title="Songs" />
         </div>

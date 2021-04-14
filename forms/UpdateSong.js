@@ -10,7 +10,9 @@ function UpdateSong({ id }) {
   const { enqueueSnackbar } = useSnackbar();
   const { data } = useQuery(GET_SONG, { variables: { id } });
 
-  const { register, handleSubmit, control } = useForm({
+  const {
+    register, handleSubmit, control,
+  } = useForm({
     defaultValues: {
       id,
       title: data?.song?.title,
@@ -37,7 +39,7 @@ function UpdateSong({ id }) {
     }),
   });
 
-  const onSubmit = (formData) => updateSong({ variables: { data: formData } });
+  const onSubmit = (formData) => updateSong({ variables: { ...formData } });
 
   return (
     <div className="bg-hero-endless-clouds max-w-7xl mx-auto p-4 bg-gray-700 rounded-lg border-b-4 border-pink-500">
