@@ -17,7 +17,7 @@ function SelectUserInput({ placeholder, defaultValue, register }) {
       {...register(`user`)}
     >
       <option value="" disabled>Selectionner un utilisateur</option>
-      {data?.users.map((s) => <option key={`option_song_${s.username}_${s._id}`} value={s._id}>{s.username}</option>)}
+      {data?.users.map((s) => <option key={`option_user_${s.username}_${s._id}`} value={s._id}>{s.username}</option>)}
     </select>
   );
 }

@@ -1,14 +1,18 @@
 import { gql } from "@apollo/client";
 
-const GET_SONG = gql`
-  query Song($id: ID) {
-    song(id: $id) {
+const ACCEPT_SONG = gql`
+  mutation AcceptSong(
+    $id: ID
+  ) {
+    acceptSong(
+      id: $id
+    ) {
       _id
       title
       cover
       url
-      isAccepted
       correctWords
+      isAccepted
       tags {
         _id
         name
@@ -23,4 +27,4 @@ const GET_SONG = gql`
   }
 `;
 
-export default GET_SONG;
+export default ACCEPT_SONG;

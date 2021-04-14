@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import en from "../locales/en";
-import fr from "../locales/fr";
+// import en from "../locales/en";
+// import fr from "../locales/fr";
 
 function Nav() {
   const router = useRouter();
   const { locale } = router;
-  const t = locale === "en" ? en : fr;
+  // const t = locale === "en" ? en : fr;
 
   function changeLanguage(e) {
     const selectedLocale = e.target.value;
@@ -60,7 +60,9 @@ function Nav() {
                 <NavButton label="accueil" href="/" />
                 <NavButton label="what is Yu ?" href="/" />
                 <NavButton label="themes" href="/tags" />
-                <NavButton label="new submission" href="/" />
+                <NavButton label="new submission" href="/songs/submit" />
+                <NavButton label="Pending songs" href="/songs/pending" />
+                <NavButton label="songs" href="/songs" />
                 <div className="mr-2 cursor-pointer text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-lg text-sm font-medium">
                   <select
                     onChange={changeLanguage}
@@ -104,7 +106,13 @@ function Nav() {
         {/* BURGER MENU */}
         <div className="sm:hidden" id="mobile-menu">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            <Link href="/">
+            <NavButton label="accueil" href="/" />
+            <NavButton label="what is Yu ?" href="/" />
+            <NavButton label="themes" href="/tags" />
+            <NavButton label="new submission" href="/songs/submit" />
+            <NavButton label="Pending songs" href="/songs/pending" />
+            <NavButton label="songs" href="/songs" />
+            {/* <Link href="/">
               <div href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-lg text-base font-medium">
                 {t.nav.home}
               </div>
@@ -118,7 +126,7 @@ function Nav() {
               <div href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-lg text-base font-medium">
                 {t.nav.playlists}
               </div>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

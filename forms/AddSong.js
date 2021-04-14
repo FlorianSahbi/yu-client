@@ -5,7 +5,7 @@ import SelectUserInput from "../components/SelectUserInput";
 import SelectTagInput from "../components/SelectTagInput";
 import ADD_SONG from "../graphql/songs/addSong";
 
-function AddSong() {
+function SubmitSong() {
   const { enqueueSnackbar } = useSnackbar();
   const {
     register, handleSubmit, control, formState: { errors },
@@ -115,7 +115,7 @@ function AddSong() {
             <SelectTagInput
               key={field.id}
               index={index}
-              placeholder={`Tag ${index}`}
+              placeholder={`Tag ${index + 1}`}
               defaultValue={field}
               register={register}
             />
@@ -149,4 +149,4 @@ function AddSong() {
   );
 }
 
-export default AddSong;
+export default SubmitSong;

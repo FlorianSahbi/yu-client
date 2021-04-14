@@ -1,18 +1,37 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+import { useState } from "react";
 import { useRouter } from "next/router";
-import { useQuery } from "@apollo/client";
-import YouTube from "react-youtube";
-import { format } from "date-fns";
 import Link from "next/link";
-import Nav from "../../../components/Nav";
+import { useQuery, useMutation } from "@apollo/client";
+import YouTube from "react-youtube";
+import { useSnackbar } from "notistack";
 import Footer from "../../../components/Footer";
+import Nav from "../../../components/Nav";
 import GET_SONG from "../../../graphql/songs/getSong";
+import ACCEPT_SONG from "../../../graphql/songs/acceptSong";
 import WaitingScreen from "../../../components/WaitingScreen";
-import Title from "../../../components/Title";
 
 function SongPage() {
   const router = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
   const { id } = router.query;
   const { data, loading, error } = useQuery(GET_SONG, { variables: { id } });
+  const [, setIsAccepted] = useState(data?.song?.isAccepted);
+  const [acceptSongMutation] = useMutation(ACCEPT_SONG, {
+    onCompleted: () => enqueueSnackbar("Good", {
+      variant: "success",
+    }),
+    onError: () => enqueueSnackbar("Bad", {
+      variant: "error",
+    }),
+  });
+
+  function handleClick() {
+    acceptSongMutation({ variables: { id } });
+    setIsAccepted(true);
+  }
 
   if (loading) {
     return <WaitingScreen />;
@@ -26,75 +45,85 @@ function SongPage() {
     return (
       <>
         <Nav />
-        <div className="bg-hero-endless-clouds bg-gray-900 p-4">
+        <div className="bg-hero-endless-clouds bg-gray-900 w-full p-4">
+          <div className="max-w-7xl mx-auto space-y-4">
 
-          <div className="mb-4 max-w-7xl mx-auto grid-col-2 grid">
-            <div className="col-start-1 col-end-2">
-              <Title back title={data?.song?.title} />
-            </div>
-            <div className="col-start-2 col-end-3">
-              <Link href="/songs/create">
-                <p className="text-lg cursor-pointer text-white w-full text-right">
-                  Editer
+            {/* Block Top */}
+            <div className="bg-hero-endless-clouds grid bg-gray-700 grid-flow-row auto-rows-min p-4 gap-4 grid-col-1 rounded-lg">
+              <div className="row-start-1 row-end-2 flex items-center justify-between">
+                <p className="text-white text-xs opacity-70">
+                  <Link href={data?.song?.url} passHref target="blank_">
+                    <a target="_blank">
+                      {data?.song?.url}
+                    </a>
+                  </Link>
                 </p>
-              </Link>
-            </div>
-          </div>
-
-          <div className="bg-hero-endless-clouds bg-gray-900 text-white max-w-7xl mx-auto grid-flow-rows grid-cols-6 grid w-full gap-4 rounded-lg">
-
-            {/* Date */}
-            <div className="bg-hero-endless-clouds bg-gray-700 border-b-4 border-pink-500 rounded-lg p-4 col-start-1 col-end-13 row-start-1 row-end-2 md:col-start-1 md:col-end-4 md:row-start-1 md:row-end-2">
-              {format(new Date(), "dd.MM.yyyy")}
-            </div>
-
-            {/* Playlist */}
-            <div className="bg-hero-endless-clouds bg-gray-700 border-b-4 border-pink-500 rounded-lg p-4 col-start-1 col-end-13 row-start-6 row-end-9 md:col-start-4 md:col-end-7 md:row-start-1 md:row-end-3">
-              <Link href={`/songs/${id}/update`}>
-                Edit
-              </Link>
-            </div>
-
-            {/* Title */}
-            <div className="bg-hero-endless-clouds bg-gray-700 border-b-4 border-pink-500 rounded-lg p-4 col-start-1 col-end-13 row-start-2 row-end-3 md:col-start-1 md:col-end-4 md:row-start-2 md:row-end-3">
-              {data?.song?.title}
-            </div>
-
-            {/* Cover */}
-            <div className="bg-hero-endless-clouds bg-gray-700 border-b-4 border-pink-500 rounded-lg p-4 col-start-1 col-end-13 row-start-3 row-end-6 md:col-start-1 md:col-end-4 md:row-start-3 md:row-end-4">
-              <div className="h-full w-full">
-                <img src={data?.song?.cover} alt="ok" className="h-full w-full object-cover" />
+                {data?.song?.isAccepted
+                  ? (
+                    <div className="text-white text-xs text-center w-20 rounded-lg px-2 py-2 transition-all transform border text-pink border-pink-500">
+                      Accepted
+                    </div>
+                  )
+                  : (
+                    <div onClick={handleClick} className="text-white w-20 text-center text-xs bg-pink-500 rounded-lg px-2 py-2 cursor-pointer transition-all transform bg-gradient-to-b border border-pink-500 from-pink-500 to-pink-500 hover:from-pink-500 hover:to-pink-600">
+                      Accept
+                    </div>
+                  ) }
               </div>
             </div>
 
-            {/* User */}
-            <div className="bg-hero-endless-clouds bg-gray-700 border-b-4 border-pink-500 rounded-lg p-4 col-start-1 col-end-13 row-start-9 row-end-12 md:col-start-4 md:col-end-7 md:row-start-3 md:row-end-4">
-              <div className="flex items-center">
-                <img src={data?.song?.user?.avatar} alt="ok" className="rounded-full h-14 w-14 mr-1" />
-                <p>{data?.song?.user?.username}</p>
+            {/* Block Mid */}
+            <div className="bg-hero-endless-clouds bg-gray-700 p-4 gap-4 rounded-lg grid-cols-12 grid grid-flow-row auto-rows-min">
+              {/* -- Title -- */}
+              <div className="row-start-1 row-end-2 col-start-1 col-end-13 flex items-center">
+                <p className="text-gray-300">
+                  {data?.song?.title}
+                </p>
+              </div>
+
+              {/* -- Preview -- */}
+              <div className="row-start-2 row-end-3 col-start-1 col-end-13">
+                <YouTube
+                  videoId={data?.song?.url.replace("https://www.youtube.com/watch?v=", "")}
+                  className="w-full"
+                  containerClassName="w-full rounded-lg overflow-hidden"
+                  onReady={(event) => event.target.playVideo()}
+                />
+              </div>
+
+              {/* User */}
+              <div className="row-start-3 row-end-4 col-start-1 col-end-13 text-gray-300 text-xs flex justify-between">
+                <p>
+                  {`Added by : ${data?.song?.user?.username}`}
+                </p>
+                <p className="capitalize">
+                  {`Tags : ${data?.song?.tags?.map((a) => a.name)}`}
+                </p>
               </div>
             </div>
 
-            {/* Url */}
-            {/* <div className="bg-hero-endless-clouds bg-gray-700 border-b-4 border-pink-500 rounded-lg p-4 col-start-1 col-end-13 row-start-12 row-end-13 md:col-start-4 md:col-end-7 md:row-start-5 md:row-end-5">
-              <p className="truncate">{data?.song?.url}</p>
-            </div> */}
-
-            {/* Preview */}
-            <div className="bg-hero-endless-clouds bg-gray-700 border-b-4 border-pink-500 rounded-lg p-4 col-start-1 col-end-13 row-start-13 row-end-14 md:col-start-1 md:col-end-7 md:row-start-4 md:row-end-5">
-              <YouTube
-                containerClassName="w-full"
-                className="w-full"
-                videoId={data?.song?.url.replace("https://www.youtube.com/watch?v=", "")}
-              />
+            {/* Block Bot */}
+            <div className="bg-hero-endless-clouds bg-gray-700 p-4 gap-4 rounded-lg grid-cols-12 grid grid-flow-row auto-rows-min">
+              {/* -- Cover -- */}
+              <div className="row-start-1 row-end-2 col-start-1 col-end-13">
+                <div className="rounded-lg overflow-hidden">
+                  <img src={data?.song?.cover} alt="mol" />
+                </div>
+              </div>
+              {/* User */}
+              <div className="row-start-2 row-end-3 col-start-1 col-end-13 text-gray-300 text-xs flex justify-between">
+                <p className="capitalize">
+                  {`Answers : ${data?.song?.correctWords?.map((a) => a)}`}
+                </p>
+              </div>
             </div>
-
           </div>
         </div>
         <Footer />
       </>
     );
   }
+  return <></>;
 }
 
 export default SongPage;

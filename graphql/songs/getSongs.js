@@ -7,6 +7,7 @@ const GET_SONGS = gql`
       title
       cover
       url
+      isAccepted
     }
   }
 `;
