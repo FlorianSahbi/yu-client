@@ -164,7 +164,7 @@ function AddSong() {
 
         {/* -- Tags -- */}
         <div className="row-start-5 row-end-6 col-start-1 col-end-13 overflow-auto h-48 text-white rounded-lg p-2 text-base bg-gray-700 shadow-lg">
-          {dataTag?.tags?.map((a, i) => (
+          {dataTag?.tags?.docs.map((a, i) => (
             <>
               <input
                 key={a._id}

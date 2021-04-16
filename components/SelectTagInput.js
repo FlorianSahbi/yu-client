@@ -21,7 +21,7 @@ function SelectSongInput({
         {...register(`tags.${index}`)}
       >
         <option value="" disabled>Selectionner un tag</option>
-        {data?.tags?.map((s) => <option key={`option_tag_${s.name}_${s._id}`} value={s._id}>{s.name}</option>)}
+        {data?.tags?.docs?.map((s) => <option key={`option_tag_${s.name}_${s._id}`} value={s._id}>{s.name}</option>)}
       </select>
     );
   }

@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 const GET_SONGS = gql`
-  query Songs {
-    songs {
+  query Songs($tag: ID) {
+    songs(tag: $tag) {
       _id
       title
       cover

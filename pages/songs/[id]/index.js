@@ -97,7 +97,7 @@ function SongPage() {
                   {`Added by : ${data?.song?.user?.username}`}
                 </p>
                 <p className="capitalize">
-                  {`Tags : ${data?.song?.tags?.map((a) => a.name)}`}
+                  {`Tags : ${data?.song?.tags.map((a) => a.name)}`}
                 </p>
               </div>
             </div>

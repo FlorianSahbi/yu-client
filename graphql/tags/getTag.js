@@ -3,9 +3,18 @@ import { gql } from "@apollo/client";
 const GET_TAG = gql`
   query Tag($id: ID) {
     tag(id: $id) {
-      _id
-      name
-      cover
+      pagingCounter
+      totalDocs
+      limit
+      totalPages
+      page
+      hasPrevPage
+      hasNextPage
+      docs {
+        _id
+        name
+        cover
+      }
     }
   }
 `;

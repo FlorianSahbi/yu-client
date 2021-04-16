@@ -33,7 +33,7 @@ function Tags() {
     <div className="bg-hero-endless-clouds max-w-7xl mx-auto grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6 gap-4 p-4 grid bg-gray-700 rounded-lg border-b-4 border-pink-500">
       {error && <p>Error...</p>}
       {loading && <p className="text-white">Loading...</p>}
-      {data?.tags.map(({
+      {data?.tags?.docs.map(({
         _id, name, cover,
       }) => (
         <Tag

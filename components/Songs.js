@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useQuery } from "@apollo/client";
 import GET_SONGS from "../graphql/songs/getSongs";
 
-function Song({ id, title, cover }) {
+export function Song({ id, title, cover }) {
   return (
     <Link href={`/songs/${id}`}>
       <div className="relative cursor-pointer">
