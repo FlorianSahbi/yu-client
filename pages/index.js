@@ -5,6 +5,7 @@ import Nav from "../components/Nav";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Songs from "../components/Songs";
+import Games from "../components/Games";
 import Title from "../components/Title";
 import Tags from "../components/Tags";
 import en from "../locales/en";
@@ -24,6 +25,10 @@ export default function Home() {
       <Nav />
       <div className="bg-gray-900 bg-hero-endless-clouds p-4">
         <Header title={t.title} />
+        <div className="my-4">
+          <Title title="Games" />
+        </div>
+        <Games />
         <div className="my-4">
           <Title title="Themes" />
         </div>
