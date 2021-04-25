@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useQuery } from "@apollo/client";
 import { format } from "date-fns";
-import GET_GAMES from "../graphql/games/getGames";
+import GAMES from "../graphql/games/games";
 import DeleteGameButton from "./DeleteGameButton";
 
 export function Game({ id, tags, createdAt }) {
@@ -32,7 +32,7 @@ export function Game({ id, tags, createdAt }) {
 }
 
 function Games() {
-  const { data, loading, error } = useQuery(GET_GAMES);
+  const { data, loading, error } = useQuery(GAMES);
 
   return (
     <div className="bg-hero-endless-clouds max-w-7xl mx-auto grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6 gap-4 p-4 grid bg-gray-700 rounded-lg border-b-4 border-pink-500">

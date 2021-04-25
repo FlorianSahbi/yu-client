@@ -2,13 +2,13 @@ import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import Nav from "../../../components/Nav";
 import Footer from "../../../components/Footer";
-import GET_USER from "../../../graphql/users/getUser";
+import USER from "../../../graphql/users/user";
 import WaitingScreen from "../../../components/WaitingScreen";
 
 function UserPage() {
   const router = useRouter();
   const { id } = router.query;
-  const { data, loading, error } = useQuery(GET_USER, { variables: { id } });
+  const { data, loading, error } = useQuery(USER, { variables: { id } });
 
   if (loading) {
     return <WaitingScreen />;

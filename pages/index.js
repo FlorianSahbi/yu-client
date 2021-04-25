@@ -4,7 +4,7 @@ import Users from "../components/Users";
 import Nav from "../components/Nav";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Songs from "../components/Songs";
+import Tracks from "../components/Tracks";
 import Games from "../components/Games";
 import Title from "../components/Title";
 import Tags from "../components/Tags";
@@ -34,9 +34,9 @@ export default function Home() {
         </div>
         <Tags />
         <div className="my-4">
-          <Title title="Songs" />
+          <Title title="Tracks" />
         </div>
-        <Songs />
+        <Tracks />
         <div className="my-4">
           <Title title="Users" />
         </div>

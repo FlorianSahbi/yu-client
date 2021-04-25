@@ -4,16 +4,16 @@ import { useQuery } from "@apollo/client";
 import Nav from "../../../components/Nav";
 import Footer from "../../../components/Footer";
 import Title from "../../../components/Title";
-import { Song } from "../../../components/Songs";
-import GET_TAG from "../../../graphql/tags/getTag";
-import GET_SONGS from "../../../graphql/songs/getSongs";
+import { Track } from "../../../components/Tracks";
+import TAG from "../../../graphql/tags/tag";
+import TRACKS from "../../../graphql/tracks/tracks";
 import WaitingScreen from "../../../components/WaitingScreen";
 
 function UserPage() {
   const router = useRouter();
   const { id } = router.query;
-  const { data, loading, error } = useQuery(GET_TAG, { variables: { id } });
-  const { data: dSongs, error: eSongs, loading: lSongs } = useQuery(GET_SONGS, { variables: { tag: id } });
+  const { data, loading, error } = useQuery(TAG, { variables: { id } });
+  const { data: dSongs, error: eSongs, loading: lSongs } = useQuery(TRACKS, { variables: { tag: id } });
 
   if (loading) {
     return <WaitingScreen />;
@@ -44,14 +44,14 @@ function UserPage() {
           <div className="bg-hero-endless-clouds max-w-7xl mx-auto grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6 gap-4 p-4 grid bg-gray-700 rounded-lg border-b-4 border-pink-500">
             {eSongs && <p>Error...</p>}
             {lSongs && <h2 className="text-white">Loading...</h2>}
-            {dSongs?.songs.map(({
-              _id, cover, title, url, played,
+            {dSongs?.tracks.map(({
+              _id, thumbnail, title, videoUrl, played,
             }) => (
-              <Song
+              <Track
                 id={_id}
-                cover={cover}
+                thumbnail={thumbnail}
                 title={title}
-                url={url}
+                videoUrl={videoUrl}
                 played={played}
               />
             ))}

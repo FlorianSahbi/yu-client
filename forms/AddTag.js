@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useMutation } from "@apollo/client";
 import { useSnackbar } from "notistack";
-import ADD_TAG from "../graphql/tags/addTag";
+import CREATE_TAG from "../graphql/tags/createTag";
 
 function AddUser() {
   const { enqueueSnackbar } = useSnackbar();
@@ -14,7 +14,7 @@ function AddUser() {
     },
   });
 
-  const [addTag] = useMutation(ADD_TAG, {
+  const [addTag] = useMutation(CREATE_TAG, {
     onCompleted: () => {
       reset();
       enqueueSnackbar("Good", {

@@ -6,7 +6,7 @@ import Nav from "../../../components/Nav";
 import Title from "../../../components/Title";
 import Footer from "../../../components/Footer";
 import DeleteGameButton from "../../../components/DeleteGameButton";
-import GET_GAME from "../../../graphql/games/getGame";
+import GAME from "../../../graphql/games/game";
 import WaitingScreen from "../../../components/WaitingScreen";
 
 const getPoints = (number) => {
@@ -23,7 +23,7 @@ const getPoints = (number) => {
 function PlaylistPage() {
   const router = useRouter();
   const { id } = router.query;
-  const { data, loading, error } = useQuery(GET_GAME, { variables: { id } });
+  const { data, loading, error } = useQuery(GAME, { variables: { id } });
 
   if (loading) {
     return <WaitingScreen />;

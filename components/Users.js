@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useQuery } from "@apollo/client";
-import GET_USERS from "../graphql/users/getUsers";
+import USERS from "../graphql/users/users";
 
 function User({ id, avatar, username }) {
   return (
@@ -25,11 +25,11 @@ function User({ id, avatar, username }) {
 }
 
 function Users() {
-  const { data, loading, error } = useQuery(GET_USERS);
+  const { data, loading, error } = useQuery(USERS);
 
   return (
     <div className="bg-hero-endless-clouds max-w-7xl mx-auto grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6 gap-4 p-4 grid bg-gray-700 rounded-lg border-b-4 border-pink-500">
-      {error && <p>Error...</p>}
+      {error && <p className="text-white col-start-1 col-end-7">{JSON.stringify(error)}</p>}
       {loading && <h2 className="text-white">Loading...</h2>}
       {data?.users.map(({ _id, avatar, username }) => (
         <User

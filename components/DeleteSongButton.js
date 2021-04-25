@@ -4,12 +4,12 @@ import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
 import { XIcon } from "@heroicons/react/solid";
 import { useSnackbar } from "notistack";
-import DELETE_SONG from "../graphql/songs/deleteSong";
+import DELETE_TRACK from "../graphql/tracks/deleteTrack";
 
 function DeleteSongButton({ id, label }) {
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
-  const [deleteSong] = useMutation(DELETE_SONG, {
+  const [deleteSong] = useMutation(DELETE_TRACK, {
     onCompleted: () => {
       router.back();
       enqueueSnackbar("Good", {

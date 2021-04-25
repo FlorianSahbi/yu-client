@@ -60,9 +60,9 @@ function Nav() {
                 <NavButton label="accueil" href="/" />
                 <NavButton label="what is Yu ?" href="/" />
                 <NavButton label="themes" href="/tags" />
-                <NavButton label="new submission" href="/songs/submit" />
-                <NavButton label="Pending songs" href="/songs/pending" />
-                <NavButton label="songs" href="/songs" />
+                <NavButton label="new submission" href="/tracks/submit" />
+                <NavButton label="Pending tracks" href="/tracks/pending" />
+                <NavButton label="tracks" href="/tracks" />
                 <div className="mr-2 cursor-pointer text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-lg text-sm font-medium">
                   <select
                     onChange={changeLanguage}
@@ -109,15 +109,15 @@ function Nav() {
             <NavButton label="accueil" href="/" />
             <NavButton label="what is Yu ?" href="/" />
             <NavButton label="themes" href="/tags" />
-            <NavButton label="new submission" href="/songs/submit" />
-            <NavButton label="Pending songs" href="/songs/pending" />
-            <NavButton label="songs" href="/songs" />
+            <NavButton label="new submission" href="/tracks/submit" />
+            <NavButton label="Pending tracks" href="/tracks/pending" />
+            <NavButton label="tracks" href="/tracks" />
             {/* <Link href="/">
               <div href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-lg text-base font-medium">
                 {t.nav.home}
               </div>
             </Link>
-            <Link href="/songs">
+            <Link href="/tracks">
               <div href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-lg text-base font-medium">
                 {t.nav.musics}
               </div>
