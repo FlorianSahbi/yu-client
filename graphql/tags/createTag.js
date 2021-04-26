@@ -4,20 +4,8 @@ import {
 } from "../fragments";
 
 const CREATE_TAG = gql`
-  mutation CreateTag(
-    $name: String
-    $thumbnail: String
-    $tracks: [ID]
-    $creator: ID
-  ) {
-    createTag(
-      tagInput: {
-        name: $name
-        thumbnail: $thumbnail
-        tracks: $tracks
-        creator: $creator
-      }
-    ) {
+  mutation CreateTag($tagInput: tagInput) {
+    createTag(tagInput: $tagInput) {
       ...CoreTagFields
       tracks {
         ...CoreTrackFields

@@ -1,131 +1,104 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/router";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import YouTube from "react-youtube";
-import { useSnackbar } from "notistack";
-import Footer from "../../../components/Footer";
-import Nav from "../../../components/Nav";
+import Layout from "../../../layout/Layout";
 import TRACK from "../../../graphql/tracks/track";
-import ACCEPT_TRACK from "../../../graphql/tracks/acceptTrack";
-import WaitingScreen from "../../../components/WaitingScreen";
+import Title from "../../../components/Title";
 
-function SongPage() {
+function TrackPage() {
   const router = useRouter();
-  const { enqueueSnackbar } = useSnackbar();
   const { id } = router.query;
-  const { data, loading, error } = useQuery(TRACK, { variables: { id } });
-  const [, setIsAccepted] = useState(data?.track?.isAccepted);
-  const [acceptTrackMutation] = useMutation(ACCEPT_TRACK, {
-    onCompleted: () => {
-      enqueueSnackbar("Good", {
-        variant: "success",
-      });
-      router.back();
-    },
-    onError: () => enqueueSnackbar("Bad", {
-      variant: "error",
-    }),
-  });
+  const [showThumbnail, setShowThumbnail] = useState(true);
+  const { data } = useQuery(TRACK, { variables: { id } });
 
-  function handleClick() {
-    acceptTrackMutation({ variables: { id } });
-    setIsAccepted(true);
+  const inputEl = useRef(null);
+
+  function handleThumbnailClick() {
+    if (showThumbnail === true) {
+      setTimeout(() => {
+        setShowThumbnail(false);
+      }, 500);
+      const upVol = setInterval(async () => {
+        inputEl.current.internalPlayer.setVolume(await inputEl.current.internalPlayer.getVolume() + 10);
+      }, 100);
+      setTimeout(() => {
+        clearInterval(upVol);
+      }, 1100);
+      inputEl.current.internalPlayer.playVideo();
+    }
+    if (showThumbnail === false) {
+      setShowThumbnail(true);
+      const lowVol = setInterval(async () => {
+        inputEl.current.internalPlayer.setVolume(await inputEl.current.internalPlayer.getVolume() - 10);
+      }, 100);
+      setTimeout(() => {
+        clearInterval(lowVol);
+      }, 1100);
+      setTimeout(() => {
+        inputEl.current.internalPlayer.pauseVideo();
+      }, 1000);
+    }
   }
 
-  if (loading) {
-    return <WaitingScreen />;
-  }
-
-  if (error) {
-    return null;
-  }
-
-  if (data) {
-    return (
-      <>
-        <Nav />
-        <div className="bg-hero-endless-clouds bg-gray-900 w-full p-4">
-          <div className="max-w-7xl mx-auto space-y-4">
-
-            {/* Block Top */}
-            <div className="bg-hero-endless-clouds grid bg-gray-700 grid-flow-row auto-rows-min p-4 gap-4 grid-col-1 rounded-lg">
-              <div className="row-start-1 row-end-2 flex items-center justify-between">
-                <p className="text-white text-xs opacity-70">
-                  {/* <Link href={data?.track?.videoUrl} passHref target="blank_">
-                    <a target="_blank">
-                      {data?.track?.title}
-                    </a>
-                  </Link> */}
-                </p>
-                {data?.track?.isAccepted
-                  ? (
-                    <div className="text-white text-xs text-center w-20 rounded-lg px-2 py-2 transition-all transform border text-pink border-pink-500">
-                      Accepted
-                    </div>
-                  )
-                  : (
-                    <div onClick={handleClick} className="text-white w-20 text-center text-xs bg-pink-500 rounded-lg px-2 py-2 cursor-pointer transition-all transform bg-gradient-to-b border border-pink-500 from-pink-500 to-pink-500 hover:from-pink-500 hover:to-pink-600">
-                      Accept
-                    </div>
-                  ) }
-              </div>
-            </div>
-
-            {/* Block Mid */}
-            <div className="bg-hero-endless-clouds bg-gray-700 p-4 gap-4 rounded-lg grid-cols-12 grid grid-flow-row auto-rows-min">
-              {/* -- Title -- */}
-              <div className="row-start-1 row-end-2 col-start-1 col-end-13 flex items-center">
-                <p className="text-gray-300">
-                  {data?.track?.title}
-                </p>
-              </div>
-
-              {/* -- Preview -- */}
-              <div className="row-start-2 row-end-3 col-start-1 col-end-13">
-                <YouTube
-                  videoId={data?.track?.videoId}
-                  className="w-full"
-                  containerClassName="w-full rounded-lg overflow-hidden"
-                  onReady={(event) => event.target.playVideo()}
-                />
-              </div>
-
-              {/* User */}
-              <div className="row-start-3 row-end-4 col-start-1 col-end-13 text-gray-300 text-xs flex justify-between">
-                <p>
-                  {`Added by : ${data?.track?.creator?.username}`}
-                </p>
-                <p className="capitalize">
-                  {`Tags : ${data?.track?.tags.map((a) => a.name)}`}
-                </p>
-              </div>
-            </div>
-
-            {/* Block Bot */}
-            <div className="bg-hero-endless-clouds bg-gray-700 p-4 gap-4 rounded-lg grid-cols-12 grid grid-flow-row auto-rows-min">
-              {/* -- Cover -- */}
+  return (
+    <Layout>
+      <div className="grid gap-4 p-4 grid-cols-12 max-w-7xl mx-auto">
+        <div className="row-start-1 row-end-2 col-start-1 col-end-13">
+          <div className="p-4 rounded-lg border-b border-pink-500 bg-gray-700 bg-hero-endless-clouds">
+            <Title title="Track" />
+          </div>
+        </div>
+        <div className="row-start-2 row-end-3 col-start-1 col-end-13">
+          <div className="rounded-lg border-b border-pink-500 bg-gray-700 bg-hero-endless-clouds">
+            <div className="grid gap-4 p-4 grid-cols-12">
               <div className="row-start-1 row-end-2 col-start-1 col-end-13">
-                <div className="rounded-lg overflow-hidden">
-                  <img src={data?.track?.thumbnail} alt="mol" />
+                <div className="text-gray-300 row-start-1 row-end-2 col-start-1 col-end-13 flex justify-between items-center px-2">
+                  <p>
+                    {data?.track?.title}
+                  </p>
+                  <p className="text-xs">
+                    {`Added by : ${data?.track?.creator?.username}`}
+                  </p>
                 </div>
               </div>
-              {/* User */}
-              <div className="row-start-2 row-end-3 col-start-1 col-end-13 text-gray-300 text-xs flex justify-between">
-                <p className="capitalize">
-                  {`Answers : ${data?.track?.answers?.map((a) => a)}`}
-                </p>
+              <div className="row-start-2 row-end-3 col-start-1 col-end-13">
+                <div className="rounded-lg overflow-hidden relative">
+                  <YouTube
+                    videoId={data?.track?.videoId}
+                    ref={inputEl}
+                    className="w-full h-96 relative z-10"
+                    containerClassName="w-full rounded-lg overflow-hidden relative z-10"
+                    opts={{ playerVars: { modestbranding: 1, rel: 0, showinfo: 0 } }}
+                  />
+                  <img
+                    src={data?.track?.thumbnail}
+                    onClick={handleThumbnailClick}
+                    className={`${showThumbnail ? "opacity-100 " : "opacity-0 "}top-0 z-20 bg-black transition-opacity duration-1000 ease-in-out absolute h-96 w-full object-contain object-center`}
+                    alt="mol"
+                  />
+                </div>
+              </div>
+              <div className="row-start-3 row-end-4 col-start-1 col-end-13">
+                <div className="row-start-3 row-end-4 col-start-1 col-end-13 text-gray-300 text-xs flex justify-between px-2">
+                  <p className="capitalize">
+                    {`Answers : ${data?.track?.answers?.map((a) => a)}`}
+                  </p>
+                  <p className="capitalize">
+                    {`Tags : ${data?.track?.tags.map((a) => a.name)}`}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <Footer />
-      </>
-    );
-  }
-  return <></>;
+      </div>
+    </Layout>
+  );
 }
 
-export default SongPage;
+export default TrackPage;

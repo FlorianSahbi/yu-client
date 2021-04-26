@@ -5,12 +5,10 @@ import {
 
 const CREATE_CUSTOM_PLAYLIST = gql`
   mutation CreateCustomPlaylist(
-    $userId: ID
     $tagInput: tagInput
     $trackInputs: [trackInput]
   ) {
     createCustomPlaylist(
-      userId: $userId
       tagInput: $tagInput
       trackInputs: $trackInputs
     ) {

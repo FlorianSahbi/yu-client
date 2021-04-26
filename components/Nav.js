@@ -1,18 +1,6 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
-// import en from "../locales/en";
-// import fr from "../locales/fr";
 
 function Nav() {
-  const router = useRouter();
-  const { locale } = router;
-  // const t = locale === "en" ? en : fr;
-
-  function changeLanguage(e) {
-    const selectedLocale = e.target.value;
-    router.push("/", "/", { locale: selectedLocale });
-  }
-
   function NavButton({ label, href, disabled }) {
     if (disabled) {
       return (
@@ -34,7 +22,7 @@ function Nav() {
   }
 
   return (
-    <nav className="w-full bg-gray-900 bg-hero-endless-clouds">
+    <nav className="w-full">
       <div className="max-w-7xl mx-auto border-b-4 border-pink-500">
         <div className="relative flex items-center justify-between h-16">
 
@@ -53,26 +41,14 @@ function Nav() {
           <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <div className="hidden sm:block">
               <div className="flex">
-                {/* <NavButton label={t.nav.home} href="/" />
-                <NavButton label={t.nav.musics} href="/songs" />
-                <NavButton label={t.nav.playlists} href="/playlists" />
-                <NavButton label={t.nav.community} href="/users" /> */}
-                <NavButton label="accueil" href="/" />
-                <NavButton label="what is Yu ?" href="/" />
-                <NavButton label="themes" href="/tags" />
-                <NavButton label="new submission" href="/tracks/submit" />
-                <NavButton label="Pending tracks" href="/tracks/pending" />
+                <NavButton label="home" href="/" />
                 <NavButton label="tracks" href="/tracks" />
-                <div className="mr-2 cursor-pointer text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-lg text-sm font-medium">
-                  <select
-                    onChange={changeLanguage}
-                    defaultValue={locale}
-                    className="bg-transparent outline-none"
-                  >
-                    <option value="fr">FR</option>
-                    <option value="en">EN</option>
-                  </select>
-                </div>
+                <NavButton label="track add" href="/tracks/create" />
+                <NavButton label="tags" href="/tags" />
+                <NavButton label="tag add" href="/tags/create" />
+                <NavButton label="users" href="/users" />
+                <NavButton label="user add" href="/users/create" />
+                {/* <NavButton label="games" href="/games" /> */}
               </div>
             </div>
           </div>
@@ -88,17 +64,8 @@ function Nav() {
                   aria-haspopup="true"
                 >
                   <span className="sr-only">Open user menu</span>
-                  {/* <UserCircleIcon className="h-9 w-9 text-gray-300" /> */}
-                  {/* <img className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" /> */}
                 </button>
               </div>
-
-              {/* NAV BAR MENU */}
-              {/* <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-              <div href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</div>
-              <div href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</div>
-              <div href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</div>
-            </div> */}
             </div>
           </div>
         </div>
@@ -106,27 +73,14 @@ function Nav() {
         {/* BURGER MENU */}
         <div className="sm:hidden" id="mobile-menu">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            <NavButton label="accueil" href="/" />
-            <NavButton label="what is Yu ?" href="/" />
-            <NavButton label="themes" href="/tags" />
-            <NavButton label="new submission" href="/tracks/submit" />
-            <NavButton label="Pending tracks" href="/tracks/pending" />
+            <NavButton label="home" href="/" />
             <NavButton label="tracks" href="/tracks" />
-            {/* <Link href="/">
-              <div href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-lg text-base font-medium">
-                {t.nav.home}
-              </div>
-            </Link>
-            <Link href="/tracks">
-              <div href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-lg text-base font-medium">
-                {t.nav.musics}
-              </div>
-            </Link>
-            <Link href="/playlists">
-              <div href="#" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-lg text-base font-medium">
-                {t.nav.playlists}
-              </div>
-            </Link> */}
+            <NavButton label="track add" href="/tracks/create" />
+            <NavButton label="tags" href="/tags" />
+            <NavButton label="tag add" href="/tags/create" />
+            <NavButton label="users" href="/users" />
+            <NavButton label="user add" href="/users/create" />
+            {/* <NavButton label="games" href="/games" /> */}
           </div>
         </div>
       </div>

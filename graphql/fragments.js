@@ -37,7 +37,7 @@ export const CORE_USER_FIELDS = gql`
     username
     avatar
     discordId
-    gamesCpt
+    playCount
     createdAt
     updatedAt
   }

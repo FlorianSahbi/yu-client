@@ -1,48 +1,53 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
-import Users from "../components/Users";
-import Nav from "../components/Nav";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import Tracks from "../components/Tracks";
-import Games from "../components/Games";
+import Layout from "../layout/Layout";
 import Title from "../components/Title";
-import Tags from "../components/Tags";
-import en from "../locales/en";
-import fr from "../locales/fr";
+import Tracks from "../components/display/Tracks";
+import Tags from "../components/display/Tags";
+import Users from "../components/display/Users";
+// import Games from "../components/display/Games";
 
 export default function Home() {
-  const router = useRouter();
-  const { locale } = router;
-  const t = locale === "en" ? en : fr;
   return (
     <>
       <Head>
         <title>Yu's blind test manager</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Layout>
+        <div className="grid gap-4 p-4 grid-cols-12 max-w-7xl mx-auto">
+          <div className="row-start-1 row-end-2 col-start-1 col-end-13">
+            <Title title="Tracks" />
+          </div>
 
-      <Nav />
-      <div className="bg-gray-900 bg-hero-endless-clouds p-4">
-        <Header title={t.title} />
-        <div className="my-4">
-          <Title title="Games" />
+          <div className="row-start-2 row-end-3 col-start-1 col-end-13">
+            <Tracks />
+          </div>
+
+          <div className="row-start-3 row-end-4 col-start-1 col-end-13">
+            <Title title="Tags" />
+          </div>
+
+          <div className="row-start-4 row-end-5 col-start-1 col-end-13">
+            <Tags />
+          </div>
+
+          <div className="row-start-5 row-end-6 col-start-1 col-end-13">
+            <Title title="Users" />
+          </div>
+
+          <div className="row-start-6 row-end-7 col-start-1 col-end-13">
+            <Users />
+          </div>
+
+          {/* <div className="row-start-7 row-end-8 col-start-1 col-end-13">
+            <Title title="Games" />
+          </div>
+
+          <div className="row-start-8 row-end-9 col-start-1 col-end-13">
+            <Games />
+          </div> */}
         </div>
-        <Games />
-        <div className="my-4">
-          <Title title="Themes" />
-        </div>
-        <Tags />
-        <div className="my-4">
-          <Title title="Tracks" />
-        </div>
-        <Tracks />
-        <div className="my-4">
-          <Title title="Users" />
-        </div>
-        <Users />
-      </div>
-      <Footer />
+      </Layout>
     </>
   );
 }

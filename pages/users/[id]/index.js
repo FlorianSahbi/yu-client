@@ -1,36 +1,57 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable no-undef */
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
-import Nav from "../../../components/Nav";
-import Footer from "../../../components/Footer";
 import USER from "../../../graphql/users/user";
-import WaitingScreen from "../../../components/WaitingScreen";
+import Layout from "../../../layout/Layout";
+import Title from "../../../components/Title";
 
 function UserPage() {
   const router = useRouter();
   const { id } = router.query;
-  const { data, loading, error } = useQuery(USER, { variables: { id } });
+  const { data } = useQuery(USER, { variables: { id } });
 
-  if (loading) {
-    return <WaitingScreen />;
-  }
-
-  if (error) {
-    return null;
-  }
-
-  if (data) {
-    return (
-      <div className="bg-gray-900 bg-hero-endless-clouds">
-        <Nav />
-        <div className="flex justify-center">
-          <main className="inline-block p-4 bg-gray-700 rounded-lg border-b-4 border-pink-500">
-            <img src={data?.user?.avatar} alt="fe" />
-          </main>
+  return (
+    <Layout>
+      <div className="grid gap-4 p-4 grid-cols-12 max-w-7xl mx-auto">
+        <div className="row-start-1 row-end-2 col-start-1 col-end-13">
+          <div className="p-4 rounded-lg border-b border-pink-500 bg-gray-700 bg-hero-endless-clouds">
+            <Title title="User" />
+          </div>
         </div>
-        <Footer />
+        <div className="row-start-2 row-end-3 col-start-1 col-end-13">
+          <div className="rounded-lg border-b border-pink-500 bg-gray-700 bg-hero-endless-clouds">
+            <div className="grid gap-4 p-4 grid-cols-12">
+              <div className="row-start-1 row-end-2 col-start-1 col-end-13">
+                <div className="text-gray-300 row-start-1 row-end-2 col-start-1 col-end-13 flex justify-between items-center px-2">
+                  <p>
+                    {data?.user?.username}
+                  </p>
+                </div>
+              </div>
+              <div className="row-start-2 row-end-3 col-start-1 col-end-13">
+                <div className="rounded-lg overflow-hidden">
+                  <img
+                    src={data?.user?.avatar}
+                    className="top-0 z-20 bg-black h-96 w-full object-contain object-center"
+                    alt="mol"
+                  />
+                </div>
+              </div>
+              <div className="row-start-3 row-end-4 col-start-1 col-end-13">
+                <div className="row-start-3 row-end-4 col-start-1 col-end-13 text-gray-300 text-xs flex justify-between px-2">
+                  <p className="capitalize">
+                    {`Discord ID : ${data?.user?.discordId}`}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    );
-  }
+    </Layout>
+  );
 }
 
 export default UserPage;

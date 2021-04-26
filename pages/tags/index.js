@@ -1,30 +1,22 @@
-import Link from "next/link";
-import Tags from "../../components/Tags";
-import Nav from "../../components/Nav";
+import Layout from "../../layout/Layout";
 import Title from "../../components/Title";
-import Footer from "../../components/Footer";
+import Button from "../../components/Button";
+import Tags from "../../components/display/Tags";
 
 function UsersPage() {
   return (
-    <>
-      <Nav />
-      <div className="bg-gray-900 bg-hero-endless-clouds p-4 min-h-screen">
-        <div className="mb-4 max-w-7xl mx-auto grid-col-2 grid">
-          <div className="col-start-1 col-end-2">
-            <Title back title="Themes" />
-          </div>
-          <div className="col-start-2 col-end-3">
-            <Link href="/tags/create">
-              <p className="text-lg cursor-pointer text-white w-full text-right">
-                Ajouter
-              </p>
-            </Link>
-          </div>
+    <Layout>
+      <div className="grid gap-4 p-4 grid-cols-12 max-w-7xl mx-auto">
+        <div className="row-start-1 row-end-2 col-start-1 col-end-13 flex justify-between items-center">
+          <Title title="Tags" back />
+          <Button value="Add tag" href="/tags/create" />
         </div>
-        <Tags />
+
+        <div className="row-start-2 row-end-3 col-start-1 col-end-13">
+          <Tags />
+        </div>
       </div>
-      <Footer />
-    </>
+    </Layout>
   );
 }
 

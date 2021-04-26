@@ -5,23 +5,11 @@ import CREATE_USER from "../graphql/users/createUser";
 
 function CreateUser() {
   const { enqueueSnackbar } = useSnackbar();
-  const {
-    register, handleSubmit, formState: { errors },
-  } = useForm({
-    defaultValues: {
-      username: "",
-      avatar: "",
-      discordId: "",
-    },
-  });
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   const [createUser] = useMutation(CREATE_USER, {
-    onCompleted: () => enqueueSnackbar("Good", {
-      variant: "success",
-    }),
-    onError: () => enqueueSnackbar("Bad", {
-      variant: "error",
-    }),
+    onCompleted: () => enqueueSnackbar("Good", { variant: "success" }),
+    onError: () => enqueueSnackbar("Bad", { variant: "error" }),
   });
 
   const onSubmit = (data) => createUser({ variables: { ...data } });
@@ -57,7 +45,10 @@ function CreateUser() {
           {...register("discordId", { required: true })}
         />
 
-        <input type="submit" className="text-white w-full mb-4 rounded-lg bg-pink-500 h-9" />
+        <input
+          type="submit"
+          className="text-white w-full rounded-lg bg-pink-500 h-9"
+        />
       </form>
     </div>
   );
