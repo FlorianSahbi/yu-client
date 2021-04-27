@@ -225,7 +225,7 @@ function CreateTag() {
         variant: "success",
       });
 
-      const defaultValues = data.youtubeData.map((track) => ({
+      const defaultValues = data?.youtubeData.map((track) => ({
         edit: false,
         answers: track?.keywords?.map((keyword) => ({ keyword })),
         thumbnail: track?.thumbnails[track.thumbnails.length - 1]?.url,
@@ -244,12 +244,12 @@ function CreateTag() {
   const format = (data) => {
     const formattedData = {
       tagInput: {
-        name: data.name,
-        thumbnail: data.cover,
-        creator: data.creator,
+        name: data?.name,
+        thumbnail: data?.cover,
+        creator: data?.creator,
         tracks: [],
       },
-      trackInputs: data.tracks.map(({
+      trackInputs: data?.tracks.map(({
         edit, __typename, thumbnails, answers, ...rest
       }) => ({ ...rest, creator: data.creator, answers: answers.reduce((acc, val) => [...acc, val.keyword], []) })),
     };

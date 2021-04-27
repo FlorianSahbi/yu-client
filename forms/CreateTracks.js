@@ -7,7 +7,7 @@ import { useSnackbar } from "notistack";
 import CREATE_TRACKS from "../graphql/tracks/createTracks";
 import FetchYoutubeData from "./FetchYoutubeData";
 
-const NestedArray = ({
+const Answers = ({
   nestIndex, control, register, watch,
 }) => {
   const { fields, remove, append } = useFieldArray({
@@ -61,7 +61,7 @@ const NestedArray = ({
   );
 };
 
-function Fields({
+function TrackFields({
   control, register, setValue, watch,
 }) {
   const { fields } = useFieldArray({
@@ -139,7 +139,7 @@ function Fields({
           </div>
 
           <div className="col-start-1 col-end-3 row-start-3 row-end-4">
-            <NestedArray nestIndex={index} {...{ control, register, watch }} />
+            <Answers nestIndex={index} {...{ control, register, watch }} />
           </div>
         </div>
       ))}
@@ -189,7 +189,7 @@ function CreateTracks() {
         className="bg-hero-endless-clouds max-w-7xl mx-auto p-4 bg-gray-700 rounded-lg border-b-4 border-pink-500"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <Fields
+        <TrackFields
           {...{
             control, register, getValues, setValue, errors, watch,
           }}

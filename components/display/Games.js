@@ -10,7 +10,7 @@ function Games() {
     <Block>
       {error && <p className="text-white col-start-1 col-end-7">{JSON.stringify(error)}</p>}
       {loading && <Card loading={loading} />}
-      {!loading && data.games.map(({ _id, thumbnail, name }) => (
+      {!loading && data?.games.map(({ _id, thumbnail, name }) => (
         <Card
           id={_id}
           title={name}

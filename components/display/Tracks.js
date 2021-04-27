@@ -12,7 +12,7 @@ function Tracks({ pending }) {
     <Block>
       {error && <p className="text-white col-start-1 col-end-7">{JSON.stringify(error)}</p>}
       {loading && <Card loading />}
-      {!loading && data.tracks.filter(filter).map(({ _id, thumbnail, title }) => (
+      {!loading && data?.tracks.filter(filter).map(({ _id, thumbnail, title }) => (
         <Card
           id={_id}
           title={title}
