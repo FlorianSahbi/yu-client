@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <ApolloProvider client={client}>
       <SnackbarProvider
-        maxSnack={3}
+        maxSnack={2}
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "right",
