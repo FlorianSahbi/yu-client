@@ -48,7 +48,7 @@ function DiscordLoginButton() {
     <div className="rounded-full bg-black text-white flex items-center py-2 px-3 text-sm space-x-1">
       <DiscordLogo />
       <a
-        href={`https://discord.com/api/oauth2/authorize?client_id=${process.env.NEXT_PUBLIC_CLIENT_ID}&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fprocess&response_type=code&scope=identify`}
+        href={process.env.NEXT_PUBLIC_CALLBACK_AUTH}
       >
         Login with Discord
       </a>
