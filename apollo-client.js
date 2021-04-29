@@ -2,9 +2,12 @@ import { ApolloClient, createHttpLink, gql } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { cache } from "./cache";
 
-const httpLink = createHttpLink({
-  uri: process.env.NEXT_PUBLIC_APOLLO_URI,
-});
+console.log(process.env.NEXT_PUBLIC_APOLLO_URI);
+console.log(typeof process.env.NEXT_PUBLIC_APOLLO_URI);
+
+const uri = { uri: process.env.NEXT_PUBLIC_APOLLO_URI };
+
+const httpLink = createHttpLink(uri);
 
 const authLink = setContext((_, { headers }) => {
   const token = JSON.parse(localStorage.getItem("YuToken"));
