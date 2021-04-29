@@ -4,6 +4,8 @@ import { cache } from "./cache";
 
 console.log(process.env.NEXT_PUBLIC_APOLLO_URI);
 console.log(typeof process.env.NEXT_PUBLIC_APOLLO_URI);
+console.log(process.env.NEXT_PUBLIC_CLIENT_ID);
+console.log(typeof process.env.NEXT_PUBLIC_CLIENT_ID);
 
 const uri = { uri: process.env.NEXT_PUBLIC_APOLLO_URI };
 
