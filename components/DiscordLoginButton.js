@@ -44,6 +44,9 @@ function DiscordLoginButton() {
     );
   }
 
+  console.log(process.env.NEXT_PUBLIC_CLIENT_ID);
+  console.log(typeof process.env.NEXT_PUBLIC_CLIENT_ID);
+
   return (
     <div className="rounded-full bg-black text-white flex items-center py-2 px-3 text-sm space-x-1">
       <DiscordLogo />
