@@ -13,11 +13,13 @@ function SafeHydrate({ children }) {
   );
 }
 
+console.log(process.env.NEXT_PUBLIC_APOLLO_URI);
+
 function MyApp({ Component, pageProps }) {
   return (
     <ApolloProvider client={client}>
       <SnackbarProvider
-        maxSnack={2}
+        maxSnack={3}
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "right",
