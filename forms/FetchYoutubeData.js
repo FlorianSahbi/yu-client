@@ -6,7 +6,7 @@ import YOUTUBE_DATA from "../graphql/youtube/youtubeData";
 function FetchYoutubeData({ YoutubeData }) {
   const { enqueueSnackbar } = useSnackbar();
 
-  const [fetchYoutubeData] = useLazyQuery(YOUTUBE_DATA, {
+  const [fetchYoutubeData, { loading }] = useLazyQuery(YOUTUBE_DATA, {
     onError: () => enqueueSnackbar("Bad", { variant: "error" }),
     onCompleted: ({ youtubeData }) => {
       enqueueSnackbar("Good", { variant: "success" });
@@ -23,7 +23,9 @@ function FetchYoutubeData({ YoutubeData }) {
 
   });
 
-  const { register, control, handleSubmit } = useForm({ defaultValues: { youtubeUrls: [""] } });
+  const {
+    register, control, handleSubmit, formState: { errors, isValid },
+  } = useForm({ mode: "onChange", defaultValues: { youtubeUrls: [""] } });
 
   const { fields, append, remove } = useFieldArray({ control, name: "youtubeUrls" });
 
@@ -36,31 +38,37 @@ function FetchYoutubeData({ YoutubeData }) {
         <p className="text-white text-xs opacity-70">Urls</p>
         {fields.map((field, index) => (
           <div key={field.id} className="grid grid-cols-2 gap-4 mb-4">
-            <input
-              {...register(`youtubeUrls.${index}`)}
-              placeholder={`Url #${index}`}
-              className="border-2 border-pink-500 p-1 rounded-lg"
-            />
-            <input
-              type="button"
-              value="Supprimer"
-              className="rounded-lg text-white h-9 bg-pink-500"
-              onClick={() => remove(index)}
-            />
+            <div className="flex flex-col">
+              <input
+                {...register(`youtubeUrls.${index}`, { required: true })}
+                placeholder={`#${index + 1} : https://www.youtube.com/watch?v=[VIDEO_ID]`}
+                className="border-2 border-pink-500 p-1 rounded-lg"
+              />
+              {errors.youtubeUrls && <p className="text-red-600 text-xs">An URL is required</p>}
+            </div>
+            {fields.length > 1 && (
+              <input
+                type="button"
+                value="Supprimer"
+                className="rounded-lg text-white h-9 bg-pink-500"
+                onClick={() => remove(index)}
+              />
+            )}
           </div>
         ))}
 
         <input
           type="button"
           value="Add url"
-          className="text-white w-full rounded-lg bg-pink-500 mb-4  h-9"
+          className="text-white w-full rounded-lg bg-pink-500 mb-4 h-9 cursor-pointer hover:bg-pink-600"
           onClick={() => append("")}
         />
 
         <input
           type="submit"
-          value="Submit"
-          className="text-white w-full rounded-lg bg-pink-500 h-9"
+          disabled={!isValid}
+          value={`${!loading ? "Fetch video data" : "Fetching..."}`}
+          className={`${isValid && !loading ? "bg-pink-500 hover:bg-pink-600 " : "bg-pink-500 opacity-50 cursor-not-allowed "}text-white cursor-pointer w-full rounded-lg h-9`}
         />
       </form>
     </div>

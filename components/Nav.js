@@ -1,4 +1,5 @@
 import Link from "next/link";
+import DiscordLoginButton from "./DiscordLoginButton";
 
 function Nav() {
   function NavButton({ label, href, disabled }) {
@@ -39,15 +40,18 @@ function Nav() {
           </div>
 
           <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="hidden sm:block">
-              <div className="flex">
-                <NavButton label="home" href="/" />
-                <NavButton label="tracks" href="/tracks" />
-                <NavButton label="track add" href="/tracks/create" />
-                <NavButton label="tags" href="/tags" />
-                <NavButton label="tag add" href="/tags/create" />
-                <NavButton label="users" href="/users" />
-                <NavButton label="user add" href="/users/create" />
+            <div className="hidden sm:block w-full">
+              <div className="flex justify-between w-full">
+                <div className="flex">
+                  <NavButton label="home" href="/" />
+                  <NavButton label="tracks" href="/tracks" />
+                  <NavButton label="track add" href="/tracks/create" />
+                  <NavButton label="tags" href="/tags" />
+                  <NavButton label="tag add" href="/tags/create" />
+                  <NavButton label="users" href="/users" />
+                  <NavButton label="user add" href="/users/create" />
+                </div>
+                <DiscordLoginButton />
                 {/* <NavButton label="games" href="/games" /> */}
               </div>
             </div>

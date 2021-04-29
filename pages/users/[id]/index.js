@@ -33,7 +33,7 @@ function UserPage() {
               <div className="row-start-2 row-end-3 col-start-1 col-end-13">
                 <div className="rounded-lg overflow-hidden">
                   <img
-                    src={data?.user?.avatar}
+                    src={`https://cdn.discordapp.com/avatars/${data?.user?.discordData?.id}/${data?.user?.discordData.avatar}.jpg`}
                     className="top-0 z-20 bg-black h-96 w-full object-contain object-center"
                     alt="mol"
                   />
@@ -42,7 +42,7 @@ function UserPage() {
               <div className="row-start-3 row-end-4 col-start-1 col-end-13">
                 <div className="row-start-3 row-end-4 col-start-1 col-end-13 text-gray-300 text-xs flex justify-between px-2">
                   <p className="capitalize">
-                    {`Discord ID : ${data?.user?.discordId}`}
+                    {`Discord ID : ${data?.user?.discordData?.id}`}
                   </p>
                 </div>
               </div>

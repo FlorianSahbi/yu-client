@@ -7,6 +7,10 @@ const CREATE_USER = gql`
       userInput: { username: $username, avatar: $avatar, discordId: $discordId }
     ) {
       ...CoreUserFields
+      discordData {
+        id
+        avatar
+      }
       tracks {
         ...CoreTrackFields
       }

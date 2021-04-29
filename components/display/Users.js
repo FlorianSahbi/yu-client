@@ -10,12 +10,12 @@ function Users() {
     <Block>
       {error && <p className="text-white col-start-1 col-end-7">{JSON.stringify(error)}</p>}
       {loading && <Card loading={loading} />}
-      {!loading && data?.users.map(({ _id, avatar, username }) => (
+      {!loading && data?.users.map(({ _id, username, discordData: { id, avatar } }) => (
         <Card
           id={_id}
           title={username}
           subtitle="users"
-          thumbnail={avatar}
+          thumbnail={`https://cdn.discordapp.com/avatars/${id}/${avatar}.jpg`}
           color="blue"
           loading={loading}
         />

@@ -5,6 +5,10 @@ const USERS = gql`
   query Users {
     users {
       ...CoreUserFields
+      discordData {
+        id
+        avatar
+      }
       tracks {
         ...CoreTrackFields
       }
