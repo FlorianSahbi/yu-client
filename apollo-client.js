@@ -2,13 +2,6 @@ import { ApolloClient, createHttpLink, gql } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { cache } from "./cache";
 
-console.log(process.env.NEXT_PUBLIC_APOLLO_URI);
-console.log(typeof process.env.NEXT_PUBLIC_APOLLO_URI);
-console.log(process.env.NEXT_PUBLIC_CLIENT_ID);
-console.log(typeof process.env.NEXT_PUBLIC_CLIENT_ID);
-console.log(process.env.NEXT_PUBLIC_CALLBACK_AUTH);
-console.log(typeof process.env.NEXT_PUBLIC_CALLBACK_AUTH);
-
 const uri = { uri: process.env.NEXT_PUBLIC_APOLLO_URI };
 
 const httpLink = createHttpLink(uri);
