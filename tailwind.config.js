@@ -8,6 +8,7 @@ module.exports = {
     "./forms/**/*.{js,ts,jsx,tsx}",
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./layout/**/*.{js,ts,jsx,tsx}",
+    "./**/**/*.{js,ts,jsx,tsx}",
   ],
   darkMode: false,
   theme: {
