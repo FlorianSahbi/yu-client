@@ -4,7 +4,9 @@ import Card from "../../layout/Card";
 import USERS from "../../graphql/users/users";
 
 function Users() {
-  const { data, loading, error } = useQuery(USERS);
+  const { data, loading, error } = useQuery(USERS, {
+    fetchPolicy: "network-only",
+  });
 
   return (
     <Block>

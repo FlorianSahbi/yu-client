@@ -4,7 +4,9 @@ import Card from "../../layout/Card";
 import TRACKS from "../../graphql/tracks/tracks";
 
 function Tracks({ pending }) {
-  const { data, loading, error } = useQuery(TRACKS);
+  const { data, loading, error } = useQuery(TRACKS, {
+    fetchPolicy: "network-only",
+  });
 
   const filter = pending ? ({ isAccepted }) => (!isAccepted) : ({ isAccepted }) => (isAccepted);
 

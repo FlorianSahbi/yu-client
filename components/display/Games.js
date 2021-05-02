@@ -4,7 +4,9 @@ import Card from "../../layout/Card";
 import GAMES from "../../graphql/games/games";
 
 function Games() {
-  const { data, loading, error } = useQuery(GAMES);
+  const { data, loading, error } = useQuery(GAMES, {
+    fetchPolicy: "network-only",
+  });
 
   return (
     <Block>

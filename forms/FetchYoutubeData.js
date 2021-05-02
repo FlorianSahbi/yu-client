@@ -13,7 +13,8 @@ function FetchYoutubeData({ YoutubeData }) {
 
       const defaultValues = youtubeData.map((track) => ({
         edit: false,
-        answers: track?.keywords?.map((keyword) => ({ keyword })),
+        answers: [{ keyword: "" }],
+        keywords: track?.keywords?.map((keyword) => ({ keyword })),
         thumbnail: track?.thumbnails[track.thumbnails.length - 1]?.url,
         ...track,
       }));

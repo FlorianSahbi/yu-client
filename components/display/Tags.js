@@ -4,7 +4,9 @@ import Card from "../../layout/Card";
 import TAGS from "../../graphql/tags/tags";
 
 function Tags() {
-  const { data, loading, error } = useQuery(TAGS);
+  const { data, loading, error } = useQuery(TAGS, {
+    fetchPolicy: "network-only",
+  });
 
   return (
     <Block>

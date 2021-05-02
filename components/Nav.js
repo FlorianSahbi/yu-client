@@ -50,6 +50,7 @@ function Nav() {
                   <NavButton label="tag add" href="/tags/create" />
                   <NavButton label="users" href="/users" />
                   <NavButton label="user add" href="/users/create" />
+                  <NavButton label="playlist add" href="/playlists/create" />
                 </div>
                 <DiscordLoginButton />
                 {/* <NavButton label="games" href="/games" /> */}
@@ -84,7 +85,8 @@ function Nav() {
             <NavButton label="tag add" href="/tags/create" />
             <NavButton label="users" href="/users" />
             <NavButton label="user add" href="/users/create" />
-            {/* <NavButton label="games" href="/games" /> */}
+            <NavButton label="playlist add" href="/playlists/create" />
+            <DiscordLoginButton />
           </div>
         </div>
       </div>

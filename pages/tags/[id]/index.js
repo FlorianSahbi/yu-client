@@ -6,6 +6,8 @@ import { useQuery } from "@apollo/client";
 import Layout from "../../../layout/Layout";
 import Title from "../../../components/Title";
 import TAG from "../../../graphql/tags/tag";
+import Card from "../../../layout/Card";
+import Block from "../../../layout/Block";
 
 function UserPage() {
   const router = useRouter();
@@ -50,6 +52,13 @@ function UserPage() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div className="row-start-3 row-end-4 col-start-1 col-end-13">
+          <div className="rounded-lg border-b border-pink-500 bg-gray-700 bg-hero-endless-clouds">
+            <Block>
+              {data?.tag?.tracks.map(({ _id, title, thumbnail }) => <Card id={_id} title={title} subtitle="track" thumbnail={thumbnail} />)}
+            </Block>
           </div>
         </div>
       </div>
