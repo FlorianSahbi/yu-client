@@ -19,7 +19,7 @@ function Tags() {
           id={_id}
           title={name}
           subtitle="games"
-          thumbnail={history[0].track.thumbnail}
+          thumbnail={history[0]?.track?.thumbnail}
           color="yellow"
         />
       ))}
