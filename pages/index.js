@@ -4,7 +4,7 @@ import Title from "../components/Title";
 import Tracks from "../components/display/Tracks";
 import Tags from "../components/display/Tags";
 import Users from "../components/display/Users";
-// import Games from "../components/display/Games";
+import Games from "../components/display/Games";
 
 export default function Home() {
   return (
@@ -39,13 +39,13 @@ export default function Home() {
             <Users />
           </div>
 
-          {/* <div className="row-start-7 row-end-8 col-start-1 col-end-13">
+          <div className="row-start-7 row-end-8 col-start-1 col-end-13">
             <Title title="Games" />
           </div>
 
           <div className="row-start-8 row-end-9 col-start-1 col-end-13">
             <Games />
-          </div> */}
+          </div>
         </div>
       </Layout>
     </>

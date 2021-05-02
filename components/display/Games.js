@@ -3,7 +3,7 @@ import Block from "../../layout/Block";
 import Card from "../../layout/Card";
 import GAMES from "../../graphql/games/games";
 
-function Games() {
+function Tags() {
   const { data, loading, error } = useQuery(GAMES, {
     fetchPolicy: "network-only",
   });
@@ -12,18 +12,19 @@ function Games() {
     <Block>
       {error && <p className="text-white col-start-1 col-end-7">{JSON.stringify(error)}</p>}
       {loading && <Card loading={loading} />}
-      {!loading && data?.games.map(({ _id, thumbnail, name }) => (
+      {!loading && data?.games.map(({
+        _id, name, thumbnail, history,
+      }) => (
         <Card
           id={_id}
           title={name}
           subtitle="games"
-          thumbnail={thumbnail}
-          color="red"
-          loading={loading}
+          thumbnail={history[0].track.thumbnail}
+          color="yellow"
         />
       ))}
     </Block>
   );
 }
 
-export default Games;
+export default Tags;
