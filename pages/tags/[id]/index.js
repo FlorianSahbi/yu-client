@@ -12,7 +12,7 @@ import Block from "../../../layout/Block";
 function UserPage() {
   const router = useRouter();
   const { id } = router.query;
-  const { data } = useQuery(TAG, { variables: { id } });
+  const { data } = useQuery(TAG, { fetchPolicy: "network-only", variables: { id } });
 
   return (
     <Layout>

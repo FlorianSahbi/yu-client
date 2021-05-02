@@ -10,7 +10,7 @@ import Title from "../../../components/Title";
 function UserPage() {
   const router = useRouter();
   const { id } = router.query;
-  const { data } = useQuery(USER, { variables: { id } });
+  const { data } = useQuery(USER, { fetchPolicy: "network-only", variables: { id } });
 
   return (
     <Layout>

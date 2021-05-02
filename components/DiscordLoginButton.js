@@ -26,7 +26,9 @@ function DiscordLogo() {
 }
 
 function DiscordLoginButton() {
-  const { data, loading } = useQuery(IS_LOGGED_IN);
+  const { data, loading } = useQuery(IS_LOGGED_IN, {
+    fetchPolicy: "network-only",
+  });
 
   if (loading) return <p>loading...</p>;
   if (!loading && data?.isLoggedIn) {

@@ -12,7 +12,7 @@ import GAME from "../../../graphql/games/game";
 function UserPage() {
   const router = useRouter();
   const { id } = router.query;
-  const { data } = useQuery(GAME, { variables: { id } });
+  const { data } = useQuery(GAME, { fetchPolicy: "network-only", variables: { id } });
 
   return (
     <Layout>

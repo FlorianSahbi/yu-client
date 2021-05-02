@@ -9,6 +9,7 @@ function ProcessPage() {
   console.log(code);
   if (code) {
     useQuery(AUTH, {
+      fetchPolicy: "network-only",
       variables: { code },
       onCompleted: (data) => {
         localStorage.setItem("YuToken", JSON.stringify(data.auth.token));

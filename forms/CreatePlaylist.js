@@ -131,6 +131,7 @@ function CreatePlaylist() {
   const [keywords, setKeywords] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
   useQuery(DISCORD_ID, {
+    fetchPolicy: "network-only",
     onCompleted: ({ currentUserId }) => {
       setValue("tagInput.creator", currentUserId);
       setValue("creator", currentUserId);

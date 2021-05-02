@@ -9,6 +9,7 @@ function CreateUser() {
   const { enqueueSnackbar } = useSnackbar();
 
   useQuery(DISCORD_ID, {
+    fetchPolicy: "network-only",
     onCompleted: ({ currentUserId }) => {
       setValue("tagInput.creator", currentUserId);
     },

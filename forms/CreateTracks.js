@@ -141,6 +141,7 @@ function TrackFields({
 function CreateTracks() {
   const { enqueueSnackbar } = useSnackbar();
   useQuery(DISCORD_ID, {
+    fetchPolicy: "network-only",
     onCompleted: ({ currentUserId }) => {
       setValue("creator", currentUserId);
     },

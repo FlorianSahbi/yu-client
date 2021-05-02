@@ -13,7 +13,7 @@ function Tags() {
       {error && <p className="text-white col-start-1 col-end-7">{JSON.stringify(error)}</p>}
       {loading && <Card loading={loading} />}
       {!loading && data?.games.map(({
-        _id, name, thumbnail, history,
+        _id, name, history,
       }) => (
         <Card
           id={_id}
