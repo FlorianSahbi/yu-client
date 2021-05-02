@@ -31,6 +31,21 @@ export const CORE_TAG_FIELDS = gql`
   }
 `;
 
+export const CORE_DISCORD_DATA_FIELDS = gql`
+  fragment CoreDiscordDataFields on DiscordUserPayload {
+    id
+    username
+    avatar
+    discriminator
+    public_flags
+    flags
+    locale
+    mfa_enabled
+    email
+    verified
+  }
+`;
+
 export const CORE_USER_FIELDS = gql`
   fragment CoreUserFields on User {
     _id
@@ -40,7 +55,11 @@ export const CORE_USER_FIELDS = gql`
     playCount
     createdAt
     updatedAt
+    discordData {
+      ...CoreDiscordDataFields
+    }
   }
+  ${CORE_DISCORD_DATA_FIELDS}
 `;
 
 export const CORE_GAME_FIELDS = gql`
@@ -54,23 +73,35 @@ export const CORE_GAME_FIELDS = gql`
   }
 `;
 
-export const CORE_ROUND_FIELDS = gql`
-  fragment CoreRoundFields on Round {
-    _id
-    position
-    createdAt
-    updatedAt 
-  }
-`;
-
 export const CORE_RANK_FIELDS = gql`
   fragment CoreRankFields on Rank {
     _id
     position
+    user {
+      ...CoreUserFields
+    }
     points
     createdAt
-    updatedAt 
+    updatedAt
   }
+  ${CORE_USER_FIELDS}
+`;
+
+export const CORE_ROUND_FIELDS = gql`
+  fragment CoreRoundFields on Round {
+    _id
+    position
+    track {
+      ...CoreTrackFields
+    }
+    ranks {
+      ...CoreRankFields
+    }
+    createdAt
+    updatedAt
+  }
+  ${CORE_TRACK_FIELDS}
+  ${CORE_RANK_FIELDS}
 `;
 
 export const CORE_LEADERBOARD_FIELDS = gql`

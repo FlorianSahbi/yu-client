@@ -4,6 +4,7 @@
 import { useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { useMutation, useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
 import YouTube from "react-youtube";
 import { useSnackbar } from "notistack";
 import DISCORD_ID from "../graphql/local/discordId";
@@ -126,6 +127,7 @@ function TrackFields({
 }
 
 function CreatePlaylist() {
+  const router = useRouter();
   const [keywords, setKeywords] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
   useQuery(DISCORD_ID, {
@@ -145,7 +147,10 @@ function CreatePlaylist() {
   };
 
   const [createPlaylist] = useMutation(CREATE_CUSTOM_PLAYLIST, {
-    onCompleted: () => enqueueSnackbar("Good", { variant: "success" }),
+    onCompleted: (truc) => {
+      router.push(`/tags/${truc.createCustomPlaylist._id}`);
+      enqueueSnackbar("Good", { variant: "success" });
+    },
     onError: () => enqueueSnackbar("Bad", { variant: "error" }),
   });
 

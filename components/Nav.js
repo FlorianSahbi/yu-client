@@ -44,13 +44,13 @@ function Nav() {
               <div className="flex justify-between w-full">
                 <div className="flex">
                   <NavButton label="home" href="/" />
-                  <NavButton label="tracks" href="/tracks" />
-                  <NavButton label="track add" href="/tracks/create" />
-                  <NavButton label="tags" href="/tags" />
-                  <NavButton label="tag add" href="/tags/create" />
-                  <NavButton label="users" href="/users" />
-                  <NavButton label="user add" href="/users/create" />
-                  <NavButton label="playlist add" href="/playlists/create" />
+                  {/* <NavButton label="tracks" href="/tracks" /> */}
+                  {/* <NavButton label="track add" href="/tracks/create" /> */}
+                  {/* <NavButton label="tags" href="/tags" /> */}
+                  {/* <NavButton label="tag add" href="/tags/create" /> */}
+                  {/* <NavButton label="users" href="/users" /> */}
+                  {/* <NavButton label="user add" href="/users/create" /> */}
+                  <NavButton label="create a playlist" href="/playlists/create" />
                 </div>
                 <DiscordLoginButton />
                 {/* <NavButton label="games" href="/games" /> */}
@@ -78,14 +78,14 @@ function Nav() {
         {/* BURGER MENU */}
         <div className="sm:hidden" id="mobile-menu">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            <NavButton label="home" href="/" />
+            {/* <NavButton label="home" href="/" />
             <NavButton label="tracks" href="/tracks" />
             <NavButton label="track add" href="/tracks/create" />
             <NavButton label="tags" href="/tags" />
             <NavButton label="tag add" href="/tags/create" />
             <NavButton label="users" href="/users" />
-            <NavButton label="user add" href="/users/create" />
-            <NavButton label="playlist add" href="/playlists/create" />
+            <NavButton label="user add" href="/users/create" /> */}
+            <NavButton label="create a playlist" href="/playlists/create" />
             <DiscordLoginButton />
           </div>
         </div>

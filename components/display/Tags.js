@@ -12,7 +12,9 @@ function Tags() {
     <Block>
       {error && <p className="text-white col-start-1 col-end-7">{JSON.stringify(error)}</p>}
       {loading && <Card loading={loading} />}
-      {!loading && data?.tags.map(({ _id, name, thumbnail }) => (
+      {!loading && data?.tags.map(({
+        _id, name, thumbnail,
+      }) => (
         <Card
           id={_id}
           title={name}
