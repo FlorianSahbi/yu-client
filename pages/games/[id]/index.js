@@ -39,7 +39,7 @@ function UserPage() {
               <div className="row-start-2 row-end-3 col-start-1 col-end-13">
                 <div className="rounded-lg overflow-hidden">
                   <img
-                    src={data?.game?.history[0].track.thumbnail}
+                    src={data?.game?.history[0]?.track.thumbnail}
                     className="bg-black h-96 w-full object-contain object-center"
                     alt="mol"
                   />
@@ -81,8 +81,8 @@ function UserPage() {
                     </div>
                     <div className="flex items-center justify-center">
                       <img
-                        className="h-8 object-cover object-center rounded-full"
-                        src={`https://cdn.discordapp.com/avatars/${rank.user.discordData.id}/${rank.user.avatar}.jpg`}
+                        className="h-8 w-8 object-cover object-center rounded-full"
+                        src={`https://cdn.discordapp.com/avatars/${rank?.user?.discordData?.id}/${rank?.user?.discordData?.avatar.replace(".webp", "").replace(`https://cdn.discordapp.com/avatars/${rank?.user?.discordData?.id}/`, "")}.webp`}
                         alt="ok"
                       />
                     </div>
