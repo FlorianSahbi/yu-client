@@ -17,7 +17,7 @@ function Users() {
           id={_id}
           title={username}
           subtitle="users"
-          thumbnail={`https://cdn.discordapp.com/avatars/${id}/${avatar.replace(`https://cdn.discordapp.com/avatars/${id}`, "").replace(".webp", "")}.webp`}
+          thumbnail={`https://cdn.discordapp.com/avatars/${id}/${avatar?.replace(`https://cdn.discordapp.com/avatars/${id}`, "").replace(".webp", "")}.webp`}
           color="blue"
           loading={loading}
         />
