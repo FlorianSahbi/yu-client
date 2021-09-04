@@ -1,16 +1,7 @@
-/* eslint-disable no-use-before-define */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import { useState } from "react";
-import { useForm, useFieldArray } from "react-hook-form";
-import { useMutation, useQuery } from "@apollo/client";
-import { useRouter } from "next/router";
 import YouTube from "react-youtube";
-import { useSnackbar } from "notistack";
-import DISCORD_ID from "../graphql/local/discordId";
-import FetchYoutubeData from "./FetchYoutubeData";
-import ADD_TRACKS_TO_TAG from "../graphql/tags/addTracksToTags";
-import TAGS from "../graphql/tags/tags";
+import { useForm, useFieldArray } from "react-hook-form";
 
 const AnswersManager = ({
   nestIndex, control, register,
@@ -33,15 +24,14 @@ const AnswersManager = ({
               className="w-full border-pink-500 border rounded-lg p-1"
             />
 
-            {fields.length > 1 && (
-              <button
-                type="button"
-                onClick={() => remove(index)}
-                className="w-full bg-pink-500 text-white rounded-lg p-1"
-              >
-                Delete answer
-              </button>
-            )}
+            <button
+              type="button"
+              onClick={fields.length > 1 ? () => remove(index) : () => { }}
+              className={fields.length > 1 ? "w-full bg-pink-500 text-white rounded-lg p-1 cursor-pointer" : "w-full bg-pink-500 opacity-50 cursor-not-allowed text-white rounded-lg p-1"}
+            >
+              Delete answer
+            </button>
+
           </>
         ))}
 
@@ -60,13 +50,20 @@ const AnswersManager = ({
 function TrackFields({
   control, register, setValue, watch, keywords,
 }) {
+  const {
+    handleSubmit,
+  } = useForm({ mode: "onChange" });
+
   const { fields } = useFieldArray({
     control,
     name: "tracks",
   });
 
   return (
-    <>
+    <form
+      className="bg-hero-endless-clouds max-w-7xl mx-auto p-4 bg-gray-700 rounded-lg border-b-4 border-pink-500"
+      onSubmit={handleSubmit(console.log)}
+    >
       {fields.map((item, index) => (
         <div
           className="shadow-lg bg-gray-800 border-b border-pink-500 rounded-lg gap-4 p-4 grid grid-cols-2 grid-flow-row mb-4"
@@ -123,83 +120,14 @@ function TrackFields({
           </div>
         </div>
       ))}
-    </>
+
+      <input
+        type="submit"
+        className="bg-pink-500 hover:bg-pink-600 text-white cursor-pointer w-full rounded-lg h-9"
+        value="Submit"
+      />
+    </form>
   );
 }
 
-function CreateTracks() {
-  const router = useRouter();
-  const [keywords, setKeywords] = useState([]);
-  const { enqueueSnackbar } = useSnackbar();
-  useQuery(DISCORD_ID, {
-    fetchPolicy: "network-only",
-    onCompleted: ({ currentUserId }) => {
-      setValue("creator", currentUserId);
-    },
-  });
-
-  const {
-    control, register, handleSubmit, getValues, formState: { errors, isValid }, setValue, watch,
-  } = useForm({ mode: "onChange" });
-
-  const handleYoutubeData = (data) => {
-    setValue("tracks", data);
-    setKeywords(data.keywords);
-  };
-
-  const [addTracksToTags] = useMutation(ADD_TRACKS_TO_TAG, {
-    onCompleted: (truc) => {
-      router.push(`/tags/${truc.addTracksToTags._id}`);
-      enqueueSnackbar("Good", { variant: "success" });
-    },
-    onError: (error) => {
-      enqueueSnackbar("Bad", { variant: "error" });
-    },
-  });
-
-  const { data: tags } = useQuery(TAGS);
-
-  const format = (data) => {
-    const formattedData = {
-      id: data.id,
-      trackInputs: data.tracks.map(({
-        edit, __typename, thumbnails, answers, ...rest
-      }) => ({ ...rest, creator: data.creator, answers: answers.reduce((acc, val) => [...acc, val.keyword], []) })),
-    };
-    return formattedData;
-  };
-
-  const onSubmit = (data) => addTracksToTags({ variables: format(data) });
-
-  return (
-    <>
-      <FetchYoutubeData YoutubeData={(data) => handleYoutubeData(data)} />
-      <form
-        className="bg-hero-endless-clouds max-w-7xl mx-auto p-4 bg-gray-700 rounded-lg border-b-4 border-pink-500"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <p className="text-gray-300 text-xs ml-2 mb-1">Select a Tag</p>
-        <select
-          className="w-full border-pink-500 border rounded-lg p-2 mb-4"
-          {...register("id", { required: true })}
-        >
-          {tags?.tags.map((tag) => <option value={tag._id}>{tag.name}</option>)}
-        </select>
-        <TrackFields
-          keywords={keywords}
-          {...{
-            control, register, getValues, setValue, errors, watch,
-          }}
-        />
-        <input
-          type="submit"
-          className={`${isValid ? "bg-pink-500 hover:bg-pink-600 " : "bg-pink-500 opacity-50 cursor-not-allowed "}text-white cursor-pointer w-full rounded-lg h-9`}
-          value="Submit"
-        // disabled={!isValid}
-        />
-      </form>
-    </>
-  );
-}
-
-export default CreateTracks;
+export default TrackFields;

@@ -1,27 +1,27 @@
 import Link from "next/link";
 import DiscordLoginButton from "./DiscordLoginButton";
 
-function Nav() {
-  function NavButton({ label, href, disabled }) {
-    if (disabled) {
-      return (
-        <Link href="/#">
-          <div className="mr-2 text-gray-300 opacity-40 cursor-default px-3 py-2 rounded-lg text-sm font-medium">
-            {label}
-          </div>
-        </Link>
-      );
-    }
+function NavButton({ label, href, disabled }) {
+  if (disabled) {
     return (
-      <Link href={href}>
-        <div className="mr-2 cursor-pointer transition-all  text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-lg text-sm font-medium">
+      <Link href="/#">
+        <div className="mr-2 text-gray-300 opacity-40 cursor-default px-3 py-2 rounded-lg text-sm font-medium">
           {label}
         </div>
       </Link>
-
     );
   }
+  return (
+    <Link href={href}>
+      <div className="mr-2 cursor-pointer transition-all  text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-lg text-sm font-medium">
+        {label}
+      </div>
+    </Link>
 
+  );
+}
+
+function Nav() {
   return (
     <nav className="w-full">
       <div className="max-w-7xl mx-auto border-b-4 border-pink-500">

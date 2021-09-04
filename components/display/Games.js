@@ -1,10 +1,10 @@
 import { useQuery } from "@apollo/client";
 import Block from "../../layout/Block";
 import Card from "../../layout/Card";
-import GAMES from "../../graphql/games/games";
+import LAST_GAMES from "../../graphql/games/lastGames";
 
 function Tags() {
-  const { data, loading, error } = useQuery(GAMES, {
+  const { data, loading, error } = useQuery(LAST_GAMES, {
     fetchPolicy: "network-only",
   });
 
@@ -12,7 +12,7 @@ function Tags() {
     <Block>
       {error && <p className="text-white col-start-1 col-end-7">{JSON.stringify(error)}</p>}
       {loading && <Card loading={loading} />}
-      {!loading && data?.games.map(({
+      {!loading && data?.lastGames.length > 0 && data?.lastGames.map(({
         _id, name, history,
       }) => (
         <Card
@@ -23,6 +23,7 @@ function Tags() {
           color="yellow"
         />
       ))}
+      {!loading && data?.lastGames.length <= 0 && <p className="row-start-1 col-start-1 row-end-2 col-end-6 text-white">No game to display, maybe you havent played any game yet or maybe you should authenticate first</p>}
     </Block>
   );
 }

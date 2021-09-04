@@ -6,7 +6,6 @@ import { isLoggedInVar } from "../../cache";
 function ProcessPage() {
   const router = useRouter();
   const { code } = router.query;
-  console.log(code);
   if (code) {
     useQuery(AUTH, {
       fetchPolicy: "network-only",

@@ -9,8 +9,7 @@ import YouTube from "react-youtube";
 import { useSnackbar } from "notistack";
 import DISCORD_ID from "../graphql/local/discordId";
 import FetchYoutubeData from "./FetchYoutubeData";
-import ADD_TRACKS_TO_TAG from "../graphql/tags/addTracksToTags";
-import TAGS from "../graphql/tags/tags";
+import CREATE_CUSTOM_PLAYLIST from "../graphql/tags/createCustomPlaylist";
 
 const AnswersManager = ({
   nestIndex, control, register,
@@ -33,15 +32,14 @@ const AnswersManager = ({
               className="w-full border-pink-500 border rounded-lg p-1"
             />
 
-            {fields.length > 1 && (
-              <button
-                type="button"
-                onClick={() => remove(index)}
-                className="w-full bg-pink-500 text-white rounded-lg p-1"
-              >
-                Delete answer
-              </button>
-            )}
+            <button
+              type="button"
+              onClick={fields.length > 1 ? () => remove(index) : () => { }}
+              className={fields.length > 1 ? "w-full bg-pink-500 text-white rounded-lg p-1 cursor-pointer" : "w-full bg-pink-500 opacity-50 cursor-not-allowed text-white rounded-lg p-1"}
+            >
+              Delete answer
+            </button>
+
           </>
         ))}
 
@@ -127,19 +125,21 @@ function TrackFields({
   );
 }
 
-function CreateTracks() {
+function EditPlaylist() {
   const router = useRouter();
   const [keywords, setKeywords] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
+
   useQuery(DISCORD_ID, {
     fetchPolicy: "network-only",
     onCompleted: ({ currentUserId }) => {
+      setValue("tagInput.creator", currentUserId);
       setValue("creator", currentUserId);
     },
   });
 
   const {
-    control, register, handleSubmit, getValues, formState: { errors, isValid }, setValue, watch,
+    control, register, handleSubmit, setValue, watch,
   } = useForm({ mode: "onChange" });
 
   const handleYoutubeData = (data) => {
@@ -147,21 +147,17 @@ function CreateTracks() {
     setKeywords(data.keywords);
   };
 
-  const [addTracksToTags] = useMutation(ADD_TRACKS_TO_TAG, {
-    onCompleted: (truc) => {
-      router.push(`/tags/${truc.addTracksToTags._id}`);
-      enqueueSnackbar("Good", { variant: "success" });
-    },
-    onError: (error) => {
-      enqueueSnackbar("Bad", { variant: "error" });
-    },
-  });
-
-  const { data: tags } = useQuery(TAGS);
+  // const [EditPlaylist] = useMutation(CREATE_CUSTOM_PLAYLIST, {
+  //   onCompleted: (truc) => {
+  //     router.push(`/tags/${truc.createCustomPlaylist._id}`);
+  //     enqueueSnackbar("Good", { variant: "success" });
+  //   },
+  //   onError: () => enqueueSnackbar("Bad", { variant: "error" }),
+  // });
 
   const format = (data) => {
     const formattedData = {
-      id: data.id,
+      tagInput: data.tagInput,
       trackInputs: data.tracks.map(({
         edit, __typename, thumbnails, answers, ...rest
       }) => ({ ...rest, creator: data.creator, answers: answers.reduce((acc, val) => [...acc, val.keyword], []) })),
@@ -169,37 +165,44 @@ function CreateTracks() {
     return formattedData;
   };
 
-  const onSubmit = (data) => addTracksToTags({ variables: format(data) });
+  const onSubmit = (data) => EditPlaylist({ variables: format(data) });
 
   return (
     <>
-      <FetchYoutubeData YoutubeData={(data) => handleYoutubeData(data)} />
+      <FetchYoutubeData output={(data) => handleYoutubeData(data)} />
       <form
         className="bg-hero-endless-clouds max-w-7xl mx-auto p-4 bg-gray-700 rounded-lg border-b-4 border-pink-500"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <p className="text-gray-300 text-xs ml-2 mb-1">Select a Tag</p>
-        <select
+        <p className="text-gray-300 text-xs ml-2 mb-1">Name</p>
+        <input
+          className="w-full border-pink-500 border rounded-lg p-2 mb-2"
+          placeholder="Name"
+          {...register(`tagInput.name`, { required: true })}
+        />
+
+        <p className="text-gray-300 text-xs ml-2 mb-1">Thumbnail</p>
+        <input
+          placeholder="Thumbnail"
           className="w-full border-pink-500 border rounded-lg p-2 mb-4"
-          {...register("id", { required: true })}
-        >
-          {tags?.tags.map((tag) => <option value={tag._id}>{tag.name}</option>)}
-        </select>
+          {...register(`tagInput.thumbnail`, { required: true })}
+        />
+
         <TrackFields
           keywords={keywords}
           {...{
-            control, register, getValues, setValue, errors, watch,
+            control, register, setValue, watch, keywords,
           }}
         />
+
         <input
           type="submit"
-          className={`${isValid ? "bg-pink-500 hover:bg-pink-600 " : "bg-pink-500 opacity-50 cursor-not-allowed "}text-white cursor-pointer w-full rounded-lg h-9`}
+          className="bg-pink-500 hover:bg-pink-600 text-white cursor-pointer w-full rounded-lg h-9"
           value="Submit"
-        // disabled={!isValid}
         />
       </form>
     </>
   );
 }
 
-export default CreateTracks;
+export default EditPlaylist;

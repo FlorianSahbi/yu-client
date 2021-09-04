@@ -16,6 +16,7 @@ const CREATE_TRACK = gql`
     $thumbnail: String
     $creator: ID
     $tags: [ID]
+    $isNew: Boolean
   ) {
     createTrack(
       trackInput: {
@@ -30,6 +31,7 @@ const CREATE_TRACK = gql`
         thumbnail: $thumbnail
         creator: $creator
         tags: $tags
+        isNew: $isNew
       }
     ) {
       ...CoreTrackFields

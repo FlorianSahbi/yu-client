@@ -1,10 +1,10 @@
 import { useQuery } from "@apollo/client";
 import Block from "../../layout/Block";
 import Card from "../../layout/Card";
-import USERS from "../../graphql/users/users";
+import LAST_USERS from "../../graphql/users/lastUsers";
 
 function Users() {
-  const { data, loading, error } = useQuery(USERS, {
+  const { data, loading, error } = useQuery(LAST_USERS, {
     fetchPolicy: "network-only",
   });
 
@@ -12,7 +12,7 @@ function Users() {
     <Block>
       {error && <p className="text-white col-start-1 col-end-7">{JSON.stringify(error)}</p>}
       {loading && <Card loading={loading} />}
-      {!loading && data?.users.map(({ _id, username, discordData: { id, avatar } }) => (
+      {!loading && data?.lastUsers.map(({ _id, username, discordData: { id, avatar } }) => (
         <Card
           id={_id}
           title={username}

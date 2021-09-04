@@ -55,6 +55,7 @@ export const CORE_USER_FIELDS = gql`
     playCount
     createdAt
     updatedAt
+    roles
     discordData {
       ...CoreDiscordDataFields
     }

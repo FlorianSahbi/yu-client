@@ -1,6 +1,8 @@
 /* eslint-disable react/no-danger */
 import { useQuery } from "@apollo/client";
+import Link from "next/link";
 import IS_LOGGED_IN from "../graphql/local/local";
+import USER from "../graphql/users/user";
 import DiscordSignoutButton from "./DiscordSignoutButton";
 
 function DiscordLogo() {
@@ -30,18 +32,21 @@ function DiscordLoginButton() {
     fetchPolicy: "network-only",
   });
 
+  const { data: user } = useQuery(USER, { variables: { id: localStorage.getItem("currentUserId") } });
   if (loading) return <p>loading...</p>;
   if (!loading && data?.isLoggedIn) {
     return (
       <div className="flex items-center space-x-2 text-sm text-gray-300 hover:text-white text-white cursor-pointer">
         <DiscordSignoutButton />
-        <div className="rounded-full h-8 w-8">
-          <img
-            className="rounded-full h-full w-full object-cover object-center"
-            src="https://cdn.discordapp.com/avatars/119838927669559297/efe5b72a007cbb683ccb9d63eb1addcc.jpg"
-            alt="notime"
-          />
-        </div>
+        <Link href={`/users/${user?.user?._id}`}>
+          <div className="rounded-full h-8 w-8">
+            <img
+              className="rounded-full h-full w-full object-cover object-center"
+              src={`https://cdn.discordapp.com/avatars/${user?.user?.discordData?.id}/${user?.user?.discordData?.avatar}.jpg`}
+              alt="notime"
+            />
+          </div>
+        </Link>
       </div>
     );
   }
@@ -49,9 +54,7 @@ function DiscordLoginButton() {
   return (
     <div className="rounded-full bg-black text-white flex items-center py-2 px-3 text-sm space-x-1">
       <DiscordLogo />
-      <a
-        href={process.env.NEXT_PUBLIC_CALLBACK_AUTH}
-      >
+      <a href={process.env.NEXT_PUBLIC_CALLBACK_AUTH}>
         Login with Discord
       </a>
     </div>

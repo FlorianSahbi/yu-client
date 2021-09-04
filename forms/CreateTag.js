@@ -47,7 +47,7 @@ function CreateUser() {
         <p className="text-white text-xs mb-1 opacity-70">Name</p>
         <input
           placeholder="Name"
-          className="border-2 border-pink-500 p-1 rounded-lg mb-4"
+          className="border-2 border-pink-500 p-1 rounded-lg mb-4 outline-none"
           {...register("tagInput.name", { required: true })}
         />
 
@@ -55,13 +55,13 @@ function CreateUser() {
         <p className="text-white text-xs mb-1 opacity-70">Thumbnail</p>
         <input
           placeholder="Thumbnail"
-          className="border-2 border-pink-500 p-1 rounded-lg mb-4"
+          className="border-2 border-pink-500 p-1 rounded-lg mb-4 outline-none"
           {...register("tagInput.thumbnail", { required: true })}
         />
 
         <input
           type="submit"
-          className="text-white w-full rounded-lg bg-pink-500 h-9"
+          className="text-white w-full rounded-lg bg-pink-500 h-9 outline-none"
           value="Create tag"
         />
       </form>

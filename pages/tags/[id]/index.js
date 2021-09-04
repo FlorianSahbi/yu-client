@@ -3,6 +3,7 @@
 /* eslint-disable no-undef */
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
+import Link from "next/link";
 import Layout from "../../../layout/Layout";
 import Title from "../../../components/Title";
 import TAG from "../../../graphql/tags/tag";
@@ -20,6 +21,9 @@ function UserPage() {
         <div className="row-start-1 row-end-2 col-start-1 col-end-13">
           <div className="p-4 rounded-lg border-b border-pink-500 bg-gray-700 bg-hero-endless-clouds">
             <Title title="Tag" />
+            <Link href={`/tags/${id}/edit`}>
+              <p>Edit</p>
+            </Link>
           </div>
         </div>
         <div className="row-start-2 row-end-3 col-start-1 col-end-13">
@@ -57,7 +61,7 @@ function UserPage() {
         <div className="row-start-3 row-end-4 col-start-1 col-end-13">
           <div className="rounded-lg border-b border-pink-500 bg-gray-700 bg-hero-endless-clouds">
             <Block>
-              {data?.tag?.tracks.map(({ _id, title, thumbnail }) => <Card id={_id} title={title} subtitle="tracks" thumbnail={thumbnail} />)}
+              {data?.tag?.tracks?.map(({ _id, title, thumbnail }) => <Card id={_id} title={title} subtitle="tracks" thumbnail={thumbnail} />)}
             </Block>
           </div>
         </div>

@@ -3,9 +3,9 @@ import {
   CORE_TRACK_FIELDS, CORE_USER_FIELDS, CORE_TAG_FIELDS,
 } from "../fragments";
 
-const TRACKS = gql`
-  query Tracks($tag: ID, $title: String) {
-    tracks(tag: $tag, title: $title) {
+const LAST_TRACKS = gql`
+  query lastTracks {
+    lastTracks {
       ...CoreTrackFields
       creator {
         ...CoreUserFields
@@ -20,4 +20,4 @@ const TRACKS = gql`
   ${CORE_TAG_FIELDS}
 `;
 
-export default TRACKS;
+export default LAST_TRACKS;
