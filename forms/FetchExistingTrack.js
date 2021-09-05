@@ -1,7 +1,4 @@
 /* eslint-disable no-shadow */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
 // type trackInput {
 //   title: String
 //   videoUrl: String
@@ -33,36 +30,40 @@ function FetchExistingTrack({ index }) {
       const formattedTracks = tracks.map(({
         title, videoUrl, videoId, lengthSeconds, category, ownerChannelName, thumbnail, answers, keywords, creator, _id,
       }) => ({
-        title, videoUrl, videoId, lengthSeconds, category, ownerChannelName, thumbnail, answers, keywords, creator: creator?._id, edit: false, isNew: false, _id,
+        title, videoUrl, videoId, lengthSeconds, category, ownerChannelName, thumbnail, answers, keywords, creator: creator?._id, isNew: false, _id,
       }));
       setTracks(formattedTracks);
     },
   });
 
   return (
-    <div className="bg-hero-endless-clouds max-w-7xl mx-auto bg-gray-700 border-b-4 border-pink-500">
-      <form className="p-3 space-y-3">
+    <form>
+      <div className="space-y-1">
         <p className="text-white text-xs opacity-70 ml-1">Search by title</p>
         <input
           className="w-full border-pink-500 border rounded-lg p-2 outline-none"
           placeholder="Final Fantasy, Game of Thrones, Interstellar..."
           {...register("filter")}
-          onChange={(e) => findTracks({ variables: { title: e.target.value } })}
+          onChange={(e) => findTracks({ variables: { title: e.target.value, limit: 6 } })}
         />
+      </div>
 
-        <div className="grid gap-4 grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6">
-          {tracks.map((track) => (
-            <div onClick={() => setValue(`trackInputs.${index}`, track)}>
-              <img
-                className="rounded-lg"
-                src={track.thumbnail}
-                alt="me"
-              />
-            </div>
-          ))}
-        </div>
-      </form>
-    </div>
+      <div className="grid gap-4 grid-cols-6">
+        {tracks.map((track) => (
+          <div
+            aria-hidden="true"
+            onClick={() => setValue(`trackInputs.${index}`, track)}
+            className="mt-3 cursor-pointer"
+          >
+            <img
+              className="rounded-lg"
+              src={track.thumbnail}
+              alt="me"
+            />
+          </div>
+        ))}
+      </div>
+    </form>
   );
 }
 

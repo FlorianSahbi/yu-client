@@ -1,18 +1,14 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-console */
-/* eslint-disable no-use-before-define */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { useForm, useFieldArray, FormProvider } from "react-hook-form";
 import { useMutation, useQuery } from "@apollo/client";
+import { useSnackbar } from "notistack";
 import DISCORD_ID from "../graphql/local/discordId";
 import AddTrack from "../components/AddTrack";
 import Title from "../components/Title";
 import CREATE_CUSTOM_PLAYLIST from "../graphql/tags/createCustomPlaylist";
 
 function CreatePlaylist() {
-  const methods = useForm({ mode: "onChange" });
+  const { enqueueSnackbar } = useSnackbar();
+  const methods = useForm({ mode: "onChange", defaultValues: { tagInput: { name: "1", thumbnail: "2" }, trackInputs: [undefined] } });
 
   const { fields, append, remove } = useFieldArray({ control: methods.control, name: "trackInputs" });
 
@@ -23,21 +19,29 @@ function CreatePlaylist() {
     },
   });
 
-  const [createPlaylist] = useMutation(CREATE_CUSTOM_PLAYLIST);
+  const [createPlaylist] = useMutation(CREATE_CUSTOM_PLAYLIST, {
+    onCompleted: (data) => {
+      enqueueSnackbar(`Your playlist "${data.createCustomPlaylist.name}" has been successfully created`, {
+        variant: "success",
+      });
+    },
+    onError: (error) => {
+      enqueueSnackbar(`Something went wrong : ${error}`, {
+        variant: "error",
+      });
+    },
+  });
 
   function format(data) {
     const trackInputs = data.trackInputs.map(({
       answers, category, keywords, lengthSeconds, ownerChannelName, thumbnail, title, videoId, videoUrl, _id, isNew,
     }) => ({
-      answers: answers.map((answer) => answer.keyword), category, creator: data.tagInput.creator, keywords, lengthSeconds, ownerChannelName, thumbnail, title, videoId, videoUrl, _id, isNew,
+      answers, category, creator: data.tagInput.creator, keywords, lengthSeconds, ownerChannelName, thumbnail, title, videoId, videoUrl, _id, isNew,
     }));
     return { ...data, trackInputs };
   }
 
-  console.log(methods.formState.isValid);
-
   const onSubmit = (data) => createPlaylist({ variables: format(data) });
-  // const onSubmit = (data) => console.log(format(data));
 
   return (
     <FormProvider {...methods}>
@@ -53,7 +57,6 @@ function CreatePlaylist() {
               />
               {methods.formState.errors.tagInput?.name && <p className="text-red-500 text-xs ml-1">A name is required</p>}
             </div>
-
             <div className="space-y-1">
               <p className="text-white text-xs opacity-70 ml-1">Thumbnail</p>
               <input
@@ -66,13 +69,15 @@ function CreatePlaylist() {
           </form>
         </div>
 
-        {fields.map((field, index) => (
+        {fields.map((_, index) => (
           <>
             <div className="flex">
               <Title title={`Track #${index + 1}`} />
-              <h3 className="capitalize text-lg text-lef ml-1 cursor-pointer text-red-300" onClick={() => remove(index)}>- Remove</h3>
+              {fields.length > 1 && (
+                <h3 className="capitalize text-lg text-lef ml-1 cursor-pointer text-red-300" onClick={() => remove(index)} aria-hidden="true">- Remove</h3>
+              )}
             </div>
-            <AddTrack field={field} index={index} />
+            <AddTrack index={index} />
           </>
         ))}
 
@@ -85,11 +90,11 @@ function CreatePlaylist() {
               type="button"
               className="bg-pink-500 hover:bg-pink-600 text-white cursor-pointer w-full rounded-lg h-9"
               value="Add track"
-              onClick={() => append()}
+              onClick={() => append(undefined)}
             />
             <input
               type="submit"
-              className={methods.formState.isValid === false ? "bg-gray-500 hover:bg-gray-600 text-white cursor-pointer w-full rounded-lg h-9" : "bg-green-500 hover:bg-green-600 text-white cursor-pointer w-full rounded-lg h-9"}
+              className={methods.formState.isValid === false ? "opacity-50 bg-pink-500 hover:bg-pink-600 text-white cursor-pointer w-full rounded-lg h-9" : "bg-green-500 hover:bg-green-600 text-white cursor-pointer w-full rounded-lg h-9"}
               value="Done"
             />
           </form>

@@ -4,8 +4,8 @@ import {
 } from "../fragments";
 
 const TRACKS = gql`
-  query Tracks($tag: ID, $title: String) {
-    tracks(tag: $tag, title: $title) {
+  query Tracks($tag: ID, $title: String, $limit: Int) {
+    tracks(tag: $tag, title: $title, limit: $limit) {
       ...CoreTrackFields
       creator {
         ...CoreUserFields

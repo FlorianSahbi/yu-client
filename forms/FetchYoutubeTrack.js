@@ -20,45 +20,48 @@ import { useLazyQuery } from "@apollo/client";
 import YOUTUBE_TRACK from "../graphql/youtube/youtubeTrack";
 
 function FetchYoutubeTrack({ index }) {
-  const { register, handleSubmit } = useForm({ mode: "onChange" });
+  const {
+    register, handleSubmit, reset, formState: { errors, isValid },
+  } = useForm({ mode: "onChange" });
   const { setValue } = useFormContext({ mode: "onChange" });
 
-  const [fetchYoutubeData] = useLazyQuery(YOUTUBE_TRACK, {
+  const [fetchYoutubeData, { loading }] = useLazyQuery(YOUTUBE_TRACK, {
     fetchPolicy: "network-only",
     onCompleted: ({ youtubeTrack }) => {
       const {
         title, videoUrl, videoId, lengthSeconds, category, ownerChannelName, keywords, thumbnails,
       } = youtubeTrack;
       setValue(`trackInputs.${index}`, {
-        title, videoUrl, videoId, lengthSeconds, category, ownerChannelName, keywords, answers: [""], thumbnail: thumbnails[thumbnails.length - 1]?.url, creator: null, edit: false, isNew: true,
+        title, videoUrl, videoId, lengthSeconds, category, ownerChannelName, keywords, answers: [""], thumbnail: thumbnails[thumbnails.length - 1]?.url, creator: null, isNew: true,
       });
+      reset();
     },
   });
 
   const onSubmit = (youtubeUrl) => fetchYoutubeData({ variables: youtubeUrl });
 
   return (
-    <div className="bg-hero-endless-clouds max-w-7xl mx-auto bg-gray-700">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="p-3 space-y-3 border-b-4 border-pink-500"
-      >
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="space-y-1">
         <p className="text-white text-xs opacity-70 ml-1">Import track from Youtube</p>
         <div className="flex space-x-3">
           <input
             className="w-9/12 border-pink-500 border rounded-lg p-2 outline-none"
             placeholder="https://www.youtube.com/watch?v=[VIDEO_ID]"
-            {...register("youtubeUrl")}
+            {...register("youtubeUrl", { required: true, pattern: /^https:\/\/www\.youtube\.com\/watch\?v=.*$/ })}
           />
-
           <input
             type="submit"
-            value="Fetch track"
-            className="bg-pink-500 hover:bg-pink-600 text-white cursor-pointer w-3/12 rounded-lg"
+            disabled={loading}
+            value={loading ? "Fetching..." : "Fetch track"}
+            className={isValid ? "bg-pink-500 hover:bg-pink-600 text-white cursor-pointer w-3/12 rounded-lg" : "opacity-50 bg-pink-500 hover:bg-pink-600 text-white cursor-pointer w-3/12 rounded-lg"}
           />
+
         </div>
-      </form>
-    </div>
+        {errors.youtubeUrl?.type === "required" && <p className="text-red-500 text-xs ml-1">A youtube url is required</p>}
+        {errors.youtubeUrl?.type === "pattern" && <p className="text-red-500 text-xs ml-1">Must be : https://www.youtube.com/watch?v=[VIDEO_ID]</p>}
+      </div>
+    </form>
   );
 }
 
