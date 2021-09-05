@@ -140,10 +140,11 @@ function EditTrack() {
 
   const [editTrack] = useMutation(EDIT_TRACK, {
     onCompleted: (truc) => {
-      console.log(truc);
       // router.push(`/tags/${truc.createCustomPlaylist._id}`);
     },
-    onError: (err) => console.log(err),
+    onError: (err) => {
+
+    },
   });
 
   function format(data) {
@@ -154,7 +155,6 @@ function EditTrack() {
   }
 
   const onSubmit = ({ track }) => editTrack({ variables: { id, trackInput: format(track) } });
-  // const onSubmit = ({ track }) => console.log(track);
 
   return (
     <form

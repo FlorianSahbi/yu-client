@@ -46,6 +46,7 @@ function CreatePlaylist() {
   return (
     <FormProvider {...methods}>
       <div className="space-y-5">
+        <div onClick={() => console.log(methods.watch())}>Watch</div>
         <div className="bg-hero-endless-clouds rounded-lg max-w-7xl mx-auto bg-gray-700 border-b-4 border-pink-500">
           <form className="p-3 space-y-3">
             <div className="space-y-1">

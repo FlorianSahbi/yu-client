@@ -39,6 +39,7 @@ function FetchYoutubeTrack({ index }) {
   });
 
   const onSubmit = (youtubeUrl) => fetchYoutubeData({ variables: youtubeUrl });
+  // const onSubmit = (youtubeUrl) => console.log(youtubeUrl);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

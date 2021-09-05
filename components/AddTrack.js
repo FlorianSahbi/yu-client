@@ -7,6 +7,7 @@ function AddTrack({ index }) {
   const { watch } = useFormContext();
   return (
     <div className="bg-hero-endless-clouds rounded-lg max-w-7xl mx-auto bg-gray-700 border-b-4 border-pink-500 p-3 space-y-3">
+      <div onClick={() => console.log(watch())}>Watch 2</div>
       {!watch(`trackInputs.${index}.title`) && (
         <div className="space-y-3">
           <FetchExistingTrack index={index} />
@@ -14,7 +15,7 @@ function AddTrack({ index }) {
         </div>
       )}
 
-      {watch(`trackInputs.${index}.title`) && (
+      {!!watch(`trackInputs.${index}.title`) && (
         <TrackFields index={index} />
       )}
     </div>

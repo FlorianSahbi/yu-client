@@ -162,7 +162,6 @@ function EditTags() {
     variables: { id },
     fetchPolicy: "network-only",
     onCompleted: (d) => {
-      console.log(d);
       setValue("tagInput.name", d.tag.name);
       setValue("tagInput.thumbnail", d.tag.thumbnail);
       const t = d.tag.tracks.map((track) => ({
@@ -205,8 +204,7 @@ function EditTags() {
     return formattedData;
   };
 
-  // const onSubmit = (data) => EditTags({ variables: format(data) });
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => EditTags({ variables: format(data) });
 
   return (
     <>

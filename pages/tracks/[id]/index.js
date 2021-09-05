@@ -15,7 +15,6 @@ function TrackPage() {
   const router = useRouter();
   const { id } = router.query;
   const { data } = useQuery(TRACK, { fetchPolicy: "network-only", variables: { id } });
-  console.log(data);
   const inputEl = useRef(null);
 
   return (

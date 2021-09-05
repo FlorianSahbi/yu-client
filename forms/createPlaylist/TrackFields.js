@@ -62,7 +62,6 @@ function TrackFields({
   return (
     <form
       className="bg-hero-endless-clouds max-w-7xl mx-auto p-4 bg-gray-700 rounded-lg border-b-4 border-pink-500"
-      onSubmit={handleSubmit(console.log)}
     >
       {fields.map((item, index) => (
         <div
