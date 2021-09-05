@@ -13,7 +13,6 @@ function FetchYoutubeTrack({ index }) {
   const { setValue } = useFormContext({ mode: "onChange" });
 
   const [fetchYoutubeData, { loading }] = useLazyQuery(YOUTUBE_TRACK, {
-    fetchPolicy: "network-only",
     onCompleted: ({ youtubeTrack }) => {
       enqueueSnackbar(`Track data of "${youtubeTrack.title}" successfully fetched`, {
         variant: "success",
