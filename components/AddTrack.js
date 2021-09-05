@@ -1,23 +1,26 @@
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 import FetchYoutubeTrack from "../forms/FetchYoutubeTrack";
 import TrackFields from "./display/Track";
 import FetchExistingTrack from "../forms/FetchExistingTrack";
 
 function AddTrack({ index }) {
-  const { watch } = useFormContext();
+  const { control } = useFormContext();
+
+  const track = useWatch({
+    control,
+    name: `trackInputs.${index}`,
+    defaultValue: null,
+  });
+
+  console.log(track);
   return (
     <div className="bg-hero-endless-clouds rounded-lg max-w-7xl mx-auto bg-gray-700 border-b-4 border-pink-500 p-3 space-y-3">
-      <div onClick={() => console.log(watch())}>Watch 2</div>
-      {!watch(`trackInputs.${index}.title`) && (
-        <div className="space-y-3">
-          <FetchExistingTrack index={index} />
-          <FetchYoutubeTrack index={index} />
-        </div>
-      )}
+      <div className="space-y-3">
+        {/* <FetchExistingTrack index={index} /> */}
+        <FetchYoutubeTrack index={index} />
+      </div>
 
-      {!!watch(`trackInputs.${index}.title`) && (
-        <TrackFields index={index} />
-      )}
+      <TrackFields index={index} />
     </div>
   );
 }

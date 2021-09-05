@@ -1,3 +1,4 @@
+import { useEffect, Fragment } from "react";
 import { useForm, useFieldArray, FormProvider } from "react-hook-form";
 import { useMutation, useQuery } from "@apollo/client";
 import { useSnackbar } from "notistack";
@@ -32,6 +33,11 @@ function CreatePlaylist() {
     },
   });
 
+  useEffect(() => {
+    const subscription = methods.watch((value, { name, type }) => console.log(value, name, type));
+    return () => subscription.unsubscribe();
+  }, [methods.watch]);
+
   function format(data) {
     const trackInputs = data.trackInputs.map(({
       answers, category, keywords, lengthSeconds, ownerChannelName, thumbnail, title, videoId, videoUrl, _id, isNew,
@@ -46,7 +52,6 @@ function CreatePlaylist() {
   return (
     <FormProvider {...methods}>
       <div className="space-y-5">
-        <div onClick={() => console.log(methods.watch())}>Watch</div>
         <div className="bg-hero-endless-clouds rounded-lg max-w-7xl mx-auto bg-gray-700 border-b-4 border-pink-500">
           <form className="p-3 space-y-3">
             <div className="space-y-1">
@@ -70,8 +75,8 @@ function CreatePlaylist() {
           </form>
         </div>
 
-        {fields.map((_, index) => (
-          <>
+        {fields.map((field, index) => (
+          <Fragment key={field.id}>
             <div className="flex">
               <Title title={`Track #${index + 1}`} />
               {fields.length > 1 && (
@@ -79,7 +84,7 @@ function CreatePlaylist() {
               )}
             </div>
             <AddTrack index={index} />
-          </>
+          </Fragment>
         ))}
 
         <div className="bg-hero-endless-clouds rounded-lg max-w-7xl mx-auto bg-gray-700 border-b-4 border-pink-500">
