@@ -50,9 +50,7 @@ const AnswersManager = ({
 function TrackFields({
   control, register, setValue, watch, keywords,
 }) {
-  const {
-    handleSubmit,
-  } = useForm({ mode: "onChange" });
+  const { handleSubmit } = useForm({ mode: "onChange" });
 
   const { fields } = useFieldArray({
     control,
