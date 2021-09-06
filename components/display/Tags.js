@@ -1,10 +1,10 @@
 import { useQuery } from "@apollo/client";
 import Block from "../../layout/Block";
 import Card from "../../layout/Card";
-import TAGS from "../../graphql/tags/tags";
+import TAGS_INDEX from "../../graphql/tags/tagsIndex";
 
 function Tags() {
-  const { data, loading, error } = useQuery(TAGS, {
+  const { data, loading, error } = useQuery(TAGS_INDEX, {
     fetchPolicy: "network-only",
   });
 
