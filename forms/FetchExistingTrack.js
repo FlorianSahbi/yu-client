@@ -41,6 +41,7 @@ function FetchExistingTrack({ index }) {
       <div className="space-y-1">
         <p className="text-white text-xs opacity-70 ml-1">Search by title</p>
         <input
+          disabled
           className="w-full border-pink-500 border rounded-lg p-2 outline-none"
           placeholder="Final Fantasy, Game of Thrones, Interstellar..."
           {...register("filter")}

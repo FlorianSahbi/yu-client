@@ -1,4 +1,5 @@
-import { useEffect, Fragment } from "react";
+/* eslint-disable no-param-reassign */
+import { Fragment } from "react";
 import { useForm, useFieldArray, FormProvider } from "react-hook-form";
 import { useMutation, useQuery } from "@apollo/client";
 import { useSnackbar } from "notistack";
@@ -9,7 +10,16 @@ import CREATE_CUSTOM_PLAYLIST from "../graphql/tags/createCustomPlaylist";
 
 function CreatePlaylist() {
   const { enqueueSnackbar } = useSnackbar();
-  const methods = useForm({ mode: "onChange", defaultValues: { tagInput: { name: "1", thumbnail: "2" }, trackInputs: [undefined] } });
+  const methods = useForm({
+    mode: "onChange",
+    defaultValues: {
+      bulk: { youtubeLinks: [], input: "" },
+      tagInput: { name: "", thumbnail: "" },
+      trackInputs: [{
+        answers: [{ answer: "" }], title: "", youtubeLink: "https://www.youtube.com/watch?v=6LyyLYxdpUQ",
+      }],
+    },
+  });
 
   const { fields, append, remove } = useFieldArray({ control: methods.control, name: "trackInputs" });
 
@@ -25,6 +35,7 @@ function CreatePlaylist() {
       enqueueSnackbar(`Your playlist "${data.createCustomPlaylist.name}" has been successfully created`, {
         variant: "success",
       });
+      methods.reset({ tagInput: { name: "", thumbnail: "" }, trackInputs: [{ answers: [""], title: "" }] });
     },
     onError: (error) => {
       enqueueSnackbar(`Something went wrong : ${error}`, {
@@ -33,21 +44,27 @@ function CreatePlaylist() {
     },
   });
 
-  useEffect(() => {
-    const subscription = methods.watch((value, { name, type }) => console.log(value, name, type));
-    return () => subscription.unsubscribe();
-  }, [methods.watch]);
-
   function format(data) {
+    delete data.bulk;
     const trackInputs = data.trackInputs.map(({
       answers, category, keywords, lengthSeconds, ownerChannelName, thumbnail, title, videoId, videoUrl, _id, isNew,
     }) => ({
-      answers, category, creator: data.tagInput.creator, keywords, lengthSeconds, ownerChannelName, thumbnail, title, videoId, videoUrl, _id, isNew,
+      answers: answers.map((item) => item.answer), category, creator: data.tagInput.creator, keywords, lengthSeconds, ownerChannelName, thumbnail, title, videoId, videoUrl, _id, isNew,
     }));
     return { ...data, trackInputs };
   }
 
   const onSubmit = (data) => createPlaylist({ variables: format(data) });
+
+  const handleBulk = () => {
+    const links = methods.getValues("bulk.input");
+    const ArrOfLinks = links.split(",");
+    methods.setValue("bulk.youtubeLinks", ArrOfLinks);
+    const newState = ArrOfLinks.map((l) => (
+      { answers: [{ answer: "" }], title: "", youtubeLink: l }
+    ));
+    methods.setValue("trackInputs", newState, { shouldValidate: true });
+  };
 
   return (
     <FormProvider {...methods}>
@@ -75,6 +92,26 @@ function CreatePlaylist() {
           </form>
         </div>
 
+        <div className="bg-hero-endless-clouds rounded-lg max-w-7xl mx-auto bg-gray-700 border-b-4 border-pink-500 p-3 space-y-3">
+          <input
+            type="button"
+            className="bg-pink-500 hover:bg-pink-600 text-white cursor-pointer rounded-lg h-9 w-full"
+            value={`Add one track ( ${methods.getValues("trackInputs").length} )`}
+            onClick={() => append({ answers: [{ answer: "" }], title: "", youtubeLink: "" })}
+          />
+          <input
+            type="text"
+            className="w-full border-pink-500 border rounded-lg p-2 outline-none"
+            {...methods.register("bulk.input")}
+          />
+          <input
+            type="button"
+            className="bg-pink-500 hover:bg-pink-600 text-white cursor-pointer rounded-lg h-9 w-full"
+            value="Add many tracks"
+            onClick={handleBulk}
+          />
+        </div>
+
         {fields.map((field, index) => (
           <Fragment key={field.id}>
             <div className="flex">
@@ -83,7 +120,7 @@ function CreatePlaylist() {
                 <h3 className="capitalize text-lg text-lef ml-1 cursor-pointer text-red-300" onClick={() => remove(index)} aria-hidden="true">- Remove</h3>
               )}
             </div>
-            <AddTrack index={index} />
+            <AddTrack field={field} index={index} />
           </Fragment>
         ))}
 
@@ -93,14 +130,8 @@ function CreatePlaylist() {
             onSubmit={methods.handleSubmit(onSubmit)}
           >
             <input
-              type="button"
-              className="bg-pink-500 hover:bg-pink-600 text-white cursor-pointer w-full rounded-lg h-9"
-              value="Add track"
-              onClick={() => append(undefined)}
-            />
-            <input
               type="submit"
-              className={methods.formState.isValid === false ? "opacity-50 bg-pink-500 hover:bg-pink-600 text-white cursor-pointer w-full rounded-lg h-9" : "bg-green-500 hover:bg-green-600 text-white cursor-pointer w-full rounded-lg h-9"}
+              className={methods.formState.isValid === false ? "opacity-50 bg-red-500 hover:bg-red-600 text-white cursor-pointer w-full rounded-lg h-9" : "bg-green-500 hover:bg-green-600 text-white cursor-pointer w-full rounded-lg h-9"}
               value="Done"
             />
           </form>

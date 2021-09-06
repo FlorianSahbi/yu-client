@@ -18,13 +18,13 @@ const AnswersManager = ({ index }) => {
         <Fragment key={field.id}>
           <div className="space-y-1">
             <input
-              {...register(`trackInputs.${index}.answers.${i}`, { required: true })}
-              // defaultValue={field}
+              {...register(`trackInputs.${index}.answers.${i}.answer`, { required: true })}
+              defaultValue={field.answer}
               placeholder={`Answer ${i + 1}`}
               autoComplete="off"
               className="w-full border-pink-500 border rounded-lg p-1 outline-none h-8"
             />
-            {errors && errors.trackInputs && errors.trackInputs[index] && errors.trackInputs[index].answers && errors.trackInputs[index].answers[i] && <p className="text-red-500 text-xs ml-1">Please set at least one answer</p>}
+            {errors && errors.trackInputs && errors.trackInputs[index] && errors.trackInputs[index].answers && errors.trackInputs[index].answers[i] && errors.trackInputs[index].answers[i].answer && <p className="text-red-500 text-xs ml-1">Please set at least one answer</p>}
           </div>
           <button
             type="button"
@@ -39,7 +39,7 @@ const AnswersManager = ({ index }) => {
 
       <button
         type="button"
-        onClick={() => append({ keyword: "" })}
+        onClick={() => append({ answer: "" })}
         className="w-full bg-pink-500 text-white rounded-lg p-1 h-8"
       >
         Add answer
