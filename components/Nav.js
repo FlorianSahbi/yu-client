@@ -44,16 +44,12 @@ function Nav() {
               <div className="flex justify-between w-full">
                 <div className="flex">
                   <NavButton label="home" href="/" />
-                  {/* <NavButton label="tracks" href="/tracks" /> */}
-                  {/* <NavButton label="track add" href="/tracks/create" /> */}
-                  {/* <NavButton label="tags" href="/tags" /> */}
-                  {/* <NavButton label="tag add" href="/tags/create" /> */}
-                  {/* <NavButton label="users" href="/users" /> */}
-                  {/* <NavButton label="user add" href="/users/create" /> */}
+                  <NavButton label="tracks" href="/tracks" />
+                  <NavButton label="tags" href="/tags" />
+                  <NavButton label="users" href="/users" />
                   <NavButton label="create a playlist" href="/playlists/create" />
                 </div>
                 <DiscordLoginButton />
-                {/* <NavButton label="games" href="/games" /> */}
               </div>
             </div>
           </div>

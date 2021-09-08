@@ -1,25 +1,32 @@
 import { useQuery } from "@apollo/client";
 import Block from "../../layout/Block";
 import Card from "../../layout/Card";
-import LAST_USERS from "../../graphql/users/lastUsers";
+import USERS_INDEX from "../../graphql/users/usersIndex";
+import getRandomPicture from "../../utils/getRandomPicture";
 
-function Users() {
-  const { data, loading, error } = useQuery(LAST_USERS, {
+function Users({ limit = 0 }) {
+  const { data, loading } = useQuery(USERS_INDEX, {
     fetchPolicy: "network-only",
+    variables: { limit },
   });
+
+  if (loading) {
+    return (
+      <Block>
+        <Card loading />
+      </Block>
+    );
+  }
 
   return (
     <Block>
-      {error && <p className="text-white col-start-1 col-end-7">{JSON.stringify(error)}</p>}
-      {loading && <Card loading={loading} />}
-      {!loading && data?.lastUsers.map(({ _id, username, discordData: { id, avatar } }) => (
+      {data?.users.map(({ _id, discordData: { id, username, avatar } }) => (
         <Card
           id={_id}
           title={username}
+          thumbnail={avatar ? `https://cdn.discordapp.com/avatars/${id}/${avatar}.jpg` : getRandomPicture()}
           subtitle="users"
-          thumbnail={`https://cdn.discordapp.com/avatars/${id}/${avatar?.replace(`https://cdn.discordapp.com/avatars/${id}`, "").replace(".webp", "")}.webp`}
           color="blue"
-          loading={loading}
         />
       ))}
     </Block>

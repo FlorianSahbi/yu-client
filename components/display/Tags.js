@@ -3,23 +3,28 @@ import Block from "../../layout/Block";
 import Card from "../../layout/Card";
 import TAGS_INDEX from "../../graphql/tags/tagsIndex";
 
-function Tags() {
-  const { data, loading, error } = useQuery(TAGS_INDEX, {
-    fetchPolicy: "network-only",
+function Tags({ limit = 0 }) {
+  const { data, loading } = useQuery(TAGS_INDEX, {
+    // fetchPolicy: "network-only",
+    variables: { limit },
   });
+
+  if (loading) {
+    return (
+      <Block>
+        <Card loading />
+      </Block>
+    );
+  }
 
   return (
     <Block>
-      {error && <p className="text-white col-start-1 col-end-7">{JSON.stringify(error)}</p>}
-      {loading && <Card loading={loading} />}
-      {!loading && data?.tags.map(({
-        _id, name, thumbnail,
-      }) => (
+      {data?.tags.map(({ _id, name, thumbnail }) => (
         <Card
           id={_id}
           title={name}
-          subtitle="tags"
           thumbnail={thumbnail}
+          subtitle="tags"
           color="yellow"
         />
       ))}

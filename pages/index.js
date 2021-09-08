@@ -4,13 +4,12 @@ import Title from "../components/Title";
 import Tracks from "../components/display/Tracks";
 import Tags from "../components/display/Tags";
 import Users from "../components/display/Users";
-import Games from "../components/display/Games";
 
 export default function Home() {
   return (
     <>
       <Head>
-        <title>Yu's blind test manager</title>
+        <title>Yu</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
@@ -20,7 +19,7 @@ export default function Home() {
           </div>
 
           <div className="row-start-2 row-end-3 col-start-1 col-end-13">
-            <Tracks />
+            <Tracks limit={12} />
           </div>
 
           <div className="row-start-3 row-end-4 col-start-1 col-end-13">
@@ -28,7 +27,7 @@ export default function Home() {
           </div>
 
           <div className="row-start-4 row-end-5 col-start-1 col-end-13">
-            <Tags />
+            <Tags limit={12} />
           </div>
 
           <div className="row-start-5 row-end-6 col-start-1 col-end-13">
@@ -36,15 +35,7 @@ export default function Home() {
           </div>
 
           <div className="row-start-6 row-end-7 col-start-1 col-end-13">
-            <Users />
-          </div>
-
-          <div className="row-start-7 row-end-8 col-start-1 col-end-13">
-            <Title title="Games" />
-          </div>
-
-          <div className="row-start-8 row-end-9 col-start-1 col-end-13">
-            <Games />
+            <Users limit={12} />
           </div>
         </div>
       </Layout>

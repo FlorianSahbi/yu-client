@@ -19,11 +19,11 @@ function Card({
           alt="me"
           className="w-full h-full object-cover object-center rounded-lg"
         />
-        <div className="truncate w-32 absolute bottom-0 right-0 mb-1 mr-1">
+        <div className="truncate w-10/12 absolute bottom-0 right-0 mb-1 mr-1">
           <p className={`pl-4 pr-2 via-${color}-500 from-${color}-500 bg-gradient-to-l capitalize text-white text-right text-xs`}>
             {subtitle}
           </p>
-          <p className="truncate text-xs pl-4 pr-2 via-black from-black bg-gradient-to-l capitalize text-white text-right sm:text-lg">
+          <p className="truncate text-xs pl-4 pr-2 via-black from-black bg-gradient-to-l capitalize text-white text-right sm:text-base">
             {title}
           </p>
         </div>

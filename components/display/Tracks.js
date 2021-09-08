@@ -1,25 +1,30 @@
 import { useQuery } from "@apollo/client";
 import Block from "../../layout/Block";
 import Card from "../../layout/Card";
-import LAST_TRACKS from "../../graphql/tracks/lastTracks";
+import TRACKS_INDEX from "../../graphql/tracks/tracksIndex";
 
-function Tracks({ pending }) {
-  const { data, loading, error } = useQuery(LAST_TRACKS, {
+function Tracks({ limit = 0 }) {
+  const { data, loading } = useQuery(TRACKS_INDEX, {
     fetchPolicy: "network-only",
+    variables: { limit },
   });
 
-  const filter = pending ? ({ isAccepted }) => (!isAccepted) : ({ isAccepted }) => (isAccepted);
+  if (loading) {
+    return (
+      <Block>
+        <Card loading />
+      </Block>
+    );
+  }
 
   return (
     <Block>
-      {error && <p className="text-white col-start-1 col-end-7">{JSON.stringify(error)}</p>}
-      {loading && <Card loading />}
-      {!loading && data?.lastTracks.filter(filter).map(({ _id, thumbnail, title }) => (
+      {data?.tracks.map(({ _id, thumbnail, title }) => (
         <Card
           id={_id}
           title={title}
-          subtitle="tracks"
           thumbnail={thumbnail}
+          subtitle="tracks"
           color="pink"
         />
       ))}
